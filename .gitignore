@@ -1,0 +1,8 @@
+/build/
+/graphsanalyzed.txt
+.DS_Store
+__MACOSX/
+core
+core.*
+__pycache__/
+*.pyc

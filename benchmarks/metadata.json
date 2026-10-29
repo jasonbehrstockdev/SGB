@@ -1,0 +1,231 @@
+{
+  "format": "SGB TEA, one graph per line; vertex labels 1 through 100",
+  "cfs_definitions": {
+    "legacy_cfs": "Original executable: a square-graph component supports every original vertex.",
+    "intended_cfs": "A square-graph component supports every nonuniversal vertex; a complete join factor is allowed. Universal vertices are never added to literal square support. Complete-only and empty-graph base cases are unestablished and are not benchmarked."
+  },
+  "expectation_derivation": "An m-pair path has 5m-9 squares; a pair ring (m>=5) has 5m. Bridges and pendant edges introduce no cycles.",
+  "random_generator": "Python random.Random(seed).random(), lexicographic pairs i<j; the same seeds across densities give nested edge sets, not independent samples.",
+  "graphs_sha256": "fdc92393d5719cd7c52726ff58592e5db90c805500dec6ab13031f0b4eed1868",
+  "cases": [
+    {
+      "name": "pair_path_100",
+      "line": 1,
+      "vertices": 100,
+      "edges": 196,
+      "description": "50 independent vertex pairs along a path; consecutive pairs joined by K2,2.",
+      "parameters": {},
+      "construction_expectation": {
+        "squares": 241,
+        "components": 1,
+        "largest_support": 100,
+        "legacy_cfs": true,
+        "intended_cfs": true,
+        "universal_vertices": 0
+      },
+      "input_sha256": "c6df766ab4ab17869e90ee1bf1b62f2c0c20fc1230299b0eb5b5ab9f02bc7ae6"
+    },
+    {
+      "name": "pair_ring_100",
+      "line": 2,
+      "vertices": 100,
+      "edges": 200,
+      "description": "50 independent vertex pairs around a ring; consecutive pairs joined by K2,2.",
+      "parameters": {},
+      "construction_expectation": {
+        "squares": 250,
+        "components": 1,
+        "largest_support": 100,
+        "legacy_cfs": true,
+        "intended_cfs": true,
+        "universal_vertices": 0
+      },
+      "input_sha256": "905f45ab522df90d78755d816015e19f509e9c2d2e32adcb33426dafccc07a08"
+    },
+    {
+      "name": "two_pair_paths_bridge_100",
+      "line": 3,
+      "vertices": 100,
+      "edges": 193,
+      "description": "Two 50-vertex pair paths joined by one bridge edge.",
+      "parameters": {},
+      "construction_expectation": {
+        "squares": 232,
+        "components": 2,
+        "largest_support": 50,
+        "legacy_cfs": false,
+        "intended_cfs": false,
+        "universal_vertices": 0
+      },
+      "input_sha256": "439a7cb185ab4061feadd5e858592cd31a582c33d9d405b22d31e25b40f58ee7"
+    },
+    {
+      "name": "pair_path_with_leaves_100",
+      "line": 4,
+      "vertices": 100,
+      "edges": 194,
+      "description": "A 98-vertex pair path with two pendant leaves at vertex 1.",
+      "parameters": {},
+      "construction_expectation": {
+        "squares": 236,
+        "components": 1,
+        "largest_support": 98,
+        "legacy_cfs": false,
+        "intended_cfs": false,
+        "universal_vertices": 0
+      },
+      "input_sha256": "94982c61177128c973c6a2a5af7dba5486af3cd1daf6a39636defbad594f214a"
+    },
+    {
+      "name": "pair_path_join_K2_100",
+      "line": 5,
+      "vertices": 100,
+      "edges": 389,
+      "description": "A 98-vertex pair path joined with K2: vertices 99 and 100 are universal. The literal square graph has support 98; intended CFS permits this complete join factor.",
+      "parameters": {},
+      "construction_expectation": {
+        "squares": 236,
+        "components": 1,
+        "largest_support": 98,
+        "legacy_cfs": false,
+        "intended_cfs": true,
+        "universal_vertices": 2
+      },
+      "input_sha256": "dbabcd2f325bd335b1a312c8a62e4b263c239efb32edd46e252849e82fe8ee77"
+    },
+    {
+      "name": "er_p0.04_seed202401",
+      "line": 6,
+      "vertices": 100,
+      "edges": 195,
+      "description": "Unconditioned seeded Erdos-Renyi G(100,p); disconnected samples retained.",
+      "parameters": {
+        "probability": 0.04,
+        "seed": 202401
+      },
+      "construction_expectation": null,
+      "input_sha256": "01fc425bfb42e92876b3957c2d549ff3a3e9bcb27c36910396a58013eedf5f2a"
+    },
+    {
+      "name": "er_p0.04_seed202402",
+      "line": 7,
+      "vertices": 100,
+      "edges": 177,
+      "description": "Unconditioned seeded Erdos-Renyi G(100,p); disconnected samples retained.",
+      "parameters": {
+        "probability": 0.04,
+        "seed": 202402
+      },
+      "construction_expectation": null,
+      "input_sha256": "027a249b832bd41849745c1a062547df89bc610bd41dea5cc433797e821ba9aa"
+    },
+    {
+      "name": "er_p0.04_seed202403",
+      "line": 8,
+      "vertices": 100,
+      "edges": 202,
+      "description": "Unconditioned seeded Erdos-Renyi G(100,p); disconnected samples retained.",
+      "parameters": {
+        "probability": 0.04,
+        "seed": 202403
+      },
+      "construction_expectation": null,
+      "input_sha256": "a128b7c7a904a36bf4925fc8075e1916ff2b0f960424a05f4094008c1a07526f"
+    },
+    {
+      "name": "er_p0.08_seed202401",
+      "line": 9,
+      "vertices": 100,
+      "edges": 399,
+      "description": "Unconditioned seeded Erdos-Renyi G(100,p); disconnected samples retained.",
+      "parameters": {
+        "probability": 0.08,
+        "seed": 202401
+      },
+      "construction_expectation": null,
+      "input_sha256": "3984139e0e839cb0c29fe88c61ad1fc0a69aee5af24312345211a81ffa927d5b"
+    },
+    {
+      "name": "er_p0.08_seed202402",
+      "line": 10,
+      "vertices": 100,
+      "edges": 377,
+      "description": "Unconditioned seeded Erdos-Renyi G(100,p); disconnected samples retained.",
+      "parameters": {
+        "probability": 0.08,
+        "seed": 202402
+      },
+      "construction_expectation": null,
+      "input_sha256": "29125c8642facb4897aebcf853682caa3dcb8ecb8bc2e3e7a33d412642e73b58"
+    },
+    {
+      "name": "er_p0.08_seed202403",
+      "line": 11,
+      "vertices": 100,
+      "edges": 394,
+      "description": "Unconditioned seeded Erdos-Renyi G(100,p); disconnected samples retained.",
+      "parameters": {
+        "probability": 0.08,
+        "seed": 202403
+      },
+      "construction_expectation": null,
+      "input_sha256": "284f4f4dd2c772889a8a94ca3ab04b9ec0522cec9d325077d2e2ee60468150d9"
+    },
+    {
+      "name": "er_p0.12_seed202401",
+      "line": 12,
+      "vertices": 100,
+      "edges": 594,
+      "description": "Unconditioned seeded Erdos-Renyi G(100,p); disconnected samples retained.",
+      "parameters": {
+        "probability": 0.12,
+        "seed": 202401
+      },
+      "construction_expectation": null,
+      "input_sha256": "097c0043218fa96a81bedf0f3f704561e20c14fb5afbddda672a9676596d357d"
+    },
+    {
+      "name": "er_p0.12_seed202402",
+      "line": 13,
+      "vertices": 100,
+      "edges": 583,
+      "description": "Unconditioned seeded Erdos-Renyi G(100,p); disconnected samples retained.",
+      "parameters": {
+        "probability": 0.12,
+        "seed": 202402
+      },
+      "construction_expectation": null,
+      "input_sha256": "506f1fdfa585354593250ee2a38f06ef608648f6f3098f2f09f270d26afcdf8e"
+    },
+    {
+      "name": "er_p0.12_seed202403",
+      "line": 14,
+      "vertices": 100,
+      "edges": 563,
+      "description": "Unconditioned seeded Erdos-Renyi G(100,p); disconnected samples retained.",
+      "parameters": {
+        "probability": 0.12,
+        "seed": 202403
+      },
+      "construction_expectation": null,
+      "input_sha256": "ec48d17ba3a6c18c60bf84f18684cbdc282943bb559a3d06d7f629bb5e113ef5"
+    },
+    {
+      "name": "cycle_100_square_free",
+      "line": 15,
+      "vertices": 100,
+      "edges": 100,
+      "description": "C100: connected and square-free; exercises the known empty-square-vector bug.",
+      "parameters": {},
+      "construction_expectation": {
+        "squares": 0,
+        "components": 0,
+        "largest_support": 0,
+        "legacy_cfs": false,
+        "intended_cfs": false,
+        "universal_vertices": 0
+      },
+      "input_sha256": "6334e1810f1a4b1722c004ab4d21abeb523cd9a897a124e9a79a32fd1e1abf36"
+    }
+  ]
+}
