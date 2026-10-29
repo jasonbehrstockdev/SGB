@@ -42,7 +42,7 @@ def main():
     parser.add_argument('--sgb', required=True, type=Path)
     parser.add_argument('--reference', required=True, type=Path)
     parser.add_argument('--timeout', type=float, default=30.0)
-    parser.add_argument('--cfs-mode', choices=('legacy', 'intended'), default='legacy',
+    parser.add_argument('--cfs-mode', choices=('legacy', 'intended'), default='intended',
                         help='CFS definition used for pass/fail; both classifications are recorded')
     parser.add_argument('--output', type=Path, default=ROOT / 'results.json')
     args = parser.parse_args()

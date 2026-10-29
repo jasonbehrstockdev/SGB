@@ -15,19 +15,20 @@ join factor as square-covered or add artificial squares for them.
 support test applies to `Omega`. Vertices in `K` are adjacent to every other
 vertex and cannot lie in an induced square.
 
-**The imported code does not yet implement that CFS convention.** It compares
-the largest square-component support to the total input vertex count. For
-example, a square joined with a universal vertex has one induced square and
-should be CFS, but this version reports it as not CFS. Correct this classification
-before using SGB as the base level of a thickness algorithm; preserve literal
-square-graph construction. Pure complete graphs and empty graphs also need an
-explicit thickness base-case convention.
+The CFS check excludes universal vertices from its support target and requires
+an actual square component. A square joined with a universal vertex therefore
+reports CFS while retaining its literal support of four vertices. This distinction
+is important when using SGB at the base level of a thickness algorithm. Pure
+complete graphs have no square component and continue to report non-CFS; their
+thickness base case, and the empty-graph case, need separate conventions.
 
 ## Import provenance
 
-This repository preserves the program from `SGB_2024build.zip`. The original
-source and sample files are unchanged. macOS archive metadata (`.DS_Store` and
-`__MACOSX`) was excluded.
+The unchanged program from `SGB_2024build.zip` was first saved in
+[the original import](https://github.com/jasonbehrstockdev/SGB/tree/9b02b7938c2a5ed766b3986af51a53c9a7e50bc3).
+macOS archive metadata (`.DS_Store` and `__MACOSX`) was excluded. This subsequent
+change corrects CFS classification; the square-building algorithm, example
+inputs, and historical executable are preserved.
 
 ## Build
 
@@ -100,9 +101,9 @@ All flags must be combined in the first argument (for example, `-tdv`).
   `.txt` suffix. It is preserved as a historical artifact and was not executed
   during the Linux source review. Rebuild from source for your platform.
 
-See [CODE_REVIEW.md](CODE_REVIEW.md) for review findings, reproduction steps,
-validation results, and limitations. This import does not apply the proposed
-code fixes.
+See [CODE_REVIEW.md](CODE_REVIEW.md) for the original review findings,
+reproduction steps, and limitations. Finding 11 (CFS with complete join factors)
+has been corrected; the other findings remain open.
 
 See [benchmarks/README.md](benchmarks/README.md) for reproducible 100-vertex
 benchmarks, independent reference results, and measured runs.

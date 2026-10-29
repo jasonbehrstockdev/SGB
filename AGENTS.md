@@ -2,9 +2,10 @@
 
 The author confirmed that CFS classification allows complete join factors:
 for `Gamma = Omega * K` with `K` complete, apply the square-component full-support
-test to `Omega`. The imported source currently compares support against all
-vertices and therefore misclassifies graphs with a nonempty complete join factor.
-Fix that classification before using it as a thickness base case.
+test to `Omega`. Preserve this convention when using the CFS check as a thickness
+base case. The original import used all vertices; the subsequent fix excludes
+universal vertices only from the classification target and requires an actual
+square component.
 
 Keep square-graph construction literal: enumerate the supplied graph's induced
 squares and actual component supports. Do not add coverage or squares for clique

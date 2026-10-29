@@ -2,10 +2,18 @@
 
 Reviewed October 28, 2026 (America/New_York).
 
+This report describes [the unchanged original import](https://github.com/jasonbehrstockdev/SGB/tree/9b02b7938c2a5ed766b3986af51a53c9a7e50bc3).
+All source line references link to that version. A subsequent focused change
+corrects **finding 11**, allowing complete join factors for CFS classification
+while preserving the literal square graph and support measurements. All 15
+100-vertex benchmarks now pass the intended CFS check; the other findings below
+remain open. Original benchmark results are retained in
+`benchmarks/results-original.json`, with updated results in `benchmarks/results.json`.
+
 The most important defects are unchecked input indices, empty-graph handling,
 CFS classification with complete join factors, and incorrect statistics.
-This import preserves the original source; the fixes
-below have not been applied. Small-graph checks verified basic mechanics, but
+The original import preserves the source as received; the findings below record
+that version before fixes. Small-graph checks verified basic mechanics, but
 provide little coverage of the structures relevant to this algorithm.
 
 ## Scope and validation
@@ -13,7 +21,7 @@ provide little coverage of the structures relevant to this algorithm.
 Reviewed all 1,198 lines of `main.cpp`, all 42 lines of `flags.h`, the empty
 `SquareGraphBuilder.h`, the original README, and every supplied example record.
 The added benchmark generator, runner, and independent reference source were
-also reviewed; the original source remains byte-for-byte unchanged.
+also reviewed; the original source is preserved byte-for-byte in the linked import.
 The historical macOS executable was identified and preserved, but not run or
 reverse engineered; equivalence between it and the source is not established.
 
@@ -81,7 +89,7 @@ imported source.
 
 ### 1. P1: Validate edge endpoints before calling Boost
 
-Location: [main.cpp:1183](main.cpp#L1183).
+Location: [main.cpp:1183](https://github.com/jasonbehrstockdev/SGB/blob/9b02b7938c2a5ed766b3986af51a53c9a7e50bc3/main.cpp#L1183).
 
 The parser subtracts the label offset and passes the result directly to
 `add_edge`. With the file contents below, zero becomes a negative index, then an
@@ -99,7 +107,7 @@ nonzero exit status.
 
 ### 2. P2: Handle an empty square graph without indexing an empty vector
 
-Location: [main.cpp:316-318](main.cpp#L316); related uses at lines 277 and 917.
+Location: [main.cpp:316-318](https://github.com/jasonbehrstockdev/SGB/blob/9b02b7938c2a5ed766b3986af51a53c9a7e50bc3/main.cpp#L316); related uses at lines 277 and 917.
 
 A valid connected graph with no induced square, such as a triangle, produces an
 empty component vector. `&temp_component[0]` has undefined behavior even if
@@ -118,7 +126,7 @@ storage fix.
 
 ### 3. P2: Validate argument counts and numeric ranges
 
-Location: [main.cpp:144-146](main.cpp#L144); small-world argument at line 261.
+Location: [main.cpp:144-146](https://github.com/jasonbehrstockdev/SGB/blob/9b02b7938c2a5ed766b3986af51a53c9a7e50bc3/main.cpp#L144); small-world argument at line 261.
 
 `./build/SGB` and `./build/SGB -s 10 .5 1` access missing arguments and crash.
 `atoi`/`atof` also accept invalid values without reporting an error: `foo` becomes
@@ -134,7 +142,7 @@ return nonzero for invalid invocations.
 
 ### 4. P2: Accept valid singleton and edgeless input graphs
 
-Location: [main.cpp:1166-1170](main.cpp#L1166).
+Location: [main.cpp:1166-1170](https://github.com/jasonbehrstockdev/SGB/blob/9b02b7938c2a5ed766b3986af51a53c9a7e50bc3/main.cpp#L1166).
 
 `[1] []` throws `std::invalid_argument` because the vertex parser passes `[1` to
 `stoi`. `[1,2] []` throws `std::out_of_range` because the parser calls `substr`
@@ -146,7 +154,7 @@ controlled diagnostics rather than terminating the process unexpectedly.
 
 ### 5. P2: Check small-world generator boundary cases
 
-Location: [main.cpp:261-266](main.cpp#L261).
+Location: [main.cpp:261-266](https://github.com/jasonbehrstockdev/SGB/blob/9b02b7938c2a5ed766b3986af51a53c9a7e50bc3/main.cpp#L261).
 
 `./build/SGB -sf 5 1 1 4` did not terminate within a two-second test timeout.
 With mean degree `n-1`, Boost's rewiring rejection loop has no eligible target.
@@ -159,7 +167,7 @@ degree and complete-neighborhood cases in future regression checks.
 
 ### 6. P2: Normalize support statistics using each graph's size
 
-Location: [main.cpp:389-391](main.cpp#L389).
+Location: [main.cpp:389-391](https://github.com/jasonbehrstockdev/SGB/blob/9b02b7938c2a5ed766b3986af51a53c9a7e50bc3/main.cpp#L389).
 
 The summary accumulates raw support sizes but divides by the final input graph's
 vertex count. Results therefore depend on input order and can exceed one.
@@ -181,7 +189,7 @@ graphs with no squares contribute.
 
 ### 7. P2: Report input-file failures as errors
 
-Location: [main.cpp:182-187](main.cpp#L182).
+Location: [main.cpp:182-187](https://github.com/jasonbehrstockdev/SGB/blob/9b02b7938c2a5ed766b3986af51a53c9a7e50bc3/main.cpp#L182).
 
 `./build/SGB -t /tmp/nonexistent-sgb-file` exits 0, says it is running zero
 graphs, and prints NaN summary values. The stream's open status is never checked
@@ -193,7 +201,7 @@ current repeated opening and full-file scanning at lines 243-250.
 
 ### 8. P2: Remove placeholder density and alpha values from file-mode output
 
-Location: [main.cpp:253-254](main.cpp#L253); output at lines 369 and 401.
+Location: [main.cpp:253-254](https://github.com/jasonbehrstockdev/SGB/blob/9b02b7938c2a5ed766b3986af51a53c9a7e50bc3/main.cpp#L253); output at lines 369 and 401.
 
 File mode updates `n` but leaves `p` and `alpha` at their initial values. A C4
 under `-tf` prints `4, 1, 1, ...`, despite density `4/6` and corresponding
@@ -205,7 +213,7 @@ generator parameters as unavailable in file mode. A single global `n`, `p`, or
 
 ### 9. P2: Emit a consistent full-output schema and header
 
-Location: [main.cpp:284-289](main.cpp#L284), [main.cpp:360-369](main.cpp#L360).
+Location: [main.cpp:284-289](https://github.com/jasonbehrstockdev/SGB/blob/9b02b7938c2a5ed766b3986af51a53c9a7e50bc3/main.cpp#L284), [main.cpp:360-369](https://github.com/jasonbehrstockdev/SGB/blob/9b02b7938c2a5ed766b3986af51a53c9a7e50bc3/main.cpp#L360).
 
 Disconnected graphs produce five fields while connected graphs produce eight.
 If the first record is disconnected, the header is never printed because the
@@ -223,7 +231,7 @@ an explicit status field or consistent missing-value representation.
 
 ### 10. P2: Honor export independently of verbose output
 
-Location: [main.cpp:1188-1190](main.cpp#L1188).
+Location: [main.cpp:1188-1190](https://github.com/jasonbehrstockdev/SGB/blob/9b02b7938c2a5ed766b3986af51a53c9a7e50bc3/main.cpp#L1188).
 
 `./build/SGB -te input.txt` succeeds without creating `graphsanalyzed.txt`, while
 `-tev` exports it. The parser calls `printGraph` only when verbose is enabled,
@@ -234,7 +242,7 @@ file open/write failures as well; they are currently ignored at lines 888-898.
 
 ### 11. P2: Allow complete join factors in CFS classification
 
-Location: [main.cpp:333](main.cpp#L333).
+Location: [main.cpp:333](https://github.com/jasonbehrstockdev/SGB/blob/9b02b7938c2a5ed766b3986af51a53c9a7e50bc3/main.cpp#L333).
 
 The author confirmed during review that **CFS allows complete join factors**,
 while **square-graph construction must remain literal**. The current comparison

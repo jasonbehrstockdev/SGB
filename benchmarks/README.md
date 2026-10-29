@@ -8,7 +8,8 @@ thickness algorithm itself is not present in this repository or tested here.
 **CFS allows complete join factors; square-graph construction remains literal.**
 The `pair_path_join_K2_100` case demonstrates the distinction. Its two universal
 vertices do not belong to any square: its square support is 98, and its intended
-CFS classification is true. The imported program currently reports false.
+CFS classification is true. The original import reports false; the focused CFS
+fix reports true while preserving that literal support of 98.
 
 ## Cases and reference results
 
@@ -50,7 +51,9 @@ not nine independent samples.
 
 All square counts, component counts, and largest supports reported by the
 original optimized executable on the 12 connected cases matched the reference.
-The K2 case exposes the known CFS false negative. C100 reaches the known
+The K2 case exposed the original CFS false negative; the corrected executable
+passes all 15 intended-classification cases with unchanged square/support
+measurements. C100 still reaches the known
 empty-vector undefined behavior and prints a NaN support ratio: its normal-build
 output matching the reference does not make that execution path safe.
 
@@ -72,16 +75,17 @@ using an adjacency matrix, recognizes induced squares by degree two at each
 vertex, and joins square components through shared diagonals using disjoint
 sets. Its parser is for the generated benchmark format, not general user input.
 
-By default, the runner checks the historical full-support classification and
-records intended CFS separately. To require the intended CFS convention:
+By default, the runner requires the intended CFS convention and records both
+classifications. The mode can also be selected explicitly:
 
 ```sh
 python3 benchmarks/run.py --sgb build/SGB --reference build/sgb-reference \
   --cfs-mode intended --output build/results-intended.json
 ```
 
-The intended mode currently fails only on the K2 case. Fixing classification
-must not change its literal square support from 98 to 100.
+This passes with the corrected executable. For an executable built from the
+original import, `--cfs-mode legacy` reproduces the historical behavior; intended
+mode fails only on the K2 case. Its literal support remains 98 in both versions.
 
 ## Files and measurement limits
 
@@ -90,11 +94,12 @@ must not change its literal square support from 98 to 100.
 - `metadata.json`: parameters, construction expectations, and input hashes.
 - `reference.cpp`: independent reference computation.
 - `run.py`: bounded subprocess runner and reference comparison.
-- `results.json`: captured baseline, stdout, timings, environment, source/input
-  hashes, and both CFS interpretations.
+- `results-original.json`: preserved measurements of the unchanged original import.
+- `results.json`: updated measurements, stdout, timings, environment,
+  source/input hashes, and both CFS interpretations.
 
 Recorded runs used GCC 14.2.0, Boost 1.83, C++11, and `-O2` on Linux x86_64. Each
 graph was run once in a fresh process; timings include startup and file IO.
 These are an initial baseline, not stable performance guarantees. Repeated runs
 and recorded hardware details are needed before drawing speed conclusions.
-Original source behavior and its known defects remain unchanged.
+The focused classification fix leaves the other reviewed defects open.

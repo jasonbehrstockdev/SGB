@@ -5,13 +5,13 @@
     "machine": "x86_64",
     "python": "3.12.14"
   },
-  "source_sha256": "8abae104bcb5d468eef594253281964211c8f5ba0f2ef66d0cc3d2268ba8c8a7",
-  "sgb_binary_sha256": "19b6c1059779ab1a5829e218cb662c513dd31f37dbc1ed2cf777bb062cef8275",
+  "source_sha256": "a16a3bd5204fc6ea52a6dc6a77bd036fc3ad3774f78c9dc838311d51a5ec0720",
+  "sgb_binary_sha256": "ea407b958f912ccf4390b0652377e6941f7b539b8440110e7e275e1519af5c42",
   "reference_source_sha256": "0f8a4890318490585ade138753a3d1881234a3e85ef0a364c1598016e05053a9",
   "graphs_sha256": "fdc92393d5719cd7c52726ff58592e5db90c805500dec6ab13031f0b4eed1868",
   "timeout_seconds": 30.0,
-  "selected_cfs_mode": "legacy",
-  "reference_total_seconds": 0.116626,
+  "selected_cfs_mode": "intended",
+  "reference_total_seconds": 0.136833,
   "cases": [
     {
       "name": "pair_path_100",
@@ -33,7 +33,7 @@
           }
         ]
       },
-      "wall_seconds": 0.002697,
+      "wall_seconds": 0.003696,
       "returncode": 0,
       "stdout": "n, p, alpha, CFS, num_squares, num_comp, ratio_comp_avg, ratio_largest_comp\n100, 1, 1, 1, 241, 1, 1, 1\n",
       "stderr": "",
@@ -80,7 +80,7 @@
           }
         ]
       },
-      "wall_seconds": 0.00236,
+      "wall_seconds": 0.002499,
       "returncode": 0,
       "stdout": "n, p, alpha, CFS, num_squares, num_comp, ratio_comp_avg, ratio_largest_comp\n100, 1, 1, 1, 250, 1, 1, 1\n",
       "stderr": "",
@@ -131,7 +131,7 @@
           }
         ]
       },
-      "wall_seconds": 0.002221,
+      "wall_seconds": 0.002457,
       "returncode": 0,
       "stdout": "n, p, alpha, CFS, num_squares, num_comp, ratio_comp_avg, ratio_largest_comp\n100, 1, 1, 0, 232, 2, 0.5, 0.5\n",
       "stderr": "",
@@ -178,7 +178,7 @@
           }
         ]
       },
-      "wall_seconds": 0.002223,
+      "wall_seconds": 0.002404,
       "returncode": 0,
       "stdout": "n, p, alpha, CFS, num_squares, num_comp, ratio_comp_avg, ratio_largest_comp\n100, 1, 1, 0, 236, 1, 0.98, 0.98\n",
       "stderr": "",
@@ -225,13 +225,13 @@
           }
         ]
       },
-      "wall_seconds": 0.003883,
+      "wall_seconds": 0.004627,
       "returncode": 0,
-      "stdout": "n, p, alpha, CFS, num_squares, num_comp, ratio_comp_avg, ratio_largest_comp\n100, 1, 1, 0, 236, 1, 0.98, 0.98\n",
+      "stdout": "n, p, alpha, CFS, num_squares, num_comp, ratio_comp_avg, ratio_largest_comp\n100, 1, 1, 1, 236, 1, 0.98, 0.98\n",
       "stderr": "",
       "observed": {
         "vertices": 100,
-        "reported_cfs": false,
+        "reported_cfs": true,
         "squares": 236,
         "components": 1,
         "average_support_ratio": 0.98,
@@ -246,10 +246,9 @@
         "largest_support"
       ],
       "connectivity_matches_reference": true,
-      "matches_legacy_reference": true,
-      "matches_intended_cfs": false,
-      "matches_intended_reference": false,
-      "known_definition_mismatch": "Original executable requires full square support; intended CFS permits the universal complete join factor. Literal square metrics still agree.",
+      "matches_legacy_reference": false,
+      "matches_intended_cfs": true,
+      "matches_intended_reference": true,
       "square_metrics_complete": true,
       "matches_selected_reference": true
     },
@@ -325,7 +324,7 @@
           }
         ]
       },
-      "wall_seconds": 0.001787,
+      "wall_seconds": 0.002122,
       "returncode": 0,
       "stdout": "100, 1, 1, 0, Disconnected.\n",
       "stderr": "",
@@ -401,7 +400,7 @@
           }
         ]
       },
-      "wall_seconds": 0.001793,
+      "wall_seconds": 0.001765,
       "returncode": 0,
       "stdout": "100, 1, 1, 0, Disconnected.\n",
       "stderr": "",
@@ -545,7 +544,7 @@
           }
         ]
       },
-      "wall_seconds": 0.001754,
+      "wall_seconds": 0.002013,
       "returncode": 0,
       "stdout": "100, 1, 1, 0, Disconnected.\n",
       "stderr": "",
@@ -1225,7 +1224,7 @@
           }
         ]
       },
-      "wall_seconds": 0.003951,
+      "wall_seconds": 0.004057,
       "returncode": 0,
       "stdout": "n, p, alpha, CFS, num_squares, num_comp, ratio_comp_avg, ratio_largest_comp\n100, 1, 1, 0, 378, 161, 0.0467081, 0.3\n",
       "stderr": "",
@@ -1792,7 +1791,7 @@
           }
         ]
       },
-      "wall_seconds": 0.003633,
+      "wall_seconds": 0.004266,
       "returncode": 0,
       "stdout": "n, p, alpha, CFS, num_squares, num_comp, ratio_comp_avg, ratio_largest_comp\n100, 1, 1, 0, 316, 131, 0.0470229, 0.24\n",
       "stderr": "",
@@ -2523,7 +2522,7 @@
           }
         ]
       },
-      "wall_seconds": 0.003895,
+      "wall_seconds": 0.004141,
       "returncode": 0,
       "stdout": "n, p, alpha, CFS, num_squares, num_comp, ratio_comp_avg, ratio_largest_comp\n100, 1, 1, 0, 381, 172, 0.0460465, 0.16\n",
       "stderr": "",
@@ -3198,7 +3197,7 @@
           }
         ]
       },
-      "wall_seconds": 0.031145,
+      "wall_seconds": 0.025105,
       "returncode": 0,
       "stdout": "n, p, alpha, CFS, num_squares, num_comp, ratio_comp_avg, ratio_largest_comp\n100, 1, 1, 1, 1794, 158, 0.0494937, 1\n",
       "stderr": "",
@@ -3789,7 +3788,7 @@
           }
         ]
       },
-      "wall_seconds": 0.023665,
+      "wall_seconds": 0.024441,
       "returncode": 0,
       "stdout": "n, p, alpha, CFS, num_squares, num_comp, ratio_comp_avg, ratio_largest_comp\n100, 1, 1, 1, 1730, 137, 0.0492701, 1\n",
       "stderr": "",
@@ -4448,7 +4447,7 @@
           }
         ]
       },
-      "wall_seconds": 0.019563,
+      "wall_seconds": 0.019326,
       "returncode": 0,
       "stdout": "n, p, alpha, CFS, num_squares, num_comp, ratio_comp_avg, ratio_largest_comp\n100, 1, 1, 1, 1503, 154, 0.0484416, 1\n",
       "stderr": "",
@@ -4490,7 +4489,7 @@
         "intended_cfs": false,
         "component_details": []
       },
-      "wall_seconds": 0.001676,
+      "wall_seconds": 0.001995,
       "returncode": 0,
       "stdout": "n, p, alpha, CFS, num_squares, num_comp, ratio_comp_avg, ratio_largest_comp\n100, 1, 1, 0, 0, 0, -nan, 0\n",
       "stderr": "",

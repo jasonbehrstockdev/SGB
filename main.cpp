@@ -330,7 +330,28 @@ int main(int argc, const char * argv[]){
             support_size_total+=support_size;
             largest_support_total+=largest_support;
             
-            if (largest_support==n)
+            // A complete join factor consists of vertices adjacent to every
+            // other vertex. Exclude it only from the CFS support target;
+            // the square graph and its reported supports remain unchanged.
+            unsigned long cfs_support_target = num_vertices(Graph);
+            auto graph_vertices = vertices(Graph);
+            for (auto v = graph_vertices.first; v != graph_vertices.second; ++v)
+            {
+                bool universal = true;
+                for (auto u = graph_vertices.first; u != graph_vertices.second; ++u)
+                {
+                    if (*u != *v && !edge(*u, *v, Graph).second)
+                    {
+                        universal = false;
+                        break;
+                    }
+                }
+                if (universal)
+                    --cfs_support_target;
+            }
+
+            // Require an actual square component, including for clique-only graphs.
+            if (num_comp > 0 && largest_support == cfs_support_target)
             {
                 temp_cfs=1;
                 cfs_total++;
