@@ -1,0 +1,44 @@
+[
+  {
+    "binary": "build/SGB",
+    "input": "DJ_squareRAAG.txt",
+    "records": 1,
+    "cfs": 1,
+    "exit_code": 0
+  },
+  {
+    "binary": "build/SGB",
+    "input": "dt_examples.txt",
+    "records": 8,
+    "cfs": 1,
+    "exit_code": 0
+  },
+  {
+    "binary": "build/SGB",
+    "input": "randomexample.txt",
+    "records": 4,
+    "cfs": 0,
+    "exit_code": 0
+  },
+  {
+    "binary": "build/SGB-sanitize",
+    "input": "DJ_squareRAAG.txt",
+    "records": 1,
+    "cfs": 1,
+    "exit_code": 0
+  },
+  {
+    "binary": "build/SGB-sanitize",
+    "input": "dt_examples.txt",
+    "records": 8,
+    "cfs": 1,
+    "exit_code": 0
+  },
+  {
+    "binary": "build/SGB-sanitize",
+    "input": "randomexample.txt",
+    "records": 4,
+    "cfs": 0,
+    "exit_code": 0
+  }
+]
