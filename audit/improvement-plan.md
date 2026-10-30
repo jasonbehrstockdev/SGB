@@ -1,5 +1,12 @@
 # Optimization and improvement plan
 
+Status: the subsequent [performance work](performance.md) implements canonical
+square-key deduplication, shared-diagonal component discovery, optional exact
+square-graph materialization, and direct support insertion. It records repeated
+before/after measurements. The proposals below describe the original plan at
+commit `cbdb90f`; adjacency bitsets, a public library API, and general resource
+budgets remain future work.
+
 These are proposals for work after the correctness repairs. They are not claims
 that a particular speedup has already been measured. Keep the current version
 and the independent reference available while changing representations or

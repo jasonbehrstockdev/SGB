@@ -1,5 +1,9 @@
 # Post-repair code audit
 
+This report records the repair pass at commit `cbdb90f`, before the subsequent
+performance changes. See [the performance report](performance.md) for the
+optimized implementation, its measurements, and additional structural checks.
+
 All eleven numbered findings from the [initial review](original-review.md) have
 been addressed. A complete rereview of the repaired application and its checking
 tools found **no additional confirmed correctness errors remaining**. This is a

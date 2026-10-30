@@ -32,8 +32,9 @@ make sanitize
 
 For a nonstandard Boost location, add `CPPFLAGS=-I/path/to/boost/include` to Make.
 The default build treats compiler warnings as errors. `make check` runs the
-application regressions, benchmark-checker tests, and 15 studied 100-vertex
-benchmarks. `make sanitize` repeats the application checks with AddressSanitizer
+application regressions, benchmark-checker tests, 15 studied 100-vertex
+benchmarks, and structural checks of every square, connection, component, and
+support in both analysis modes. `make sanitize` repeats the application checks with AddressSanitizer
 and UndefinedBehaviorSanitizer. Leak detection defaults to disabled for sandbox
 compatibility; enable it through `ASAN_OPTIONS` on a supported host.
 
@@ -148,8 +149,17 @@ must update their schema; old five-field disconnected rows are no longer emitted
 See [audit/README.md](audit/README.md) for the completed repair audit,
 strengths/weaknesses assessment, improvement plan, and validation evidence.
 See [benchmarks/README.md](benchmarks/README.md) for the studied 100-vertex corpus.
-Dense graphs can still be expensive: explicit square enumeration and pairwise
-square-graph construction have no fixed time/memory budget.
+See [the performance report](audit/performance.md) for repeated before/after
+measurements and reproduction commands.
+
+Square deduplication uses canonical diagonal keys. Ordinary analysis computes
+square components through shared diagonals without storing square-graph edges.
+`-v` and `-d` still construct and display the full literal square graph, connecting
+every pair of squares sharing a diagonal. Both modes compute the same component
+supports and CFS result. Complete join factors affect classification only.
+
+Graphs with many induced squares can still be expensive, especially when the
+full square graph is requested. There is no enforced time/memory budget.
 
 The unchanged program was posted first in
 [commit 9b02b79](https://github.com/jasonbehrstockdev/SGB/tree/9b02b7938c2a5ed766b3986af51a53c9a7e50bc3).

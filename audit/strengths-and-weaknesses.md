@@ -1,5 +1,10 @@
 # Code-base assessment
 
+This assessment records the repaired implementation at commit `cbdb90f`.
+The subsequent [performance work](performance.md) addresses the linear square
+deduplication and all-pairs square comparisons discussed below; the broader
+library, portability, resource-budget, and thickness recommendations remain.
+
 This assessment concerns the repaired source and its supporting tests. The
 original 2024 import remains a useful historical baseline; the archived macOS
 executable is not evidence that a current source build behaves identically.

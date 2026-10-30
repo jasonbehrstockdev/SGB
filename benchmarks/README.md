@@ -1,5 +1,12 @@
 # Studied 100-vertex benchmarks
 
+For repeated before/after speed measurements, see
+[the performance report](../audit/performance.md). The separate
+`performance-graphs.txt` corpus contains these 15 graphs plus six additional
+100-vertex workloads. Its generator is `performance_cases.py` and its paired
+timing runner is `performance.py`. Correctness checks below and performance
+measurements are separate tasks.
+
 This set follows the author's preference for representative 100-vertex examples
 when validating SGB and planning a thickness algorithm. It contains 15 fixed
 graphs: six structured cases and nine deterministic Erdos-Renyi samples. The

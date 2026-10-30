@@ -3,6 +3,8 @@
 The original 2024 program was imported before any source edits. This folder
 records the subsequent repairs, full rereview, and recommendations.
 
+- [Performance improvements](performance.md): implemented optimizations,
+  repeated before/after speed measurements, and structural correctness checks.
 - [Post-repair review](review.md): resolution of all eleven original findings,
   additional issues corrected, validation, and remaining limitations.
 - [Strengths and weaknesses](strengths-and-weaknesses.md): assessment of the
@@ -12,7 +14,11 @@ records the subsequent repairs, full rereview, and recommendations.
 - [Original review](original-review.md): historical findings against the
   unchanged import, retained for comparison.
 
-Validation evidence:
+The original repair assessments and their evidence below refer to commit
+`cbdb90f`, before the performance changes. The performance report records the
+subsequent changes and their validation separately.
+
+Validation evidence from the repair pass:
 
 - [Optimized 100-vertex results](../benchmarks/results.json).
 - [Sanitizer 100-vertex results](validation-sanitize.json).
