@@ -151,6 +151,8 @@ strengths/weaknesses assessment, improvement plan, and validation evidence.
 See [benchmarks/README.md](benchmarks/README.md) for the studied 100-vertex corpus.
 See [the performance report](audit/performance.md) for repeated before/after
 measurements and reproduction commands.
+The [larger-graph report](audit/performance-large.md) extends the comparisons to
+1,000 and 3,000 vertices at several densities.
 
 Square deduplication uses canonical diagonal keys. Ordinary analysis computes
 square components through shared diagonals without storing square-graph edges.

@@ -3,6 +3,8 @@
 The original 2024 program was imported before any source edits. This folder
 records the subsequent repairs, full rereview, and recommendations.
 
+- [Larger-graph comparisons](performance-large.md): 1,000- and 3,000-vertex
+  density comparisons, resource limits, and independent validation.
 - [Performance improvements](performance.md): implemented optimizations,
   repeated before/after speed measurements, and structural correctness checks.
 - [Post-repair review](review.md): resolution of all eleven original findings,

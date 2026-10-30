@@ -1,0 +1,213 @@
+{
+  "schema_version": 1,
+  "methodology": "Exploratory single optimized runs before selecting the repeated benchmark range; no speedup claim. Address space capped at 4 GiB and wall time at 30 seconds. The 3000-vertex p=.015 graph did not complete; timeout is not a graph classification.",
+  "optimized_commit": "1d780c2",
+  "binary_sha256": "a0f78f0e7cc69076413ccd0b2dc41fec8f5476abf0b437b395954d9270d27f90",
+  "source_sha256": {
+    "main.cpp": "dbd62658ccec3593cd079c94b956444974e94a36ede19885fe0741ca09985594",
+    "flags.h": "6a5ace505f0a097fe125fa99add443b176a04747ee14ecefe109a30d2dbecb21",
+    "input.h": "2dda53c6c93f956bac0dd6dd08d616cf70f85f190a3f588a5907b750c8548dc9"
+  },
+  "timeout_seconds": 30,
+  "address_space_limit_bytes": 4294967296,
+  "cases": [
+    {
+      "metadata": {
+        "name": "er_n1000_p0.005_seed20261041",
+        "line": 1,
+        "vertices": 1000,
+        "edges": 2550,
+        "actual_density": 0.005105105105105105,
+        "average_degree": 5.1,
+        "parameters": {
+          "model": "Erdos-Renyi",
+          "probability": 0.005,
+          "seed": 20261041
+        },
+        "description": "Unconditioned G(n,p); same seed across densities gives nested edge sets.",
+        "input_sha256": "dfd5c273d16351c770324905c5f166cdd1f1900920b67fcf3351559ea47a8f51"
+      },
+      "observation": {
+        "name": "er_n1000_p0.005_seed20261041",
+        "status": "ok",
+        "seconds": 0.006232433996046893,
+        "returncode": 0,
+        "stdout": "n,p,alpha,CFS,num_squares,num_comp,ratio_comp_avg,ratio_largest_comp,status\n1000,0.00510510510511,0.161437598267,0,69,69,0.004,0.004,disconnected\n",
+        "stderr": ""
+      }
+    },
+    {
+      "metadata": {
+        "name": "er_n1000_p0.01_seed20261041",
+        "line": 2,
+        "vertices": 1000,
+        "edges": 5053,
+        "actual_density": 0.010116116116116116,
+        "average_degree": 10.106,
+        "parameters": {
+          "model": "Erdos-Renyi",
+          "probability": 0.01,
+          "seed": 20261041
+        },
+        "description": "Unconditioned G(n,p); same seed across densities gives nested edge sets.",
+        "input_sha256": "417ecd70ee06e0ad129100a4487fb100656b8bcbe1c0247caf010576231ecf32"
+      },
+      "observation": {
+        "name": "er_n1000_p0.01_seed20261041",
+        "status": "ok",
+        "seconds": 0.042795696994289756,
+        "returncode": 0,
+        "stdout": "n,p,alpha,CFS,num_squares,num_comp,ratio_comp_avg,ratio_largest_comp,status\n1000,0.0101161161161,0.319899680017,0,1215,1057,0.00407473982971,0.008,connected\n",
+        "stderr": ""
+      }
+    },
+    {
+      "metadata": {
+        "name": "er_n1000_p0.015_seed20261041",
+        "line": 3,
+        "vertices": 1000,
+        "edges": 7601,
+        "actual_density": 0.015217217217217218,
+        "average_degree": 15.202,
+        "parameters": {
+          "model": "Erdos-Renyi",
+          "probability": 0.015,
+          "seed": 20261041
+        },
+        "description": "Unconditioned G(n,p); same seed across densities gives nested edge sets.",
+        "input_sha256": "3f44b2cbcb5c463feb429c9a9cce42136d97a3cd951b332f6c691f5d7a78c6bf"
+      },
+      "observation": {
+        "name": "er_n1000_p0.015_seed20261041",
+        "status": "ok",
+        "seconds": 0.2027323369984515,
+        "returncode": 0,
+        "stdout": "n,p,alpha,CFS,num_squares,num_comp,ratio_comp_avg,ratio_largest_comp,status\n1000,0.0152172172172,0.481210660559,0,6508,4597,0.00420448118338,0.016,connected\n",
+        "stderr": ""
+      }
+    },
+    {
+      "metadata": {
+        "name": "pair_path_1000",
+        "line": 4,
+        "vertices": 1000,
+        "edges": 1996,
+        "actual_density": 0.003995995995995996,
+        "average_degree": 3.992,
+        "parameters": {
+          "model": "pair_path",
+          "pairs": 500
+        },
+        "description": "Independent vertex pairs along a path; consecutive pairs joined by K2,2. Exactly 2491 squares, one square component, full support, CFS=true.",
+        "input_sha256": "594b9a0aa34647dce5d6e248a8126e452e7cd2190e33c9a658b4925a5a3cab37"
+      },
+      "observation": {
+        "name": "pair_path_1000",
+        "status": "ok",
+        "seconds": 0.0046787390019744635,
+        "returncode": 0,
+        "stdout": "n,p,alpha,CFS,num_squares,num_comp,ratio_comp_avg,ratio_largest_comp,status\n1000,0.003995995996,0.126364488683,1,2491,1,1,1,connected\n",
+        "stderr": ""
+      }
+    },
+    {
+      "metadata": {
+        "name": "er_n3000_p0.005_seed20261043",
+        "line": 5,
+        "vertices": 3000,
+        "edges": 22664,
+        "actual_density": 0.0050381238190507945,
+        "average_degree": 15.109333333333334,
+        "parameters": {
+          "model": "Erdos-Renyi",
+          "probability": 0.005,
+          "seed": 20261043
+        },
+        "description": "Unconditioned G(n,p); same seed across densities gives nested edge sets.",
+        "input_sha256": "fba7488b3aa19bfc29d6a4df8e21e680a73d87db8d9149575d150498ccf86ddb"
+      },
+      "observation": {
+        "name": "er_n3000_p0.005_seed20261043",
+        "status": "ok",
+        "seconds": 0.7011265140026808,
+        "returncode": 0,
+        "stdout": "n,p,alpha,CFS,num_squares,num_comp,ratio_comp_avg,ratio_largest_comp,status\n3000,0.00503812381905,0.27594940632,0,6370,5801,0.00134970982015,0.00233333333333,connected\n",
+        "stderr": ""
+      }
+    },
+    {
+      "metadata": {
+        "name": "er_n3000_p0.01_seed20261043",
+        "line": 6,
+        "vertices": 3000,
+        "edges": 45088,
+        "actual_density": 0.010022896521062577,
+        "average_degree": 30.058666666666667,
+        "parameters": {
+          "model": "Erdos-Renyi",
+          "probability": 0.01,
+          "seed": 20261043
+        },
+        "description": "Unconditioned G(n,p); same seed across densities gives nested edge sets.",
+        "input_sha256": "c3f9abd225e0f821fea3fcbf219331e19c8e2fb6db689d8d2e57fbe90fb156ae"
+      },
+      "observation": {
+        "name": "er_n3000_p0.01_seed20261043",
+        "status": "ok",
+        "seconds": 18.48419084001216,
+        "returncode": 0,
+        "stdout": "n,p,alpha,CFS,num_squares,num_comp,ratio_comp_avg,ratio_largest_comp,status\n3000,0.0100228965211,0.548976651613,0,99858,64291,0.00142321112857,0.017,connected\n",
+        "stderr": ""
+      }
+    },
+    {
+      "metadata": {
+        "name": "er_n3000_p0.015_seed20261043",
+        "line": 7,
+        "vertices": 3000,
+        "edges": 67716,
+        "actual_density": 0.015053017672557518,
+        "average_degree": 45.144,
+        "parameters": {
+          "model": "Erdos-Renyi",
+          "probability": 0.015,
+          "seed": 20261043
+        },
+        "description": "Unconditioned G(n,p); same seed across densities gives nested edge sets.",
+        "input_sha256": "fa64952896fd1d787b39d06d41d6f7c39eca03d757a66c55a0550699a7608819"
+      },
+      "observation": {
+        "name": "er_n3000_p0.015_seed20261043",
+        "status": "timeout",
+        "seconds": 30.034862796004745,
+        "returncode": -9,
+        "stdout": "",
+        "stderr": ""
+      }
+    },
+    {
+      "metadata": {
+        "name": "pair_path_3000",
+        "line": 8,
+        "vertices": 3000,
+        "edges": 5996,
+        "actual_density": 0.0013328887406913415,
+        "average_degree": 3.997333333333333,
+        "parameters": {
+          "model": "pair_path",
+          "pairs": 1500
+        },
+        "description": "Independent vertex pairs along a path; consecutive pairs joined by K2,2. Exactly 7491 squares, one square component, full support, CFS=true.",
+        "input_sha256": "16c3e0660dede9e6c81ec8ef24dda95900e6f4598308628d48118efd6982c12e"
+      },
+      "observation": {
+        "name": "pair_path_3000",
+        "status": "ok",
+        "seconds": 0.009045654005603865,
+        "returncode": 0,
+        "stdout": "n,p,alpha,CFS,num_squares,num_comp,ratio_comp_avg,ratio_largest_comp,status\n3000,0.00133288874069,0.0730053229921,1,7491,1,1,1,connected\n",
+        "stderr": ""
+      }
+    }
+  ]
+}

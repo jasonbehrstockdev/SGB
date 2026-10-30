@@ -25,3 +25,9 @@ Use structured examples and deterministic random samples with recorded
 parameters and reference results. Keep small graphs for targeted regression
 checks. Distinguish correctness checks from performance measurements and state
 which structural cases a benchmark covers.
+
+The author also requested performance comparisons at 1,000 and 3,000 vertices
+across several densities. Preserve these larger cases alongside the 100-vertex
+corpus. Record actual density as well as the random-generation probability,
+and report time/resource limits honestly when a build cannot finish. A timed-out
+computation is not a negative CFS result or a passing correctness check.

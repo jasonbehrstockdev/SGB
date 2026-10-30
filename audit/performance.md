@@ -1,5 +1,9 @@
 # Performance improvements
 
+For the subsequent 1,000- and 3,000-vertex density comparisons, see
+[the larger-graph report](performance-large.md). The original 100-vertex
+measurements below remain preserved.
+
 The comparison baseline is the repaired version at commit
 [`cbdb90f`](https://github.com/jasonbehrstockdev/SGB/tree/cbdb90fb17186288f6a77944f2ee84dee2c4f230),
 before this optimization pass. The original 2024 import and all previous audit

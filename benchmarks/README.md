@@ -1,5 +1,9 @@
 # Studied 100-vertex benchmarks
 
+The [1,000/3,000-vertex report](../audit/performance-large.md) covers the additional
+large-graph density comparisons. Its fixed inputs are in `large-graphs.txt.gz`,
+with construction details and hashes in `large-metadata.json`.
+
 For repeated before/after speed measurements, see
 [the performance report](../audit/performance.md). The separate
 `performance-graphs.txt` corpus contains these 15 graphs plus six additional
