@@ -1,7 +1,8 @@
 # Performance improvements
 
-For the subsequent 1,000- and 3,000-vertex density comparisons, see
-[the larger-graph report](performance-large.md). The original 100-vertex
+For subsequent 1,000- and 3,000-vertex comparisons, see the
+[20-graph density study](performance-ensemble.md) and the earlier
+[single-graph report](performance-large.md). The original 100-vertex
 measurements below remain preserved.
 
 The comparison baseline is the repaired version at commit

@@ -3,8 +3,10 @@
 The original 2024 program was imported before any source edits. This folder
 records the subsequent repairs, full rereview, and recommendations.
 
-- [Larger-graph comparisons](performance-large.md): 1,000- and 3,000-vertex
-  density comparisons, resource limits, and independent validation.
+- [20-graph density comparisons](performance-ensemble.md): 20 distinct graphs
+  per density and size, six densities, paired inputs, and a two-minute timeout.
+- [Earlier larger-graph comparisons](performance-large.md): repeated timings
+  of individual 1,000- and 3,000-vertex examples, preserved with their original limits.
 - [Performance improvements](performance.md): implemented optimizations,
   repeated before/after speed measurements, and structural correctness checks.
 - [Post-repair review](review.md): resolution of all eleven original findings,

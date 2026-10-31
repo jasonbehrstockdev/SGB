@@ -1,8 +1,13 @@
 # Studied 100-vertex benchmarks
 
-The [1,000/3,000-vertex report](../audit/performance-large.md) covers the additional
-large-graph density comparisons. Its fixed inputs are in `large-graphs.txt.gz`,
-with construction details and hashes in `large-metadata.json`.
+The [20-graph density comparison](../audit/performance-ensemble.md) covers 20
+distinct graphs at each of six densities for 1,000 and 3,000 vertices, with
+identical before/after inputs and a two-minute per-run timeout. Its reproducible
+generator and runner are in `performance_ensemble.py`.
+
+The earlier [single-graph report](../audit/performance-large.md) remains available.
+Its fixed inputs are in `large-graphs.txt.gz`, with construction details and
+hashes in `large-metadata.json`.
 
 For repeated before/after speed measurements, see
 [the performance report](../audit/performance.md). The separate

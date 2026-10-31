@@ -39,6 +39,7 @@ check: build/SGB build/sgb-reference build/sgb-reference-large build/structure-t
 	$(PYTHON) benchmarks/test_runner.py
 	$(PYTHON) benchmarks/test_performance.py
 	$(PYTHON) benchmarks/test_performance_large.py
+	$(PYTHON) benchmarks/test_performance_ensemble.py
 	$(PYTHON) tests/regression.py --binary build/SGB
 	./build/structure-tests benchmarks/graphs.txt
 	$(PYTHON) tests/reference_large.py --reference-large build/sgb-reference-large --reference build/sgb-reference
@@ -53,6 +54,7 @@ check-sanitize: build/SGB-sanitize build/sgb-reference build/sgb-reference-large
 	$(PYTHON) benchmarks/test_runner.py
 	$(PYTHON) benchmarks/test_performance.py
 	$(PYTHON) benchmarks/test_performance_large.py
+	$(PYTHON) benchmarks/test_performance_ensemble.py
 	$(PYTHON) tests/regression.py --binary build/SGB-sanitize
 	ASAN_OPTIONS=$${ASAN_OPTIONS:-detect_leaks=0} UBSAN_OPTIONS=$${UBSAN_OPTIONS:-halt_on_error=1:print_stacktrace=1} ./build/structure-tests-sanitize benchmarks/graphs.txt
 	$(PYTHON) tests/reference_large.py --reference-large build/sgb-reference-large-sanitize --reference build/sgb-reference

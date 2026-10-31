@@ -1,5 +1,9 @@
 # Performance at 1,000 and 3,000 vertices
 
+The newer [20-graph density comparison](performance-ensemble.md) expands this
+study to 20 graphs per density and size, six densities, and a two-minute timeout.
+The measurements and 30-second limit below describe the earlier experiment.
+
 This extends the [100-vertex comparison](performance.md) using the same two
 application versions: repaired baseline `cbdb90f` and optimized source `1d780c2`.
 The application algorithm has not changed during this measurement pass.
