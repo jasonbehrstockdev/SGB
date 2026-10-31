@@ -1,108 +1,175 @@
 # Square Graph Builder (SGB)
 
-SGB constructs the graph of induced squares of an input graph and computes its
-connected components and their supports. Two squares are adjacent when they
-share a diagonal, which is a non-edge of the input graph.
+SGB enumerates induced squares, connects squares that share a nonedge diagonal,
+and computes the original-vertex support of each square-graph component.
 
 ## Important: square graphs and CFS use different conventions
 
-**Square-graph construction uses the supplied graph literally.** Enumerate its
-induced squares and their actual supports. Do not treat vertices in a complete
-join factor as square-covered or add artificial squares for them.
+**Square-graph construction uses the supplied graph literally.** Vertices in a
+complete join factor do not gain artificial squares or square support.
 
-**CFS classification allows complete join factors.** If the graph is
-`Gamma = Omega * K`, where `K` is a complete graph (possibly empty), the CFS
-support test applies to `Omega`. Vertices in `K` are adjacent to every other
-vertex and cannot lie in an induced square.
+**CFS classification allows complete join factors.** For `Gamma = Omega * K`,
+where `K` is complete (possibly empty), test full square-component support on
+`Omega`. Universal vertices cannot lie in an induced square. The implementation
+requires an actual square component: a square joined with K2 reports CFS while
+retaining support four in its six-vertex input graph.
 
-**The imported code does not yet implement that CFS convention.** It compares
-the largest square-component support to the total input vertex count. For
-example, a square joined with a universal vertex has one induced square and
-should be CFS, but this version reports it as not CFS. Correct this classification
-before using SGB as the base level of a thickness algorithm; preserve literal
-square-graph construction. Pure complete graphs and empty graphs also need an
-explicit thickness base-case convention.
+Empty and complete graphs have no square component and report non-CFS with zero
+support statistics. Their thickness base cases require separate mathematical
+conventions; SGB does not implement a thickness algorithm.
 
-## Import provenance
+## Build and verify
 
-This repository preserves the program from `SGB_2024build.zip`. The original
-source and sample files are unchanged. macOS archive metadata (`.DS_Store` and
-`__MACOSX`) was excluded.
-
-## Build
-
-Use a C++11 or newer compiler and the Boost headers (Boost Graph and Boost
-Random). These uses of Boost are header-only; no Boost library link flags are
-needed.
+Use a C++11 compiler, Boost headers, Python 3, and Make on Linux or another
+compatible POSIX system. Boost Graph is header-only for this program.
 
 ```sh
-# Debian/Ubuntu prerequisites: g++ and libboost-dev
-# macOS prerequisites: Xcode command-line tools and Boost
-mkdir -p build
-c++ -std=c++11 -O2 -Wall -Wextra -pedantic main.cpp -o build/SGB
+# Debian/Ubuntu prerequisites: g++, make, libboost-dev, python3
+make
+make check
+make sanitize
 ```
 
-If Boost is installed outside the compiler's search path, add
-`-I/path/to/boost/include` to the command.
+For a nonstandard Boost location, add `CPPFLAGS=-I/path/to/boost/include` to Make.
+The default build treats compiler warnings as errors. `make check` runs the
+application regressions, benchmark-checker tests, 15 studied 100-vertex
+benchmarks, and structural checks of every square, connection, component, and
+support in both analysis modes. `make sanitize` repeats the application checks with AddressSanitizer
+and UndefinedBehaviorSanitizer. Leak detection defaults to disabled for sandbox
+compatibility; enable it through `ASAN_OPTIONS` on a supported host.
+
+To build without Make:
+
+```sh
+mkdir -p build
+c++ -std=c++11 -O2 -Wall -Wextra -Wpedantic main.cpp -o build/SGB
+```
 
 ## Run
-
-Run from the repository directory:
 
 ```sh
 ./build/SGB -t DJ_squareRAAG.txt
 ./build/SGB -tv dt_examples.txt
 ./build/SGB -tf randomexample.txt
+./build/SGB --help
 ```
 
-Input files contain one graph per line, for example:
+Files contain one graph per line:
 
 ```text
 [1,2,3,4] [(1,2),(2,3),(3,4),(1,4)]
+[0,1,2] []
+[1] []
+[] []
 ```
 
-Use contiguous vertex labels starting at 0 or 1. The legacy parser has limitations
-on empty edge lists, single-vertex graphs, and malformed inputs; it is not a
-validated input format implementation.
+Vertex labels must be contiguous, ascending, and start at 0 or 1. Whitespace is
+allowed between tokens. Inputs represent simple undirected graphs: duplicate
+edges are collapsed and self-loops are ignored after validating their endpoints.
+This accepts the old exporter's `(1,1)` marker without treating it as an edge.
+Export and displayed vertex labels are normalized to 1-based labels.
 
-Random graph modes:
+Malformed records, unknown endpoints, blank records, empty files, and IO errors
+produce a diagnostic and nonzero exit status. Input diagnostics include a file,
+line, and parser column. Graphs are processed once in input order. If a later
+record fails, output/export for earlier valid records can remain; a nonzero exit
+status means the batch did not finish successfully.
+
+Random modes:
 
 ```sh
-# Erdos-Renyi: vertex count, edge probability, trial count
-./build/SGB 20 0.3 10
+# Erdos-Renyi: vertices, edge probability, trials
+./build/SGB -f --seed 123 100 0.08 10
 
-# Scale edge probability as alpha / sqrt(vertex count)
-./build/SGB -a 20 1.0 10
+# Interpret alpha as p * sqrt(n)
+./build/SGB -af --seed 123 100 0.8 10
 
-# Small-world: vertex count, rewiring probability, trial count, mean degree
-./build/SGB -s 20 0.1 10 4
+# Watts-Strogatz: vertices, rewiring probability, trials, initial mean degree
+./build/SGB -sf --seed 123 100 0.1 10 4
 ```
 
-All flags must be combined in the first argument (for example, `-tdv`).
+Probabilities must be in `[0,1]`, including after alpha scaling. Random vertex
+and trial counts must be positive integers. Small-world degree must be below
+`n` and even, except that `n-1` is allowed for a complete graph. Degree zero gives
+an edgeless graph. Complete graphs remain complete regardless of rewiring
+probability. Rewiring preserves the edge count, avoids loops/duplicate edges,
+and retains an edge if its source has no available new neighbor.
 
-| Flag | Behavior |
+The seed is printed to stderr. Without `--seed`, a seed is obtained from the
+system's random device. A seed reproduces runs with the same implementation and
+toolchain; save the actual graphs for reproduction across library versions.
+
+| Option | Behavior |
 | --- | --- |
-| `t` | Read graphs from the next argument, a file path. |
-| `v` | Print graphs and component supports. |
-| `d` | Print algorithm debugging details. |
-| `f` | Print individual trial results. |
-| `a` | Interpret the probability argument as alpha. |
-| `s` | Generate small-world graphs; requires mean degree as a fourth value. |
-| `e` | Append input graphs to `graphsanalyzed.txt`; file-input mode currently also requires `v`. |
+| `-t` | Read graphs from a file; cannot combine with `-a`, `-s`, or `--seed`. |
+| `-v` | Show input/square graphs and component supports. |
+| `-d` | Also show each square's diagonals. |
+| `-f` | Print one fixed-schema CSV row per input graph or trial. |
+| `-e` | Append input graphs to `graphsanalyzed.txt`, independently of verbosity. |
+| `-a` | Interpret the ER parameter as alpha; cannot combine with `-s`. |
+| `-s` | Generate small-world graphs. |
+| `--seed N` | Use an unsigned 64-bit random seed. |
+| `-h`, `--help` | Show usage. |
 
-## Original files
+Short flags can be combined or separate. Use `--` before a filename beginning
+with `-`. Exporting into the same file as the input, including hard/symlink
+aliases, is rejected. Exports use canonical graph syntax without artificial
+self-loops, trailing commas, or terminal control characters.
 
-- `main.cpp`, `flags.h`: complete program source.
-- `SquareGraphBuilder.h`: empty header included in the original archive.
-- `DJ_squareRAAG.txt`, `dt_examples.txt`, `randomexample.txt`: example inputs.
-- `SGB_readme.txt`: original usage notes.
-- `SGB_2024.executable.txt`: original Intel macOS Mach-O executable despite its
-  `.txt` suffix. It is preserved as a historical artifact and was not executed
-  during the Linux source review. Rebuild from source for your platform.
+## Results and statistics
 
-See [CODE_REVIEW.md](CODE_REVIEW.md) for review findings, reproduction steps,
-validation results, and limitations. This import does not apply the proposed
-code fixes.
+`-f` always prints this header, including when the first graph is disconnected:
 
-See [benchmarks/README.md](benchmarks/README.md) for reproducible 100-vertex
-benchmarks, independent reference results, and measured runs.
+```text
+n,p,alpha,CFS,num_squares,num_comp,ratio_comp_avg,ratio_largest_comp,status
+```
+
+`status` is `connected`, `disconnected`, or `empty`. Disconnected inputs receive
+complete square metrics. Verbose/debug information goes to stderr in CSV mode.
+
+For file input, `p` is the actual simple-edge density `2m/(n(n-1))`, or zero for
+fewer than two vertices, and `alpha = p * sqrt(n)`. In ER mode, `p` is the
+configured edge probability; in small-world mode it is the rewiring probability.
+For either random mode, `alpha` is the configured `p * sqrt(n)`, not an empirical
+statistic of the sampled graph.
+
+For each graph, `ratio_comp_avg` is the mean component support size divided by
+`n`; `ratio_largest_comp` is the largest literal support divided by `n`. Both are
+zero when there are no squares. Summary `AvgSupport` and `LargestSupport` are
+arithmetic means of these per-graph ratios, with every input graph weighted
+equally. Varying summary values for `n`, `p`, or `alpha` are labeled `mixed`.
+A complete join factor can make CFS true while literal support ratios stay below
+one; this is intentional.
+
+The CSV now has a ninth status column. Consumers of the old eight-column output
+must update their schema; old five-field disconnected rows are no longer emitted.
+
+## Audit, benchmarks, and provenance
+
+See [audit/README.md](audit/README.md) for the completed repair audit,
+strengths/weaknesses assessment, improvement plan, and validation evidence.
+See [benchmarks/README.md](benchmarks/README.md) for the studied 100-vertex corpus.
+See [the performance report](audit/performance.md) for repeated before/after
+measurements and reproduction commands.
+The [20-graph density comparison](audit/performance-ensemble.md) measures 20
+different graphs at each of six densities for 1,000 and 3,000 vertices, using
+identical before/after inputs and a two-minute per-run timeout. The earlier
+[single-graph comparison](audit/performance-large.md) remains available.
+
+Square deduplication uses canonical diagonal keys. Ordinary analysis computes
+square components through shared diagonals without storing square-graph edges.
+`-v` and `-d` still construct and display the full literal square graph, connecting
+every pair of squares sharing a diagonal. Both modes compute the same component
+supports and CFS result. Complete join factors affect classification only.
+
+Graphs with many induced squares can still be expensive, especially when the
+full square graph is requested. There is no enforced time/memory budget.
+
+The unchanged program was posted first in
+[commit 9b02b79](https://github.com/jasonbehrstockdev/SGB/tree/9b02b7938c2a5ed766b3986af51a53c9a7e50bc3).
+Subsequent repairs are separate history. All original sample files, usage notes,
+and the historical executable remain preserved. macOS archive metadata was
+excluded. `SGB_2024.executable.txt` is an Intel macOS Mach-O binary despite its
+suffix; it was not executed during this Linux source audit. Build from source
+for the repaired program. `SquareGraphBuilder.h` is an unused empty historical
+header. No license was chosen on the author's behalf.

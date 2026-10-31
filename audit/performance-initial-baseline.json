@@ -1,0 +1,144 @@
+{
+  "environment": {
+    "platform": "Linux-6.18.55-x86_64-with-glibc2.41",
+    "machine": "x86_64",
+    "python": "3.12.14"
+  },
+  "source_files_sha256": {
+    "main.cpp": "8b8ac7e047b2a43b59b3cd8355253fc743b7d893d67f08fece3b168f9dfec9c2",
+    "flags.h": "6a5ace505f0a097fe125fa99add443b176a04747ee14ecefe109a30d2dbecb21",
+    "input.h": "2dda53c6c93f956bac0dd6dd08d616cf70f85f190a3f588a5907b750c8548dc9"
+  },
+  "sgb_binary_sha256": "0df843d9e256be479a066304af087c0b99cd782b52e99a19cfddb87f447d6979",
+  "reference_binary_sha256": "70fcda0b4c9f563af48a73de2c0bcb29b54f97bbb1304fdb3b867b4c19f907e0",
+  "reference_source_sha256": "0f8a4890318490585ade138753a3d1881234a3e85ef0a364c1598016e05053a9",
+  "graphs_sha256": "fdc92393d5719cd7c52726ff58592e5db90c805500dec6ab13031f0b4eed1868",
+  "schema_version": 1,
+  "before_commit": "cbdb90fb17186288f6a77944f2ee84dee2c4f230",
+  "methodology": "Initial single-run per-graph baseline captured before application edits began. Every case passed the independent intended-CFS reference. Wall time includes startup and IO. Later repeated paired measurements are in performance-results.json and are used for speed claims.",
+  "compiler_version": "g++ (Debian 14.2.0-19) 14.2.0",
+  "compiler_flags": "-I/tmp/sgb-boost/usr/include -O2 -std=c++11 -Wall -Wextra -Wpedantic -Werror",
+  "boost_version": "1.83",
+  "cases": [
+    {
+      "name": "pair_path_100",
+      "wall_seconds": 0.002838,
+      "stdout": "n,p,alpha,CFS,num_squares,num_comp,ratio_comp_avg,ratio_largest_comp,status\n100,0.039595959596,0.39595959596,1,241,1,1,1,connected\n",
+      "returncode": 0,
+      "matches_intended_reference": true,
+      "full_validation": true
+    },
+    {
+      "name": "pair_ring_100",
+      "wall_seconds": 0.003182,
+      "stdout": "n,p,alpha,CFS,num_squares,num_comp,ratio_comp_avg,ratio_largest_comp,status\n100,0.040404040404,0.40404040404,1,250,1,1,1,connected\n",
+      "returncode": 0,
+      "matches_intended_reference": true,
+      "full_validation": true
+    },
+    {
+      "name": "two_pair_paths_bridge_100",
+      "wall_seconds": 0.002791,
+      "stdout": "n,p,alpha,CFS,num_squares,num_comp,ratio_comp_avg,ratio_largest_comp,status\n100,0.0389898989899,0.389898989899,0,232,2,0.5,0.5,connected\n",
+      "returncode": 0,
+      "matches_intended_reference": true,
+      "full_validation": true
+    },
+    {
+      "name": "pair_path_with_leaves_100",
+      "wall_seconds": 0.002661,
+      "stdout": "n,p,alpha,CFS,num_squares,num_comp,ratio_comp_avg,ratio_largest_comp,status\n100,0.0391919191919,0.391919191919,0,236,1,0.98,0.98,connected\n",
+      "returncode": 0,
+      "matches_intended_reference": true,
+      "full_validation": true
+    },
+    {
+      "name": "pair_path_join_K2_100",
+      "wall_seconds": 0.004159,
+      "stdout": "n,p,alpha,CFS,num_squares,num_comp,ratio_comp_avg,ratio_largest_comp,status\n100,0.0785858585859,0.785858585859,1,236,1,0.98,0.98,connected\n",
+      "returncode": 0,
+      "matches_intended_reference": true,
+      "full_validation": true
+    },
+    {
+      "name": "er_p0.04_seed202401",
+      "wall_seconds": 0.002016,
+      "stdout": "n,p,alpha,CFS,num_squares,num_comp,ratio_comp_avg,ratio_largest_comp,status\n100,0.0393939393939,0.393939393939,0,20,14,0.0421428571429,0.06,disconnected\n",
+      "returncode": 0,
+      "matches_intended_reference": true,
+      "full_validation": true
+    },
+    {
+      "name": "er_p0.04_seed202402",
+      "wall_seconds": 0.002102,
+      "stdout": "n,p,alpha,CFS,num_squares,num_comp,ratio_comp_avg,ratio_largest_comp,status\n100,0.0357575757576,0.357575757576,0,17,10,0.043,0.07,disconnected\n",
+      "returncode": 0,
+      "matches_intended_reference": true,
+      "full_validation": true
+    },
+    {
+      "name": "er_p0.04_seed202403",
+      "wall_seconds": 0.002189,
+      "stdout": "n,p,alpha,CFS,num_squares,num_comp,ratio_comp_avg,ratio_largest_comp,status\n100,0.0408080808081,0.408080808081,0,34,27,0.0414814814815,0.06,disconnected\n",
+      "returncode": 0,
+      "matches_intended_reference": true,
+      "full_validation": true
+    },
+    {
+      "name": "er_p0.08_seed202401",
+      "wall_seconds": 0.004037,
+      "stdout": "n,p,alpha,CFS,num_squares,num_comp,ratio_comp_avg,ratio_largest_comp,status\n100,0.0806060606061,0.806060606061,0,378,161,0.0467080745342,0.3,connected\n",
+      "returncode": 0,
+      "matches_intended_reference": true,
+      "full_validation": true
+    },
+    {
+      "name": "er_p0.08_seed202402",
+      "wall_seconds": 0.003453,
+      "stdout": "n,p,alpha,CFS,num_squares,num_comp,ratio_comp_avg,ratio_largest_comp,status\n100,0.0761616161616,0.761616161616,0,316,131,0.0470229007634,0.24,connected\n",
+      "returncode": 0,
+      "matches_intended_reference": true,
+      "full_validation": true
+    },
+    {
+      "name": "er_p0.08_seed202403",
+      "wall_seconds": 0.003608,
+      "stdout": "n,p,alpha,CFS,num_squares,num_comp,ratio_comp_avg,ratio_largest_comp,status\n100,0.079595959596,0.79595959596,0,381,172,0.0460465116279,0.16,connected\n",
+      "returncode": 0,
+      "matches_intended_reference": true,
+      "full_validation": true
+    },
+    {
+      "name": "er_p0.12_seed202401",
+      "wall_seconds": 0.021407,
+      "stdout": "n,p,alpha,CFS,num_squares,num_comp,ratio_comp_avg,ratio_largest_comp,status\n100,0.12,1.2,1,1794,158,0.0494936708861,1,connected\n",
+      "returncode": 0,
+      "matches_intended_reference": true,
+      "full_validation": true
+    },
+    {
+      "name": "er_p0.12_seed202402",
+      "wall_seconds": 0.020703,
+      "stdout": "n,p,alpha,CFS,num_squares,num_comp,ratio_comp_avg,ratio_largest_comp,status\n100,0.117777777778,1.17777777778,1,1730,137,0.0492700729927,1,connected\n",
+      "returncode": 0,
+      "matches_intended_reference": true,
+      "full_validation": true
+    },
+    {
+      "name": "er_p0.12_seed202403",
+      "wall_seconds": 0.016799,
+      "stdout": "n,p,alpha,CFS,num_squares,num_comp,ratio_comp_avg,ratio_largest_comp,status\n100,0.113737373737,1.13737373737,1,1503,154,0.0484415584416,1,connected\n",
+      "returncode": 0,
+      "matches_intended_reference": true,
+      "full_validation": true
+    },
+    {
+      "name": "cycle_100_square_free",
+      "wall_seconds": 0.002068,
+      "stdout": "n,p,alpha,CFS,num_squares,num_comp,ratio_comp_avg,ratio_largest_comp,status\n100,0.020202020202,0.20202020202,0,0,0,0,0,connected\n",
+      "returncode": 0,
+      "matches_intended_reference": true,
+      "full_validation": true
+    }
+  ]
+}

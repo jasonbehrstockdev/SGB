@@ -1,0 +1,127 @@
+{
+  "schema_version": 1,
+  "graphs_sha256": "be62d50809724b3f01a1ddcbdb6c1351f58c9764b55390b3cc5abecdc62aaebd",
+  "compressed_graphs_sha256": "821a509c9953e8d6fc75aa21affad817597a61cec6b539ec97c7ce1575f182d2",
+  "generator": "Python random.Random(seed).random() in lexicographic a<b order; exact graph records committed.",
+  "selection": "Selected 1,000- and 3,000-vertex graphs at the same three densities, plus pair-path controls. One seed per vertex count, reused across densities for nested edge sets. This studies specific examples and does not estimate a population-average speedup.",
+  "cases": [
+    {
+      "name": "er_n1000_p0.005_seed20261041",
+      "line": 1,
+      "vertices": 1000,
+      "edges": 2550,
+      "actual_density": 0.005105105105105105,
+      "average_degree": 5.1,
+      "parameters": {
+        "model": "Erdos-Renyi",
+        "probability": 0.005,
+        "seed": 20261041
+      },
+      "description": "Unconditioned G(n,p); same seed across densities gives nested edge sets.",
+      "input_sha256": "dfd5c273d16351c770324905c5f166cdd1f1900920b67fcf3351559ea47a8f51"
+    },
+    {
+      "name": "er_n1000_p0.0075_seed20261041",
+      "line": 2,
+      "vertices": 1000,
+      "edges": 3806,
+      "actual_density": 0.00761961961961962,
+      "average_degree": 7.612,
+      "parameters": {
+        "model": "Erdos-Renyi",
+        "probability": 0.0075,
+        "seed": 20261041
+      },
+      "description": "Unconditioned G(n,p); same seed across densities gives nested edge sets.",
+      "input_sha256": "21b65311f012089cbf879d13918199ffeb84f72ebe1cc9ef6a7951afa10c8add"
+    },
+    {
+      "name": "er_n1000_p0.01_seed20261041",
+      "line": 3,
+      "vertices": 1000,
+      "edges": 5053,
+      "actual_density": 0.010116116116116116,
+      "average_degree": 10.106,
+      "parameters": {
+        "model": "Erdos-Renyi",
+        "probability": 0.01,
+        "seed": 20261041
+      },
+      "description": "Unconditioned G(n,p); same seed across densities gives nested edge sets.",
+      "input_sha256": "417ecd70ee06e0ad129100a4487fb100656b8bcbe1c0247caf010576231ecf32"
+    },
+    {
+      "name": "pair_path_1000",
+      "line": 4,
+      "vertices": 1000,
+      "edges": 1996,
+      "actual_density": 0.003995995995995996,
+      "average_degree": 3.992,
+      "parameters": {
+        "model": "pair_path",
+        "pairs": 500
+      },
+      "description": "Independent vertex pairs along a path; consecutive pairs joined by K2,2. Exactly 2491 squares, one square component, full support, CFS=true.",
+      "input_sha256": "594b9a0aa34647dce5d6e248a8126e452e7cd2190e33c9a658b4925a5a3cab37"
+    },
+    {
+      "name": "er_n3000_p0.005_seed20261043",
+      "line": 5,
+      "vertices": 3000,
+      "edges": 22664,
+      "actual_density": 0.0050381238190507945,
+      "average_degree": 15.109333333333334,
+      "parameters": {
+        "model": "Erdos-Renyi",
+        "probability": 0.005,
+        "seed": 20261043
+      },
+      "description": "Unconditioned G(n,p); same seed across densities gives nested edge sets.",
+      "input_sha256": "fba7488b3aa19bfc29d6a4df8e21e680a73d87db8d9149575d150498ccf86ddb"
+    },
+    {
+      "name": "er_n3000_p0.0075_seed20261043",
+      "line": 6,
+      "vertices": 3000,
+      "edges": 33769,
+      "actual_density": 0.007506724463710125,
+      "average_degree": 22.512666666666668,
+      "parameters": {
+        "model": "Erdos-Renyi",
+        "probability": 0.0075,
+        "seed": 20261043
+      },
+      "description": "Unconditioned G(n,p); same seed across densities gives nested edge sets.",
+      "input_sha256": "85323c1a96bf43f9355c9df532945ec29291ce7106da85eef47bcd676d4cc753"
+    },
+    {
+      "name": "er_n3000_p0.01_seed20261043",
+      "line": 7,
+      "vertices": 3000,
+      "edges": 45088,
+      "actual_density": 0.010022896521062577,
+      "average_degree": 30.058666666666667,
+      "parameters": {
+        "model": "Erdos-Renyi",
+        "probability": 0.01,
+        "seed": 20261043
+      },
+      "description": "Unconditioned G(n,p); same seed across densities gives nested edge sets.",
+      "input_sha256": "c3f9abd225e0f821fea3fcbf219331e19c8e2fb6db689d8d2e57fbe90fb156ae"
+    },
+    {
+      "name": "pair_path_3000",
+      "line": 8,
+      "vertices": 3000,
+      "edges": 5996,
+      "actual_density": 0.0013328887406913415,
+      "average_degree": 3.997333333333333,
+      "parameters": {
+        "model": "pair_path",
+        "pairs": 1500
+      },
+      "description": "Independent vertex pairs along a path; consecutive pairs joined by K2,2. Exactly 7491 squares, one square component, full support, CFS=true.",
+      "input_sha256": "16c3e0660dede9e6c81ec8ef24dda95900e6f4598308628d48118efd6982c12e"
+    }
+  ]
+}

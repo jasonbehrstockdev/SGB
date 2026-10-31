@@ -215,7 +215,7 @@
       "line": 15,
       "vertices": 100,
       "edges": 100,
-      "description": "C100: connected and square-free; exercises the known empty-square-vector bug.",
+      "description": "C100: connected and square-free; regression case for an empty square graph and finite zero-support output.",
       "parameters": {},
       "construction_expectation": {
         "squares": 0,

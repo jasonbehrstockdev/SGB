@@ -58,7 +58,7 @@ def main():
                           None, dict(probability=probability, seed=seed)))
     cases.append(("cycle_100_square_free",
                   {(i, i + 1) for i in range(N - 1)} | {(0, N - 1)},
-                  "C100: connected and square-free; exercises the known empty-square-vector bug.",
+                  "C100: connected and square-free; regression case for an empty square graph and finite zero-support output.",
                   expected(0, 0, 0, False), {}))
 
     lines, metadata = [], []

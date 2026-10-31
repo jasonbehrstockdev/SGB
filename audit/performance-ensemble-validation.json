@@ -1,0 +1,2121 @@
+{
+  "schema_version": 1,
+  "completed": true,
+  "verified_utc": "2026-10-30T22:36:25.392487+00:00",
+  "raw_report_sha256": "667b3273934ca9aa8b742dc82796f64c98268d342f16ef649bd29540a0134c59",
+  "verifier_sha256": "a6ac28e3b482ddbb63354bba82d2f765e8eb004a87cd028975744d389bfafc85",
+  "method": "No application timings or reference analyses were rerun. Independently regenerated all inputs with itertools.combinations and one RNG stream per size/seed; independently recomputed quartiles with statistics.quantiles and paired speedups with statistics.geometric_mean. Strict CSV validation used the tested existing validator against recorded reference results.",
+  "checks": {
+    "matrix_12_groups_of_20": true,
+    "unique_graphs_240": true,
+    "input_hashes_and_metadata": true,
+    "current_and_committed_source_hashes": true,
+    "binary_reference_and_helper_hashes": true,
+    "completed_outputs_revalidated": true,
+    "paired_csv_identity": true,
+    "reference_histogram_consistency": true,
+    "execution_order_and_cpu_records": true,
+    "timeout_classification": true,
+    "independently_recomputed_aggregate_statistics": true,
+    "report_completion_flags": true,
+    "markdown_matches_verified_data": true,
+    "plot_contains_480_observations": true
+  },
+  "counts": {
+    "before": {
+      "ok": 200,
+      "timeout": 40
+    },
+    "after": {
+      "ok": 237,
+      "timeout": 3
+    }
+  },
+  "completed_pairs": 200,
+  "all_optimized_cases_completed": false,
+  "verified_files_sha256": {
+    "build/performance/baseline-source/main.cpp": "8b8ac7e047b2a43b59b3cd8355253fc743b7d893d67f08fece3b168f9dfec9c2",
+    "build/performance/baseline-source/flags.h": "6a5ace505f0a097fe125fa99add443b176a04747ee14ecefe109a30d2dbecb21",
+    "build/performance/baseline-source/input.h": "2dda53c6c93f956bac0dd6dd08d616cf70f85f190a3f588a5907b750c8548dc9",
+    "main.cpp": "dbd62658ccec3593cd079c94b956444974e94a36ede19885fe0741ca09985594",
+    "flags.h": "6a5ace505f0a097fe125fa99add443b176a04747ee14ecefe109a30d2dbecb21",
+    "input.h": "2dda53c6c93f956bac0dd6dd08d616cf70f85f190a3f588a5907b750c8548dc9",
+    "build/performance/SGB-before": "0df843d9e256be479a066304af087c0b99cd782b52e99a19cfddb87f447d6979",
+    "build/SGB": "a0f78f0e7cc69076413ccd0b2dc41fec8f5476abf0b437b395954d9270d27f90",
+    "build/sgb-reference-large": "8f55fd0a7bf1b64ef6fafb1e7c5cfbf3d636f5bd30756aea23f1b5f33253b215",
+    "benchmarks/reference_large.cpp": "5470b3e650478f714fa3ac94e0fa984265739510ad93788c329f0d466ac1fd34",
+    "benchmarks/performance_ensemble.py": "9c516aedbd2bd79de20ade0f3a8dac171892c796321706e2340e54dfc6a95268",
+    "benchmarks/performance_large.py": "1d1023d96a72752d274c9987de4d73ff529b5a6827185c21db7d2f1bd1dc582d",
+    "benchmarks/performance.py": "7962c58811379765d59a4e2b5afadd8f8802bc81bc1b0ef3b84e42a49835a837",
+    "benchmarks/run.py": "00915b6220605cfdbeaf50c8c834558b8a32b237ac7240727e59c788dcb5af06"
+  },
+  "documented_artifacts_sha256": {
+    "audit/performance-ensemble.md": "4bf3996fe7450a84011e5158099f157f3fc248008fb83f7c0c8276ca5b015319",
+    "audit/performance-ensemble.svg": "0eb191e7c70c330c206f8adea93bbc46b0afa24fa3bef6d26fc0bfd75589dd59",
+    "benchmarks/report_ensemble.py": "c53badb7aae204eaeb8072c82eba55d68976163a96981f84f0241de17cf91829"
+  },
+  "regenerated_inputs": [
+    {
+      "name": "er_n1000_p0.0025_sample01",
+      "input_sha256": "dc15be6cd9b56e34aa007b710a105917c4f2e2650fa1251e0aeb754fd2dc498a",
+      "edges": 1208
+    },
+    {
+      "name": "er_n1000_p0.005_sample01",
+      "input_sha256": "46ba7f12e9cc24a566701a2312983f140a51aba07e4d6e62383b3f98c0d2eb7f",
+      "edges": 2482
+    },
+    {
+      "name": "er_n1000_p0.0075_sample01",
+      "input_sha256": "7484aa38bc9beb15e1f4026b80049be45443971df50ead1632366b2c960d6488",
+      "edges": 3755
+    },
+    {
+      "name": "er_n1000_p0.01_sample01",
+      "input_sha256": "528bb2897b65c25b93a94ef3f769df3d3c21ad34590ca1e5ec7496ff9296940f",
+      "edges": 4961
+    },
+    {
+      "name": "er_n1000_p0.0125_sample01",
+      "input_sha256": "10251286a59963791fce96b8126905d48056b0b3c7c146c6f8f8115a625a361e",
+      "edges": 6235
+    },
+    {
+      "name": "er_n1000_p0.015_sample01",
+      "input_sha256": "db8138dfcb03d4f53bc3a7d2bbe385b922542029390ffcfab739045f44f2474d",
+      "edges": 7513
+    },
+    {
+      "name": "er_n1000_p0.0025_sample02",
+      "input_sha256": "abe16ae8a88a4b0bb7f1b24b91fa6556b376c51921070a2ade93f2e43018fcd0",
+      "edges": 1195
+    },
+    {
+      "name": "er_n1000_p0.005_sample02",
+      "input_sha256": "96669020ab023a7fe79628639122dea6ed34d8b30c978fc90b1ff60ecdbeabcc",
+      "edges": 2421
+    },
+    {
+      "name": "er_n1000_p0.0075_sample02",
+      "input_sha256": "9798fe1d80ddaf356c6d0185309eae6fe23ce63b86e698d5f59d51f0a586781b",
+      "edges": 3737
+    },
+    {
+      "name": "er_n1000_p0.01_sample02",
+      "input_sha256": "3644ee14ca783417ad5d3ed48f1cf403ad6aaf72e36e22b1f830b4959d369b32",
+      "edges": 4999
+    },
+    {
+      "name": "er_n1000_p0.0125_sample02",
+      "input_sha256": "cd1c55abcef5a58d01fdf842caf86f1569c6b2c75f7eaff61246f42c71ae3b87",
+      "edges": 6224
+    },
+    {
+      "name": "er_n1000_p0.015_sample02",
+      "input_sha256": "952f0f43cd1a237874246b051f9b2ffbaeab674455af4d4c0476994c8d252aae",
+      "edges": 7466
+    },
+    {
+      "name": "er_n1000_p0.0025_sample03",
+      "input_sha256": "e8e9001de8f8b43464dba01813aacd6209bbb2a6a5ba03b6acfd3257e97020e6",
+      "edges": 1333
+    },
+    {
+      "name": "er_n1000_p0.005_sample03",
+      "input_sha256": "e54324fef6341dc4dbbf5541af3ed9251eb4069cc4171b7635593403fdaa4287",
+      "edges": 2630
+    },
+    {
+      "name": "er_n1000_p0.0075_sample03",
+      "input_sha256": "617119709ff4035dcb763dd8b0971213157df043febaaef5c83e31a21a556ba6",
+      "edges": 3929
+    },
+    {
+      "name": "er_n1000_p0.01_sample03",
+      "input_sha256": "30d9ae0346c03b879ef02c0f876826358bde0a3c5bdc1cf57e257ddb5617bd03",
+      "edges": 5087
+    },
+    {
+      "name": "er_n1000_p0.0125_sample03",
+      "input_sha256": "82d477659ad196dce80dee14dc6a899105391a4c9d1e9916abd061ed4c7d7cde",
+      "edges": 6319
+    },
+    {
+      "name": "er_n1000_p0.015_sample03",
+      "input_sha256": "450e2044458e661ef093295613ace29edb700847c79f26d7b51d8fa5c16288b8",
+      "edges": 7519
+    },
+    {
+      "name": "er_n1000_p0.0025_sample04",
+      "input_sha256": "afb218d87bb440579475c2752ad9851e98ea3653eba31fae2a8a50b8875ecf5d",
+      "edges": 1302
+    },
+    {
+      "name": "er_n1000_p0.005_sample04",
+      "input_sha256": "13ba24b541b03f32791604849309986e2034aa505d6bce3c7ab2602fe7a5f59b",
+      "edges": 2593
+    },
+    {
+      "name": "er_n1000_p0.0075_sample04",
+      "input_sha256": "06e902cf8d7dc47dea216e71d9223066a274801521ba5bda2a83e3a0164a0fa6",
+      "edges": 3889
+    },
+    {
+      "name": "er_n1000_p0.01_sample04",
+      "input_sha256": "fe23a1db521204ecf05f6e72ec54435b1066c85e4a06a5fbf61f3d55f024ddd7",
+      "edges": 5126
+    },
+    {
+      "name": "er_n1000_p0.0125_sample04",
+      "input_sha256": "ac517a391f9a75374516ea990243e8508bf27e44800d81800d38e91517cc7cd5",
+      "edges": 6373
+    },
+    {
+      "name": "er_n1000_p0.015_sample04",
+      "input_sha256": "da3ef0acded622fab22fd5144c6ff99005be293729cb7dbb10ba6cdf12e1adfd",
+      "edges": 7666
+    },
+    {
+      "name": "er_n1000_p0.0025_sample05",
+      "input_sha256": "e91e70deebffbfcc3707135f94c1baac54ac1de7109e9be1da90040df436889a",
+      "edges": 1271
+    },
+    {
+      "name": "er_n1000_p0.005_sample05",
+      "input_sha256": "4526289bcb32595c64976f89b292c698d9030dd50966f175cc2ac1534adddecd",
+      "edges": 2449
+    },
+    {
+      "name": "er_n1000_p0.0075_sample05",
+      "input_sha256": "4116d1f79340b1c051957cad53431bf2d52af140b22d7085f437a67122443be7",
+      "edges": 3709
+    },
+    {
+      "name": "er_n1000_p0.01_sample05",
+      "input_sha256": "b1ad1128dd9e5f2ff0b41f603939038f9d38726f557ab3c48cf4b6237fdcfb48",
+      "edges": 4955
+    },
+    {
+      "name": "er_n1000_p0.0125_sample05",
+      "input_sha256": "962bedcfefa8e019fdb65cd128d77277b93b806cf230861400671cee3b2521c0",
+      "edges": 6241
+    },
+    {
+      "name": "er_n1000_p0.015_sample05",
+      "input_sha256": "70ff1466b8721f1334a500c5cc85bc07bca4dd8058638aae4e51f1dcecdadc8c",
+      "edges": 7494
+    },
+    {
+      "name": "er_n1000_p0.0025_sample06",
+      "input_sha256": "d27bd4e307344fca34974dc047d0b78337e347477d802fb24bac1716c837a7e2",
+      "edges": 1259
+    },
+    {
+      "name": "er_n1000_p0.005_sample06",
+      "input_sha256": "8f8f0745a2c2b61c7ec678f3f315abc2736e2d5de5a597b4be5df19b0f9b4156",
+      "edges": 2521
+    },
+    {
+      "name": "er_n1000_p0.0075_sample06",
+      "input_sha256": "b214786b318ddcd9d2314e0bf4cc8869ea519a0269bf1259bbea8ca85d5a5554",
+      "edges": 3747
+    },
+    {
+      "name": "er_n1000_p0.01_sample06",
+      "input_sha256": "c51b5d9b7a59885ce745831423a1b766024f7c44cb22af979e8e123d98b7065d",
+      "edges": 5045
+    },
+    {
+      "name": "er_n1000_p0.0125_sample06",
+      "input_sha256": "01d4a490fe021ad6c02aab232a117a85ed0cb4e9e1fb32a47e5d7e2d61fd7bc6",
+      "edges": 6265
+    },
+    {
+      "name": "er_n1000_p0.015_sample06",
+      "input_sha256": "0128dbd2f90f940a0a22ffed08733738b169306d6da572de6ea83a2b222fb141",
+      "edges": 7494
+    },
+    {
+      "name": "er_n1000_p0.0025_sample07",
+      "input_sha256": "4890cde1d75d29aaddf936b702511f9bcc471ee4ba6f31f2af28fb1e1564941f",
+      "edges": 1286
+    },
+    {
+      "name": "er_n1000_p0.005_sample07",
+      "input_sha256": "def8e2c37918ca90270327e9798b0df4e5bb3f4417ffb0cfa3d31ea1de4083ca",
+      "edges": 2538
+    },
+    {
+      "name": "er_n1000_p0.0075_sample07",
+      "input_sha256": "7cfff5a8d5cea7306d2726072663a903b1f7236ff9e235351b0af5164e8c7ef6",
+      "edges": 3746
+    },
+    {
+      "name": "er_n1000_p0.01_sample07",
+      "input_sha256": "2754156566fff4758864a8316557f97550f83c936ab8b014e9ebbbc064ae008c",
+      "edges": 4978
+    },
+    {
+      "name": "er_n1000_p0.0125_sample07",
+      "input_sha256": "9251fff654e5f5dc2d79ac428cca4e85a6359cb8a9dea00d5c668876d606b803",
+      "edges": 6189
+    },
+    {
+      "name": "er_n1000_p0.015_sample07",
+      "input_sha256": "69deca102e1ff167021924a57dbe99cf1c768ac84ed6c31c2cca22daad511325",
+      "edges": 7396
+    },
+    {
+      "name": "er_n1000_p0.0025_sample08",
+      "input_sha256": "2f5d373e5bd4743d19fd2eaa0d158a0eff767cb96cd23f321833da6c84ab6bac",
+      "edges": 1272
+    },
+    {
+      "name": "er_n1000_p0.005_sample08",
+      "input_sha256": "4d9da6dd2b8a0247edc2801fed69558f138e1ac3416cc0eaba436af9367b2885",
+      "edges": 2528
+    },
+    {
+      "name": "er_n1000_p0.0075_sample08",
+      "input_sha256": "68e0b6ef79bb96023667cedb17d03ec31eeabc5d70654ec43cfa217a17b5f3b7",
+      "edges": 3727
+    },
+    {
+      "name": "er_n1000_p0.01_sample08",
+      "input_sha256": "a93f25b7c31c2f1a140f97d1b9f221b4d8c401ddc32bbc3c5edded6f463bc51c",
+      "edges": 5012
+    },
+    {
+      "name": "er_n1000_p0.0125_sample08",
+      "input_sha256": "d63cff068d2c52117d4e6a09eb1c16d57a7815e92f1551ee139f5f3146d0dc66",
+      "edges": 6263
+    },
+    {
+      "name": "er_n1000_p0.015_sample08",
+      "input_sha256": "24019192485171803d45ff792c238a1cfaeb90b4100528e94603679fdcf06072",
+      "edges": 7429
+    },
+    {
+      "name": "er_n1000_p0.0025_sample09",
+      "input_sha256": "285026875b5f23b55f3ae1462ff32593662c54bbb08e6b3dca0ed4f586e2cdd1",
+      "edges": 1272
+    },
+    {
+      "name": "er_n1000_p0.005_sample09",
+      "input_sha256": "aa54346d5f0ca761b2143b607c6b18b39cf9b2ecf2e8e8b6714a4f4030a315b1",
+      "edges": 2521
+    },
+    {
+      "name": "er_n1000_p0.0075_sample09",
+      "input_sha256": "c87125ebd50e6601dbb4515eb979b709836566098b64ad7f25c37071d6f21351",
+      "edges": 3687
+    },
+    {
+      "name": "er_n1000_p0.01_sample09",
+      "input_sha256": "f70f5debd27dba1a2a0fe442760f02d96f6268fa6ed1bfac852c2f37078a97dd",
+      "edges": 4893
+    },
+    {
+      "name": "er_n1000_p0.0125_sample09",
+      "input_sha256": "9f0ff51552f130993624a84691115bda863d2065833f86be7776792576334431",
+      "edges": 6182
+    },
+    {
+      "name": "er_n1000_p0.015_sample09",
+      "input_sha256": "f0e7210ed593205face50eafbd6525806979642b25fd9e870e0061e901b19d14",
+      "edges": 7455
+    },
+    {
+      "name": "er_n1000_p0.0025_sample10",
+      "input_sha256": "531189bcc7ce05d2a53e09d7f5d52e1243cf233a21dca00f7a3158d348b7507b",
+      "edges": 1225
+    },
+    {
+      "name": "er_n1000_p0.005_sample10",
+      "input_sha256": "805313ac1035b0c21407b5e944fe3c724a125c438085a00c74a932b4eb31e12c",
+      "edges": 2476
+    },
+    {
+      "name": "er_n1000_p0.0075_sample10",
+      "input_sha256": "d4c4a00f241ee9671f1bfc19eab795862fd4f2df785c6c5d9f0907700111109c",
+      "edges": 3793
+    },
+    {
+      "name": "er_n1000_p0.01_sample10",
+      "input_sha256": "484928708be72a3b80ea8cf5d011195a0165de4c66bef9739932ca0e2171f543",
+      "edges": 4989
+    },
+    {
+      "name": "er_n1000_p0.0125_sample10",
+      "input_sha256": "d1ff1dcbf768f1ec7ce29f2129e07517094b62e342c40254d79c82bf704f6946",
+      "edges": 6201
+    },
+    {
+      "name": "er_n1000_p0.015_sample10",
+      "input_sha256": "9c427a20482d719b5172aa944ed641766b51693014d311723eb67dadcff71324",
+      "edges": 7384
+    },
+    {
+      "name": "er_n1000_p0.0025_sample11",
+      "input_sha256": "e305072c99ceb74be29f17bba53097c6267f9f1a55758cbe7e40c91798c26657",
+      "edges": 1259
+    },
+    {
+      "name": "er_n1000_p0.005_sample11",
+      "input_sha256": "9a0352ddb2c34ebc5ad2a819e8105e7268c80a45e4ef3cf763a97104eb9f1dad",
+      "edges": 2472
+    },
+    {
+      "name": "er_n1000_p0.0075_sample11",
+      "input_sha256": "0c72539717566a50c51e335d66cb7de51ba38cc326c10de92ea2787764212fef",
+      "edges": 3797
+    },
+    {
+      "name": "er_n1000_p0.01_sample11",
+      "input_sha256": "731cc85b27cfbbab1a2cb1b04c0685b7d9b576ff36bc515191cdc013b85b6df6",
+      "edges": 5024
+    },
+    {
+      "name": "er_n1000_p0.0125_sample11",
+      "input_sha256": "454d5e655ba9d670e443ff85f55e753eb0d6283acb6305ba28022e6a361b96ad",
+      "edges": 6276
+    },
+    {
+      "name": "er_n1000_p0.015_sample11",
+      "input_sha256": "fdad7fe97f7d291e6898ad123e6a52fc44c1f972ee2c644b1321a8e5e7e228c3",
+      "edges": 7582
+    },
+    {
+      "name": "er_n1000_p0.0025_sample12",
+      "input_sha256": "9eaee88c236c1b175457623880b4320c9ea343b916d07228b6bfbcb20bcef87a",
+      "edges": 1269
+    },
+    {
+      "name": "er_n1000_p0.005_sample12",
+      "input_sha256": "154d58f1ff386ae7e1b3dffe0bdda7b7d143e042324253311f24611c31319d01",
+      "edges": 2504
+    },
+    {
+      "name": "er_n1000_p0.0075_sample12",
+      "input_sha256": "ca59f59168c29462ee9ccf0d7fa15900adeb0e624a3f707382352d72bd357df7",
+      "edges": 3717
+    },
+    {
+      "name": "er_n1000_p0.01_sample12",
+      "input_sha256": "cc8a1d3a6c421f44a6f679eca76cd1ccd2230dacaee8db1909bb9cb32a2c9fee",
+      "edges": 4949
+    },
+    {
+      "name": "er_n1000_p0.0125_sample12",
+      "input_sha256": "375debee66b101128601a040ade4d220e6eb439c72bf98ceee4e342553d7e01c",
+      "edges": 6164
+    },
+    {
+      "name": "er_n1000_p0.015_sample12",
+      "input_sha256": "f74e7654ead2fc0e1a225814cbd1ec743fc190cd2df2da613cae1ce03bb4098c",
+      "edges": 7390
+    },
+    {
+      "name": "er_n1000_p0.0025_sample13",
+      "input_sha256": "fb76d660c7470b2ebdfdf3e4c2a5529b55d6e38eb26c3d34d93b27ad0f390580",
+      "edges": 1249
+    },
+    {
+      "name": "er_n1000_p0.005_sample13",
+      "input_sha256": "8f5e6b995eaaceaf3c9d208479884b558d4075fb19d52a6dd99ae694c6568edd",
+      "edges": 2536
+    },
+    {
+      "name": "er_n1000_p0.0075_sample13",
+      "input_sha256": "ed884d1d7b54db56a38b137a24f78fd50bc8732b338a2f18774e14d72e09a2e4",
+      "edges": 3819
+    },
+    {
+      "name": "er_n1000_p0.01_sample13",
+      "input_sha256": "6276432de68d79e398a01730d06e4a862f38992158740e152f3c6107152e5883",
+      "edges": 5085
+    },
+    {
+      "name": "er_n1000_p0.0125_sample13",
+      "input_sha256": "d8ef46b73417d0adfcd83680e6e8d3e7284783863f574dab54ea799e1a9b82d9",
+      "edges": 6362
+    },
+    {
+      "name": "er_n1000_p0.015_sample13",
+      "input_sha256": "37a1c407ea0e2e17d2998776d6653c1bd133687e94823174dcdfeefa4ddb2c69",
+      "edges": 7609
+    },
+    {
+      "name": "er_n1000_p0.0025_sample14",
+      "input_sha256": "eed5ee59c7ec2c59ffbd56b37fbebe29609cdc47b4e2a081bd02096a565a612f",
+      "edges": 1262
+    },
+    {
+      "name": "er_n1000_p0.005_sample14",
+      "input_sha256": "4d575aa5aaede68832e6cb47a601e9992be2333f3168c3398fedbb9b56325428",
+      "edges": 2447
+    },
+    {
+      "name": "er_n1000_p0.0075_sample14",
+      "input_sha256": "9afa714b5c1dcb9b9fc7303025fde574ff3972a80b4b3b69e46a132cb66be99a",
+      "edges": 3656
+    },
+    {
+      "name": "er_n1000_p0.01_sample14",
+      "input_sha256": "a3fdb187e96aba4d4798a4081201862c37b24e219f6d56d06688308c48cd80ca",
+      "edges": 4890
+    },
+    {
+      "name": "er_n1000_p0.0125_sample14",
+      "input_sha256": "7fb523ad3fe24912d7d02a3ab9c60534f741f1221a559cba2f32c29f46634773",
+      "edges": 6105
+    },
+    {
+      "name": "er_n1000_p0.015_sample14",
+      "input_sha256": "8ab3ead567e4a0cf00610016246df0b7fafbe6f8876b4d1ba68f445de19c2e9e",
+      "edges": 7385
+    },
+    {
+      "name": "er_n1000_p0.0025_sample15",
+      "input_sha256": "1d943e410ff860fd83bca4b7c3b9c462f3c2713f224887a64b7d103c3eaaca90",
+      "edges": 1270
+    },
+    {
+      "name": "er_n1000_p0.005_sample15",
+      "input_sha256": "3216927224864a9cbe60397e678f638f6f65cb4d9220f418fb74ec385e55bf95",
+      "edges": 2505
+    },
+    {
+      "name": "er_n1000_p0.0075_sample15",
+      "input_sha256": "b7e8b014d428a3cf6420664061912547bf96fc8abfec040ef218824046774361",
+      "edges": 3765
+    },
+    {
+      "name": "er_n1000_p0.01_sample15",
+      "input_sha256": "27f05b9255cd4147060844ff93780fed2ef8fc4955645d423b76132cfeb08747",
+      "edges": 5017
+    },
+    {
+      "name": "er_n1000_p0.0125_sample15",
+      "input_sha256": "735fe4fd6250b0e5e4f87e4b0550f903daa7eb6468f19f187e4aba55eb567e7d",
+      "edges": 6254
+    },
+    {
+      "name": "er_n1000_p0.015_sample15",
+      "input_sha256": "6b4a3b271c4edf25cef0cd8aa552511bb113328b6a729c104f32fe3c16d37429",
+      "edges": 7449
+    },
+    {
+      "name": "er_n1000_p0.0025_sample16",
+      "input_sha256": "0c5a8909c4f60b84a6c5c01c857d9e918edcee274ba2bdeb2d218a835bd3927e",
+      "edges": 1314
+    },
+    {
+      "name": "er_n1000_p0.005_sample16",
+      "input_sha256": "029c252490f533f1beded4d411a7b69102516663bf5ba561565b76ea4521a642",
+      "edges": 2592
+    },
+    {
+      "name": "er_n1000_p0.0075_sample16",
+      "input_sha256": "af2e4c708f2a3f09e62b8958ff74a5d6a4f37fdceedd8e6991f05f653d4e0303",
+      "edges": 3849
+    },
+    {
+      "name": "er_n1000_p0.01_sample16",
+      "input_sha256": "7325a2bd10153874eb81d005b64598d7ada5a65aaf3b40b11863150d9b7a36e6",
+      "edges": 5095
+    },
+    {
+      "name": "er_n1000_p0.0125_sample16",
+      "input_sha256": "481881dc3dadf9477b5677f93794164d3bf37ab8d771dadc8e1157c26138d953",
+      "edges": 6275
+    },
+    {
+      "name": "er_n1000_p0.015_sample16",
+      "input_sha256": "5eb76473fa40e9635d63539d454f3d1f96858b17a9a0ff3b8f7ad88d6b411b17",
+      "edges": 7522
+    },
+    {
+      "name": "er_n1000_p0.0025_sample17",
+      "input_sha256": "b2adfc43e018f36cf222d7ff86f7c6ef4b5e551c72aff2e7598592ff66487f20",
+      "edges": 1248
+    },
+    {
+      "name": "er_n1000_p0.005_sample17",
+      "input_sha256": "66ecf19ae8b13a9c1f289b55462ba50e7490a137c7bd371a3717e9f12fd026b4",
+      "edges": 2477
+    },
+    {
+      "name": "er_n1000_p0.0075_sample17",
+      "input_sha256": "3ecd47fd46615a57c3229c926222433b2bdf66adac50e39d874ded0c7a950511",
+      "edges": 3738
+    },
+    {
+      "name": "er_n1000_p0.01_sample17",
+      "input_sha256": "55062fd447fe7a5dc84ab86b46773f3faa2c4d2f474bdfafa566a25dedbff4f4",
+      "edges": 5051
+    },
+    {
+      "name": "er_n1000_p0.0125_sample17",
+      "input_sha256": "e817abee8439d71347697e89b2410ddfd3efec78ff3f118e67c91dbb51a20322",
+      "edges": 6278
+    },
+    {
+      "name": "er_n1000_p0.015_sample17",
+      "input_sha256": "85755eaf83b5b1f5f62d31dcad52c49026ea695f02b4ad82e9708f01e2e523c9",
+      "edges": 7473
+    },
+    {
+      "name": "er_n1000_p0.0025_sample18",
+      "input_sha256": "36a0860be29821e247b660203471179ade8e7e38922576521707a0cb8c1206cf",
+      "edges": 1192
+    },
+    {
+      "name": "er_n1000_p0.005_sample18",
+      "input_sha256": "0d9c8d22ca25e08e5b886b3d646394559375702b5b33b7f0ca25396b90528239",
+      "edges": 2416
+    },
+    {
+      "name": "er_n1000_p0.0075_sample18",
+      "input_sha256": "a1b68d02ee75b6b99e6382e536fa3c3eb76c1aa2ddab2e49981f518b5e3dc67a",
+      "edges": 3698
+    },
+    {
+      "name": "er_n1000_p0.01_sample18",
+      "input_sha256": "54ce1aac82d5ab6d6fd5479a76a0c7852334518d7fa04b23e481696f3a8e1613",
+      "edges": 4977
+    },
+    {
+      "name": "er_n1000_p0.0125_sample18",
+      "input_sha256": "cbfd18288cfc224be900e7d9165a89c6a87444f0865174c3dbcec6aee3aed806",
+      "edges": 6187
+    },
+    {
+      "name": "er_n1000_p0.015_sample18",
+      "input_sha256": "3bd6a89f964658970ab57bbc68e6445fe33fc6aee2ec6e35dfe3a24d5688259a",
+      "edges": 7470
+    },
+    {
+      "name": "er_n1000_p0.0025_sample19",
+      "input_sha256": "bb2270b7c91e8419dc97528f38fbb9a6286f750fdfa1ea1beeaf2f0c72541cd1",
+      "edges": 1260
+    },
+    {
+      "name": "er_n1000_p0.005_sample19",
+      "input_sha256": "0c8392d9de7d66e262ad2c2071f7165ed948cc3d8b7859f425cd1e8bee817252",
+      "edges": 2571
+    },
+    {
+      "name": "er_n1000_p0.0075_sample19",
+      "input_sha256": "76daeab660b45c480625e6c9c6d11fc54d08e2d9ad43a8037cd996de84def946",
+      "edges": 3797
+    },
+    {
+      "name": "er_n1000_p0.01_sample19",
+      "input_sha256": "93f237b74da6eb25600105e65299182c3b632055044cb0f973012f3de8c93de3",
+      "edges": 5015
+    },
+    {
+      "name": "er_n1000_p0.0125_sample19",
+      "input_sha256": "c64e88d4eeb6066ae87e7778392d3501646dcbd17b0a07d361340621e3afa377",
+      "edges": 6261
+    },
+    {
+      "name": "er_n1000_p0.015_sample19",
+      "input_sha256": "cfd558245310061afb28564879ac51c31a40527958456ca3ff40f97b28fdb90e",
+      "edges": 7511
+    },
+    {
+      "name": "er_n1000_p0.0025_sample20",
+      "input_sha256": "b426b8f4d60d796d3ccd48a8f2356ac92bc49754850a98f02dd6d08cb9742725",
+      "edges": 1293
+    },
+    {
+      "name": "er_n1000_p0.005_sample20",
+      "input_sha256": "d2d9ba1c6301f1a14ca0bcb0f3ef4a9a7c52e938ad50fc5f7b74dd9e0c83d355",
+      "edges": 2555
+    },
+    {
+      "name": "er_n1000_p0.0075_sample20",
+      "input_sha256": "323624c50ef2b5c215325416c7da52f5f175787932aa7ac41eb8ddeccf972085",
+      "edges": 3824
+    },
+    {
+      "name": "er_n1000_p0.01_sample20",
+      "input_sha256": "b7168f4a379ebd14c4e64d7e567c0e913285c7259a3deee7eb4c9aeec65bae43",
+      "edges": 5117
+    },
+    {
+      "name": "er_n1000_p0.0125_sample20",
+      "input_sha256": "7722f88e2d22a9e2756b8cec245d1bd214be2388a810b631dc0e39f00b59d538",
+      "edges": 6396
+    },
+    {
+      "name": "er_n1000_p0.015_sample20",
+      "input_sha256": "20b4845d351ff309ebf3de754a4412c3bd0d8d3b1a0df864f38897e96f3abf40",
+      "edges": 7639
+    },
+    {
+      "name": "er_n3000_p0.0025_sample01",
+      "input_sha256": "a5044fc5bf3892c36de022b3090b2b97f6919f617b82b6282fade356989c0a2e",
+      "edges": 11110
+    },
+    {
+      "name": "er_n3000_p0.005_sample01",
+      "input_sha256": "5baef556d10e54afd97a711d40d2e85e8c0516841d035097b5b1c554f83756d2",
+      "edges": 22391
+    },
+    {
+      "name": "er_n3000_p0.0075_sample01",
+      "input_sha256": "3fc5df8a6efcf817d7aa6ba412bbe85de0b899ef4a15b4d1588f9acdcea4d132",
+      "edges": 33621
+    },
+    {
+      "name": "er_n3000_p0.01_sample01",
+      "input_sha256": "f04f6b1dea94c5d302c1883f2945c181a752810c6f28c6b31791cfc7e233f81c",
+      "edges": 44944
+    },
+    {
+      "name": "er_n3000_p0.0125_sample01",
+      "input_sha256": "2e4fb4d2ac52dfc6f05449ab466b1608f5b27405a5c41602f5357682418d4c48",
+      "edges": 56141
+    },
+    {
+      "name": "er_n3000_p0.015_sample01",
+      "input_sha256": "f2e34b7de1d8261154713200655a16d245e71707adacdd153a802dfda7c10d6c",
+      "edges": 67187
+    },
+    {
+      "name": "er_n3000_p0.0025_sample02",
+      "input_sha256": "5216d815428587ca484034a15bf269c5509735f3ea37ed53fa4df7a8f688aec4",
+      "edges": 11270
+    },
+    {
+      "name": "er_n3000_p0.005_sample02",
+      "input_sha256": "5612d1a2b08e89f74a80a28eb01bccf16a477675672a1c925212cbe59b408976",
+      "edges": 22650
+    },
+    {
+      "name": "er_n3000_p0.0075_sample02",
+      "input_sha256": "9a047f09829cbbcde0119e1f076bdaa7b2bd57a30043937b1d05b28796b12ae4",
+      "edges": 34022
+    },
+    {
+      "name": "er_n3000_p0.01_sample02",
+      "input_sha256": "e6f4179c399e5aca2df7e817107ebf50e099379d1639aaa5f48ac9436e300865",
+      "edges": 45284
+    },
+    {
+      "name": "er_n3000_p0.0125_sample02",
+      "input_sha256": "7b9cdcc4a318f759694e10be0e09821116b41d1e90f263b039e54c9cd238a75e",
+      "edges": 56402
+    },
+    {
+      "name": "er_n3000_p0.015_sample02",
+      "input_sha256": "9603a8f7f7beae3b27dbfec826fff49a816599ba440a9c3b49a46712a3b47a20",
+      "edges": 67636
+    },
+    {
+      "name": "er_n3000_p0.0025_sample03",
+      "input_sha256": "76d38e75d66caca8fee328723a3231ab238a1672c785101fbb5c71b13823a219",
+      "edges": 11174
+    },
+    {
+      "name": "er_n3000_p0.005_sample03",
+      "input_sha256": "f90aa3d80470d8d92a97f00793e3f831180cfbde3a8e6853dc1f1ac8849c60fa",
+      "edges": 22367
+    },
+    {
+      "name": "er_n3000_p0.0075_sample03",
+      "input_sha256": "bc0da6298c2738b33e6ca6697990289deb7aaffa1f504a623db8a04e980ee77d",
+      "edges": 33618
+    },
+    {
+      "name": "er_n3000_p0.01_sample03",
+      "input_sha256": "df6decd50d34f64569f330b9a2420823a5425f3b241285577deb7300dcaa52a6",
+      "edges": 44851
+    },
+    {
+      "name": "er_n3000_p0.0125_sample03",
+      "input_sha256": "ca8e7b448a5602fc1e07c8f37cb054e3350a4664f8a1be5d687bfc432efa8b9c",
+      "edges": 55848
+    },
+    {
+      "name": "er_n3000_p0.015_sample03",
+      "input_sha256": "98643a49795c7352ee94c6209049078497477bdaf0920e47fafcafedf6ddc331",
+      "edges": 66901
+    },
+    {
+      "name": "er_n3000_p0.0025_sample04",
+      "input_sha256": "7859548e2c958834afed9d20b588c82f43a17b96184447ef5c4e97cb60522fe3",
+      "edges": 11192
+    },
+    {
+      "name": "er_n3000_p0.005_sample04",
+      "input_sha256": "f2235b4a0000bc529f4b43c8ae6932456bbece361d3ee379d52e087a2c180894",
+      "edges": 22576
+    },
+    {
+      "name": "er_n3000_p0.0075_sample04",
+      "input_sha256": "6f6e27d7a84c2fb3944c42ea3b865ae1173c1cbdcdcfdf1720e77fccbfb4e46d",
+      "edges": 33691
+    },
+    {
+      "name": "er_n3000_p0.01_sample04",
+      "input_sha256": "c2f26d525029d7ef40398b3a96e7074636c3c0e4e7a383d138bd1e55a0d184b7",
+      "edges": 45033
+    },
+    {
+      "name": "er_n3000_p0.0125_sample04",
+      "input_sha256": "a0ebaaa9dc8819f02bdb06f15dcd08cbbb458e89bd878f996cecce3a744a7eb9",
+      "edges": 56324
+    },
+    {
+      "name": "er_n3000_p0.015_sample04",
+      "input_sha256": "e4dd363a34e45b539b23075076544cf898d3dd41830832c96953c241929db144",
+      "edges": 67584
+    },
+    {
+      "name": "er_n3000_p0.0025_sample05",
+      "input_sha256": "91f287216df963d3eeae93721d0b4b762035ff8bf844239566771ea1f422bbac",
+      "edges": 11254
+    },
+    {
+      "name": "er_n3000_p0.005_sample05",
+      "input_sha256": "b5e9253246d551d0120800223c2d403734bbb2ef2fbd01df5e3a687f906d3dbf",
+      "edges": 22264
+    },
+    {
+      "name": "er_n3000_p0.0075_sample05",
+      "input_sha256": "631f6fdddbc696478dcdc57e9bf63adff90815ef2b77e39146c2017beeaf8488",
+      "edges": 33498
+    },
+    {
+      "name": "er_n3000_p0.01_sample05",
+      "input_sha256": "1b7ff94056f128e211f6ccc9ba464f3d9e243d00ad63eed5c8dbe00ddb9bdb57",
+      "edges": 44794
+    },
+    {
+      "name": "er_n3000_p0.0125_sample05",
+      "input_sha256": "5d7de7f9fd7315c213d8772ea1b9f2237d6be8afcdc1a4f2ad6eeb3f84f90ae6",
+      "edges": 56006
+    },
+    {
+      "name": "er_n3000_p0.015_sample05",
+      "input_sha256": "6a084fff8d6c775c0bf14c8e15113207b1dd392fa8ababd9e6a3c9f06aaf620d",
+      "edges": 67316
+    },
+    {
+      "name": "er_n3000_p0.0025_sample06",
+      "input_sha256": "e9f59892d24408ce62d50a0eafc096b97185645358638ef5b43f7fb7af2e04d5",
+      "edges": 11323
+    },
+    {
+      "name": "er_n3000_p0.005_sample06",
+      "input_sha256": "5d830ca6224c0b3d59baadda08bfbbf1f73e675394aaa4a10462a17913b548e8",
+      "edges": 22679
+    },
+    {
+      "name": "er_n3000_p0.0075_sample06",
+      "input_sha256": "bc951f0fee04490d8279c3cea1064660d80dd1771d1dfe070ad0b12441576123",
+      "edges": 33882
+    },
+    {
+      "name": "er_n3000_p0.01_sample06",
+      "input_sha256": "763c821bf440dcd158928f1ee9a6508550864dc1ba82c9a1f57b686dce0ac03c",
+      "edges": 45266
+    },
+    {
+      "name": "er_n3000_p0.0125_sample06",
+      "input_sha256": "aceb4a7936ebcd25123a99d9f5790150719975b0f31fe1189790f8cff9bfd770",
+      "edges": 56522
+    },
+    {
+      "name": "er_n3000_p0.015_sample06",
+      "input_sha256": "b03cf94a03ffb4c865e0c8e222ce8cdb5f00b33960679d0f1baf69f1df57e472",
+      "edges": 67710
+    },
+    {
+      "name": "er_n3000_p0.0025_sample07",
+      "input_sha256": "4cdca8d2109e65e14cbd530d83b53e28d6358acd2afbbeee8e963dc50ac127a4",
+      "edges": 11095
+    },
+    {
+      "name": "er_n3000_p0.005_sample07",
+      "input_sha256": "8ebe2a4422ae66c02a55b73476d96624555da33119f2ef8f1fcfa272aae293c3",
+      "edges": 22383
+    },
+    {
+      "name": "er_n3000_p0.0075_sample07",
+      "input_sha256": "525c0473425d342c8429d68e723063fffe193e20db28a3e0bc90bb834a440eae",
+      "edges": 33699
+    },
+    {
+      "name": "er_n3000_p0.01_sample07",
+      "input_sha256": "20742f16ff78087866ac3b0268d42fbad4ab30fb6f2bd63333058585fee5b12e",
+      "edges": 44939
+    },
+    {
+      "name": "er_n3000_p0.0125_sample07",
+      "input_sha256": "979fe4e77b7d3ff3e061bb23959f86cbe60f7a124594107dc69935c9458b0574",
+      "edges": 56296
+    },
+    {
+      "name": "er_n3000_p0.015_sample07",
+      "input_sha256": "7c708ff2faf345922147b1f87a397fb13817d1d84a68025db9ea8c857c233d1b",
+      "edges": 67696
+    },
+    {
+      "name": "er_n3000_p0.0025_sample08",
+      "input_sha256": "40a85d5b97edb16bf51fc8e2cb2922545308d55c0785603cc914f94b3d27bcd4",
+      "edges": 11323
+    },
+    {
+      "name": "er_n3000_p0.005_sample08",
+      "input_sha256": "fca60588fbe1929f9be6a5162fcfff904176fd6e00624ca000bc5d2233fd98b0",
+      "edges": 22597
+    },
+    {
+      "name": "er_n3000_p0.0075_sample08",
+      "input_sha256": "06fb250e8ce7470098343189d0645ddf45fdbf43b90165cf69b3ee5ba994534a",
+      "edges": 33766
+    },
+    {
+      "name": "er_n3000_p0.01_sample08",
+      "input_sha256": "91cf9e193f2d7e5c18b9de8417f16cfbc936de5068a37ce509b2cd550b6e890c",
+      "edges": 44990
+    },
+    {
+      "name": "er_n3000_p0.0125_sample08",
+      "input_sha256": "10e5a7677498eacda35b4107bc5937113ac87818e3a7b4279153e03f291d0966",
+      "edges": 56100
+    },
+    {
+      "name": "er_n3000_p0.015_sample08",
+      "input_sha256": "45032d797aeafa03c44e3ab9eb3e002f671a276678926c8c0a4d641663cbf04c",
+      "edges": 67341
+    },
+    {
+      "name": "er_n3000_p0.0025_sample09",
+      "input_sha256": "9b7e82423a211eefa3db41233ba68d30b6d6c24b3f7d00d4dc70cba22f105069",
+      "edges": 11123
+    },
+    {
+      "name": "er_n3000_p0.005_sample09",
+      "input_sha256": "be67d3a65efd65c38dfb2217ee4e27e6cf09d0d2fd6bc4b131bb281bf0346282",
+      "edges": 22315
+    },
+    {
+      "name": "er_n3000_p0.0075_sample09",
+      "input_sha256": "a9bd43887303da9c69eea421620a83df5674957649bac632a7932ed608ce471b",
+      "edges": 33548
+    },
+    {
+      "name": "er_n3000_p0.01_sample09",
+      "input_sha256": "01312625a8a63d44ca209e4500083f1e21da27c6f69b1a9810b8cb8a3c0745c6",
+      "edges": 44835
+    },
+    {
+      "name": "er_n3000_p0.0125_sample09",
+      "input_sha256": "83e7ad8d44de3e915c7e76d65c0855299e9132853640f126fc74f3b7fa073dc4",
+      "edges": 55935
+    },
+    {
+      "name": "er_n3000_p0.015_sample09",
+      "input_sha256": "8b8677cb5e3fd4f5ff9e12efb7e5fbbde81d0c4b9f71284ca19f43d19012eb1b",
+      "edges": 67232
+    },
+    {
+      "name": "er_n3000_p0.0025_sample10",
+      "input_sha256": "0097054194f41ba09f860d3c21de73b5830e903368a5c657d2605b2a627689c4",
+      "edges": 11316
+    },
+    {
+      "name": "er_n3000_p0.005_sample10",
+      "input_sha256": "93010b79882e03aa93a6e6b6cb2baf921dfe462ea78202297f8d9c1aacc6f2b2",
+      "edges": 22385
+    },
+    {
+      "name": "er_n3000_p0.0075_sample10",
+      "input_sha256": "9cae954d98126ffa75076d3bd0e25a4567e78b00f84e799196433159faf21981",
+      "edges": 33663
+    },
+    {
+      "name": "er_n3000_p0.01_sample10",
+      "input_sha256": "279e21584818b07ea69dfa157364c63b29656d27761945d569d137ff580ea114",
+      "edges": 44746
+    },
+    {
+      "name": "er_n3000_p0.0125_sample10",
+      "input_sha256": "fbc1269fbe029b9dd8d5b02c1efdd9504d71f80e72aa07d85ed4188b4678adc5",
+      "edges": 56057
+    },
+    {
+      "name": "er_n3000_p0.015_sample10",
+      "input_sha256": "9155e7a88bfa72e706cb40cb6d5ff0d2f75d02b709eca16ec1991e008acb7b1e",
+      "edges": 67168
+    },
+    {
+      "name": "er_n3000_p0.0025_sample11",
+      "input_sha256": "ee6d53d72bef718b80bad1421046ed91bff7e2e465079d2e4052f419c7551355",
+      "edges": 11191
+    },
+    {
+      "name": "er_n3000_p0.005_sample11",
+      "input_sha256": "49dfb72d3cb5abcc67182b04cda8ea4b3e0cf0f30c3ed75cd4b9f9643c012265",
+      "edges": 22472
+    },
+    {
+      "name": "er_n3000_p0.0075_sample11",
+      "input_sha256": "6a11014c18da8ae5d78011bd9cb14b77b32e403216ecaac5ab792d154ce139ff",
+      "edges": 33758
+    },
+    {
+      "name": "er_n3000_p0.01_sample11",
+      "input_sha256": "e69ac85511d3b0671acb3197cd8e8cffe996efccbbeea234754cb94fcccba199",
+      "edges": 44986
+    },
+    {
+      "name": "er_n3000_p0.0125_sample11",
+      "input_sha256": "61f881ad39a1bacdfee179b26be73e9a6050e0cc626399bb351bc8ee6bc59a32",
+      "edges": 56195
+    },
+    {
+      "name": "er_n3000_p0.015_sample11",
+      "input_sha256": "5fde165e2c322b9e266361838866af7a6865995cac94373fae919ee55998de2e",
+      "edges": 67270
+    },
+    {
+      "name": "er_n3000_p0.0025_sample12",
+      "input_sha256": "a9186532b885598d6666a40ddc146a1104ee5d750ef2aa540e1d5de16245dbc4",
+      "edges": 11278
+    },
+    {
+      "name": "er_n3000_p0.005_sample12",
+      "input_sha256": "9d70743c8df91d3f0b8f9dea894d58c36fa3bc644461ef4a1580b321492a2660",
+      "edges": 22492
+    },
+    {
+      "name": "er_n3000_p0.0075_sample12",
+      "input_sha256": "56d0660898eb1753e5fff504c0fa36d9257aa0085d866be32ddb92a125388cae",
+      "edges": 33629
+    },
+    {
+      "name": "er_n3000_p0.01_sample12",
+      "input_sha256": "b9c4c121f39f592237c8418968d45f4c974a6620d98b80d4d2b63d85519b1d50",
+      "edges": 44894
+    },
+    {
+      "name": "er_n3000_p0.0125_sample12",
+      "input_sha256": "393e7e67715540013a7b96357145ebc43d465db91968e1f319b9bcbe0420e1ea",
+      "edges": 56310
+    },
+    {
+      "name": "er_n3000_p0.015_sample12",
+      "input_sha256": "7c0d9a0de6464f0332336f8348fca48943f79a3a404a88d3dde66b104522d8f0",
+      "edges": 67545
+    },
+    {
+      "name": "er_n3000_p0.0025_sample13",
+      "input_sha256": "9ab836fa7ec9024d8f36a347b79bbf46d35f73d0e45a1a6673d714bf7a760c11",
+      "edges": 11379
+    },
+    {
+      "name": "er_n3000_p0.005_sample13",
+      "input_sha256": "4464d94676bca4fd78359cad5c8d2e9b92c9c314a6bda30c00d6c792df041e3f",
+      "edges": 22569
+    },
+    {
+      "name": "er_n3000_p0.0075_sample13",
+      "input_sha256": "3da6727ca82f70f44c94e063ce25355ba122f4adcfae69eb3641146fda8cb7f2",
+      "edges": 33789
+    },
+    {
+      "name": "er_n3000_p0.01_sample13",
+      "input_sha256": "fa876d4d55b53ccfea56a696005661dcb03253ed5a8751bf4df65c788a87e44c",
+      "edges": 45076
+    },
+    {
+      "name": "er_n3000_p0.0125_sample13",
+      "input_sha256": "21ab60996fcf5472f4d4c8876569cf13b886da4e902866b5b2ee4e34f2685c5a",
+      "edges": 56355
+    },
+    {
+      "name": "er_n3000_p0.015_sample13",
+      "input_sha256": "96da869f5173ba1e69da5d19d9bd28e039dafd34452e4ce08d57853a8ce77812",
+      "edges": 67579
+    },
+    {
+      "name": "er_n3000_p0.0025_sample14",
+      "input_sha256": "1676de5838f53e56aee91070ea896a3b9cfcf189fe5f1a025326e9db73e27afd",
+      "edges": 11140
+    },
+    {
+      "name": "er_n3000_p0.005_sample14",
+      "input_sha256": "fed37a7a24f9ef17f81725f1533dafefc4168d4e6163ca05fedd70367c504ba5",
+      "edges": 22405
+    },
+    {
+      "name": "er_n3000_p0.0075_sample14",
+      "input_sha256": "3fa5e20ad2f238a5b6bbfa4f20b6246946d0a38a1131b1a108bc146c441f15cb",
+      "edges": 33703
+    },
+    {
+      "name": "er_n3000_p0.01_sample14",
+      "input_sha256": "1f65c3e9287aa307ee7ce841d2dabf15a3bc850fb37c9d78447eadd1ea427789",
+      "edges": 45087
+    },
+    {
+      "name": "er_n3000_p0.0125_sample14",
+      "input_sha256": "9ce0b1cdfa5121bd017a3920b207b4a54db606fb519a243d2abba83f3e5b2233",
+      "edges": 56321
+    },
+    {
+      "name": "er_n3000_p0.015_sample14",
+      "input_sha256": "5d8bafaf8392e939c6e8a1cee09a77e7a33605a4f9828906c0281a7abd876f44",
+      "edges": 67768
+    },
+    {
+      "name": "er_n3000_p0.0025_sample15",
+      "input_sha256": "50a12e7c2161ba4eb4a04bf618509c99273a7454a4bf54220e7114f8043a5bbf",
+      "edges": 11217
+    },
+    {
+      "name": "er_n3000_p0.005_sample15",
+      "input_sha256": "a62f0736def57ddd558c59ea14bb8b9ab058f3b7043dac7be70abeecbcffd2eb",
+      "edges": 22531
+    },
+    {
+      "name": "er_n3000_p0.0075_sample15",
+      "input_sha256": "ad58d997d90b0e78c565fdd9a6a134560d252a34f923de75cc17e5d9a3df1865",
+      "edges": 33701
+    },
+    {
+      "name": "er_n3000_p0.01_sample15",
+      "input_sha256": "449e17cc4641c7356f0de847101b7ce07183ab80151786446bb3988304e20072",
+      "edges": 44880
+    },
+    {
+      "name": "er_n3000_p0.0125_sample15",
+      "input_sha256": "5819e0393ff50f4d49c3a57c2eb330d7c4b42c8baab5e62e55e010a30fdfac73",
+      "edges": 56354
+    },
+    {
+      "name": "er_n3000_p0.015_sample15",
+      "input_sha256": "4d1ce8eed1f2f604a85aad638fb338b4748f5ba0a225cc9cab90535e99627bba",
+      "edges": 67489
+    },
+    {
+      "name": "er_n3000_p0.0025_sample16",
+      "input_sha256": "b437c21ef5c26363deb0b58e423c85c979c0eb248dacf22c020e3218b1e424c6",
+      "edges": 10933
+    },
+    {
+      "name": "er_n3000_p0.005_sample16",
+      "input_sha256": "4506593ac911b4f423e03c6924386b8357987d3b50adf0c2935853d0f3e213ba",
+      "edges": 22344
+    },
+    {
+      "name": "er_n3000_p0.0075_sample16",
+      "input_sha256": "73966ac9ab75ed5840b796508b1dca0cad309523e67dc07490f477b5dd714b88",
+      "edges": 33419
+    },
+    {
+      "name": "er_n3000_p0.01_sample16",
+      "input_sha256": "034dd5d62b80ab1e1ea8d3fdc2b2c05d968b952b9521b48987a5cb6b267747fd",
+      "edges": 44619
+    },
+    {
+      "name": "er_n3000_p0.0125_sample16",
+      "input_sha256": "9e2c25475bcd58f3433facc7e90eef158e21408ffc247cab16452d36d87fc530",
+      "edges": 55802
+    },
+    {
+      "name": "er_n3000_p0.015_sample16",
+      "input_sha256": "b06407e8c33e5f8a7a8bd4e9d39c5d3683f951ac4d7151c875ca0a7c12e050ff",
+      "edges": 67154
+    },
+    {
+      "name": "er_n3000_p0.0025_sample17",
+      "input_sha256": "55377fc92821a616eedc8f385fcacbeeee5f4ba069efbdb3499872a5ba13e39e",
+      "edges": 11293
+    },
+    {
+      "name": "er_n3000_p0.005_sample17",
+      "input_sha256": "8a9a0c719ed1292c45cfa9eb8f046cd0b2a715ce95db3e103ad9f0f4b07338eb",
+      "edges": 22333
+    },
+    {
+      "name": "er_n3000_p0.0075_sample17",
+      "input_sha256": "17a5a414dccb5227048f16cb69f93745cad3562d9817ff2becac34f531515ac0",
+      "edges": 33754
+    },
+    {
+      "name": "er_n3000_p0.01_sample17",
+      "input_sha256": "2b8d6bd45cef8417cdc2e6bbdebaa703ec66aadbcc1c89b93bcf2284a278cc37",
+      "edges": 45068
+    },
+    {
+      "name": "er_n3000_p0.0125_sample17",
+      "input_sha256": "6e9438c03b5bd78cf413330abe47bfd744e47e928755a0065db6473e27e52acc",
+      "edges": 56391
+    },
+    {
+      "name": "er_n3000_p0.015_sample17",
+      "input_sha256": "121e97fe3d4287362f923af73e14f315da37c7bf0abbaff8892d22c97a4c4546",
+      "edges": 67803
+    },
+    {
+      "name": "er_n3000_p0.0025_sample18",
+      "input_sha256": "0de67f46c4333906e55bf951b82c4ab9f3ad6a6f63e0d61e7ad4687728d7d60d",
+      "edges": 11159
+    },
+    {
+      "name": "er_n3000_p0.005_sample18",
+      "input_sha256": "836df11379e7b3e08cbe0aba2b3ceb8c74b4b3c2b4d118f3bccf8ed7f336115b",
+      "edges": 22491
+    },
+    {
+      "name": "er_n3000_p0.0075_sample18",
+      "input_sha256": "eaf154beaf90eaf146d3642d775dd4d7837c7f13193b4cb0cf0754ebaf92ad1e",
+      "edges": 33738
+    },
+    {
+      "name": "er_n3000_p0.01_sample18",
+      "input_sha256": "a537d720960c3e78fdb6c3b5bf59426bac8a8bc86f0eca4051930f2a2e2cfc52",
+      "edges": 44693
+    },
+    {
+      "name": "er_n3000_p0.0125_sample18",
+      "input_sha256": "db61fe234b0eead02946a1f9c17b08eee83520fd305fb37249226c0d41ca4dab",
+      "edges": 55790
+    },
+    {
+      "name": "er_n3000_p0.015_sample18",
+      "input_sha256": "7bd11d7172319fc0a0c7924a5b80dedd675f79e3a96060da35aebd603880a700",
+      "edges": 67098
+    },
+    {
+      "name": "er_n3000_p0.0025_sample19",
+      "input_sha256": "83276777bcaff433815bf131c6fa6e71432099f93574006ddb98fe0345677838",
+      "edges": 11169
+    },
+    {
+      "name": "er_n3000_p0.005_sample19",
+      "input_sha256": "5fca37fbfe87559c411b17d5d6c971b2a8ce5c4edbe25ba7e48702f77fac356b",
+      "edges": 22347
+    },
+    {
+      "name": "er_n3000_p0.0075_sample19",
+      "input_sha256": "688fe1c9465372b9bf914da5b33e87b8c6885c1a121a1e2ef2c8da33d57f45b6",
+      "edges": 33783
+    },
+    {
+      "name": "er_n3000_p0.01_sample19",
+      "input_sha256": "0f3ccc428d4e5928e3d400de5c4e241e7731d8381d51d8217ffb14a430e0df27",
+      "edges": 45060
+    },
+    {
+      "name": "er_n3000_p0.0125_sample19",
+      "input_sha256": "5421071aaa32a6f5a91946b9da2e458d063aad605520e7a89d4dd79c8d827960",
+      "edges": 56235
+    },
+    {
+      "name": "er_n3000_p0.015_sample19",
+      "input_sha256": "e5ec0e4799698ccaaa66241200f1800e3bd22b5f529e4e72355e74ec29434bf2",
+      "edges": 67544
+    },
+    {
+      "name": "er_n3000_p0.0025_sample20",
+      "input_sha256": "4a0dda029a91a3ea8c623b7578a81fd8a210e2e07f85b4ec5904690d833e1006",
+      "edges": 11358
+    },
+    {
+      "name": "er_n3000_p0.005_sample20",
+      "input_sha256": "6a64aa785b0025aec3253ee03afcc5a257321536b46a524737cc45d8f6f36ff6",
+      "edges": 22668
+    },
+    {
+      "name": "er_n3000_p0.0075_sample20",
+      "input_sha256": "3025dd2673a5f98676958cc943d113794aa71ad373a218b81d0fa053ec2a119f",
+      "edges": 33938
+    },
+    {
+      "name": "er_n3000_p0.01_sample20",
+      "input_sha256": "5522fe60a40b5ed7d7e9f16a03efce474d9f91ea9b2fdfa0365ad2b6ed09b655",
+      "edges": 45289
+    },
+    {
+      "name": "er_n3000_p0.0125_sample20",
+      "input_sha256": "2fab03c2504ed35ce74032acadfc2b9efed3a24f923be25563d6911757f05d5d",
+      "edges": 56545
+    },
+    {
+      "name": "er_n3000_p0.015_sample20",
+      "input_sha256": "b8d7a12beea5ac429e0028b622d51609690fc35de40871f6bc56e3f5f6d9593e",
+      "edges": 67698
+    }
+  ],
+  "independent_groups": [
+    {
+      "vertices": 1000,
+      "probability": 0.0025,
+      "graphs": 20,
+      "before": {
+        "counts": {
+          "ok": 20,
+          "timeout": 0,
+          "allocation_failure_under_cap": 0,
+          "error": 0,
+          "other": 0
+        },
+        "completed_only": {
+          "median_seconds": 0.004629602481145412,
+          "p25_seconds": 0.004395689487864729,
+          "p75_seconds": 0.004913120515993796,
+          "min_seconds": 0.0034288379829376936,
+          "max_seconds": 0.006471913977293298
+        },
+        "quantiles": {
+          "p25": {
+            "kind": "exact",
+            "seconds": 0.004395689487864729
+          },
+          "median": {
+            "kind": "exact",
+            "seconds": 0.004629602481145412
+          },
+          "p75": {
+            "kind": "exact",
+            "seconds": 0.004913120515993796
+          }
+        }
+      },
+      "after": {
+        "counts": {
+          "ok": 20,
+          "timeout": 0,
+          "allocation_failure_under_cap": 0,
+          "error": 0,
+          "other": 0
+        },
+        "completed_only": {
+          "median_seconds": 0.004612984994309954,
+          "p25_seconds": 0.0043619980206131,
+          "p75_seconds": 0.0049975734946201555,
+          "min_seconds": 0.0034635619958862662,
+          "max_seconds": 0.007038831012323499
+        },
+        "quantiles": {
+          "p25": {
+            "kind": "exact",
+            "seconds": 0.0043619980206131
+          },
+          "median": {
+            "kind": "exact",
+            "seconds": 0.004612984994309954
+          },
+          "p75": {
+            "kind": "exact",
+            "seconds": 0.0049975734946201555
+          }
+        }
+      },
+      "paired_complete_count": 20,
+      "paired_speedup": {
+        "median": 0.9884035597613112,
+        "geomean": 0.9848390129762009,
+        "min": 0.7148669500143724,
+        "max": 1.3431938051687746
+      },
+      "ratio_of_full_sample_medians": 1.0036023283960287
+    },
+    {
+      "vertices": 1000,
+      "probability": 0.005,
+      "graphs": 20,
+      "before": {
+        "counts": {
+          "ok": 20,
+          "timeout": 0,
+          "allocation_failure_under_cap": 0,
+          "error": 0,
+          "other": 0
+        },
+        "completed_only": {
+          "median_seconds": 0.007201284999609925,
+          "p25_seconds": 0.00689297124336008,
+          "p75_seconds": 0.007628792998730205,
+          "min_seconds": 0.006482589989900589,
+          "max_seconds": 0.011860910017276183
+        },
+        "quantiles": {
+          "p25": {
+            "kind": "exact",
+            "seconds": 0.00689297124336008
+          },
+          "median": {
+            "kind": "exact",
+            "seconds": 0.007201284999609925
+          },
+          "p75": {
+            "kind": "exact",
+            "seconds": 0.007628792998730205
+          }
+        }
+      },
+      "after": {
+        "counts": {
+          "ok": 20,
+          "timeout": 0,
+          "allocation_failure_under_cap": 0,
+          "error": 0,
+          "other": 0
+        },
+        "completed_only": {
+          "median_seconds": 0.007309425491257571,
+          "p25_seconds": 0.00700379549380159,
+          "p75_seconds": 0.007697217741224449,
+          "min_seconds": 0.00610259099630639,
+          "max_seconds": 0.010990231996402144
+        },
+        "quantiles": {
+          "p25": {
+            "kind": "exact",
+            "seconds": 0.00700379549380159
+          },
+          "median": {
+            "kind": "exact",
+            "seconds": 0.007309425491257571
+          },
+          "p75": {
+            "kind": "exact",
+            "seconds": 0.007697217741224449
+          }
+        }
+      },
+      "paired_complete_count": 20,
+      "paired_speedup": {
+        "median": 0.986927839734851,
+        "geomean": 0.974323383180512,
+        "min": 0.7450981021482951,
+        "max": 1.3711004810136493
+      },
+      "ratio_of_full_sample_medians": 0.9852053363459293
+    },
+    {
+      "vertices": 1000,
+      "probability": 0.0075,
+      "graphs": 20,
+      "before": {
+        "counts": {
+          "ok": 20,
+          "timeout": 0,
+          "allocation_failure_under_cap": 0,
+          "error": 0,
+          "other": 0
+        },
+        "completed_only": {
+          "median_seconds": 0.01677893300075084,
+          "p25_seconds": 0.015611357252055313,
+          "p75_seconds": 0.017800992754928302,
+          "min_seconds": 0.014892164996126667,
+          "max_seconds": 0.019420946977334097
+        },
+        "quantiles": {
+          "p25": {
+            "kind": "exact",
+            "seconds": 0.015611357252055313
+          },
+          "median": {
+            "kind": "exact",
+            "seconds": 0.01677893300075084
+          },
+          "p75": {
+            "kind": "exact",
+            "seconds": 0.017800992754928302
+          }
+        }
+      },
+      "after": {
+        "counts": {
+          "ok": 20,
+          "timeout": 0,
+          "allocation_failure_under_cap": 0,
+          "error": 0,
+          "other": 0
+        },
+        "completed_only": {
+          "median_seconds": 0.016836362003232352,
+          "p25_seconds": 0.01580558076238958,
+          "p75_seconds": 0.017791601487260778,
+          "min_seconds": 0.015447609010152519,
+          "max_seconds": 0.019466202007606626
+        },
+        "quantiles": {
+          "p25": {
+            "kind": "exact",
+            "seconds": 0.01580558076238958
+          },
+          "median": {
+            "kind": "exact",
+            "seconds": 0.016836362003232352
+          },
+          "p75": {
+            "kind": "exact",
+            "seconds": 0.017791601487260778
+          }
+        }
+      },
+      "paired_complete_count": 20,
+      "paired_speedup": {
+        "median": 0.9922146696015834,
+        "geomean": 0.9950832936309948,
+        "min": 0.94259458936205,
+        "max": 1.0823647775142817
+      },
+      "ratio_of_full_sample_medians": 0.9965889898025186
+    },
+    {
+      "vertices": 1000,
+      "probability": 0.01,
+      "graphs": 20,
+      "before": {
+        "counts": {
+          "ok": 20,
+          "timeout": 0,
+          "allocation_failure_under_cap": 0,
+          "error": 0,
+          "other": 0
+        },
+        "completed_only": {
+          "median_seconds": 0.04481281900370959,
+          "p25_seconds": 0.04411874149081996,
+          "p75_seconds": 0.047358205760247074,
+          "min_seconds": 0.04029807201004587,
+          "max_seconds": 0.06663524397299625
+        },
+        "quantiles": {
+          "p25": {
+            "kind": "exact",
+            "seconds": 0.04411874149081996
+          },
+          "median": {
+            "kind": "exact",
+            "seconds": 0.04481281900370959
+          },
+          "p75": {
+            "kind": "exact",
+            "seconds": 0.047358205760247074
+          }
+        }
+      },
+      "after": {
+        "counts": {
+          "ok": 20,
+          "timeout": 0,
+          "allocation_failure_under_cap": 0,
+          "error": 0,
+          "other": 0
+        },
+        "completed_only": {
+          "median_seconds": 0.041795352488406934,
+          "p25_seconds": 0.040318819250387605,
+          "p75_seconds": 0.04650157024298096,
+          "min_seconds": 0.038442133023636416,
+          "max_seconds": 0.10749928999575786
+        },
+        "quantiles": {
+          "p25": {
+            "kind": "exact",
+            "seconds": 0.040318819250387605
+          },
+          "median": {
+            "kind": "exact",
+            "seconds": 0.041795352488406934
+          },
+          "p75": {
+            "kind": "exact",
+            "seconds": 0.04650157024298096
+          }
+        }
+      },
+      "paired_complete_count": 20,
+      "paired_speedup": {
+        "median": 1.087047032780856,
+        "geomean": 1.0283653727048665,
+        "min": 0.4454643003575058,
+        "max": 1.3457309907006576
+      },
+      "ratio_of_full_sample_medians": 1.0721962212458822
+    },
+    {
+      "vertices": 1000,
+      "probability": 0.0125,
+      "graphs": 20,
+      "before": {
+        "counts": {
+          "ok": 20,
+          "timeout": 0,
+          "allocation_failure_under_cap": 0,
+          "error": 0,
+          "other": 0
+        },
+        "completed_only": {
+          "median_seconds": 0.12693844198656734,
+          "p25_seconds": 0.12329587175190682,
+          "p75_seconds": 0.13157839925406734,
+          "min_seconds": 0.11154382899985649,
+          "max_seconds": 0.17512691300362349
+        },
+        "quantiles": {
+          "p25": {
+            "kind": "exact",
+            "seconds": 0.12329587175190682
+          },
+          "median": {
+            "kind": "exact",
+            "seconds": 0.12693844198656734
+          },
+          "p75": {
+            "kind": "exact",
+            "seconds": 0.13157839925406734
+          }
+        }
+      },
+      "after": {
+        "counts": {
+          "ok": 20,
+          "timeout": 0,
+          "allocation_failure_under_cap": 0,
+          "error": 0,
+          "other": 0
+        },
+        "completed_only": {
+          "median_seconds": 0.09465686301700771,
+          "p25_seconds": 0.09179232599126408,
+          "p75_seconds": 0.09805760375456885,
+          "min_seconds": 0.08562096502282657,
+          "max_seconds": 0.1192746369924862
+        },
+        "quantiles": {
+          "p25": {
+            "kind": "exact",
+            "seconds": 0.09179232599126408
+          },
+          "median": {
+            "kind": "exact",
+            "seconds": 0.09465686301700771
+          },
+          "p75": {
+            "kind": "exact",
+            "seconds": 0.09805760375456885
+          }
+        }
+      },
+      "paired_complete_count": 20,
+      "paired_speedup": {
+        "median": 1.3409497566815132,
+        "geomean": 1.3481640060839748,
+        "min": 1.1513272516464859,
+        "max": 1.7355460720145148
+      },
+      "ratio_of_full_sample_medians": 1.3410379125257865
+    },
+    {
+      "vertices": 1000,
+      "probability": 0.015,
+      "graphs": 20,
+      "before": {
+        "counts": {
+          "ok": 20,
+          "timeout": 0,
+          "allocation_failure_under_cap": 0,
+          "error": 0,
+          "other": 0
+        },
+        "completed_only": {
+          "median_seconds": 0.35448628800804727,
+          "p25_seconds": 0.3367927497456549,
+          "p75_seconds": 0.3686909079988254,
+          "min_seconds": 0.30654580402188003,
+          "max_seconds": 0.40936226802296005
+        },
+        "quantiles": {
+          "p25": {
+            "kind": "exact",
+            "seconds": 0.3367927497456549
+          },
+          "median": {
+            "kind": "exact",
+            "seconds": 0.35448628800804727
+          },
+          "p75": {
+            "kind": "exact",
+            "seconds": 0.3686909079988254
+          }
+        }
+      },
+      "after": {
+        "counts": {
+          "ok": 20,
+          "timeout": 0,
+          "allocation_failure_under_cap": 0,
+          "error": 0,
+          "other": 0
+        },
+        "completed_only": {
+          "median_seconds": 0.2033819839998614,
+          "p25_seconds": 0.18848461550078355,
+          "p75_seconds": 0.20763954974972876,
+          "min_seconds": 0.17950087698409334,
+          "max_seconds": 0.26107295497786254
+        },
+        "quantiles": {
+          "p25": {
+            "kind": "exact",
+            "seconds": 0.18848461550078355
+          },
+          "median": {
+            "kind": "exact",
+            "seconds": 0.2033819839998614
+          },
+          "p75": {
+            "kind": "exact",
+            "seconds": 0.20763954974972876
+          }
+        }
+      },
+      "paired_complete_count": 20,
+      "paired_speedup": {
+        "median": 1.7469309156673105,
+        "geomean": 1.7659590005236043,
+        "min": 1.5204212976124007,
+        "max": 2.000469401795187
+      },
+      "ratio_of_full_sample_medians": 1.742958157042508
+    },
+    {
+      "vertices": 3000,
+      "probability": 0.0025,
+      "graphs": 20,
+      "before": {
+        "counts": {
+          "ok": 20,
+          "timeout": 0,
+          "allocation_failure_under_cap": 0,
+          "error": 0,
+          "other": 0
+        },
+        "completed_only": {
+          "median_seconds": 0.0444586885132594,
+          "p25_seconds": 0.04314696550864028,
+          "p75_seconds": 0.04536372274742462,
+          "min_seconds": 0.041573655005777255,
+          "max_seconds": 0.0473751200188417
+        },
+        "quantiles": {
+          "p25": {
+            "kind": "exact",
+            "seconds": 0.04314696550864028
+          },
+          "median": {
+            "kind": "exact",
+            "seconds": 0.0444586885132594
+          },
+          "p75": {
+            "kind": "exact",
+            "seconds": 0.04536372274742462
+          }
+        }
+      },
+      "after": {
+        "counts": {
+          "ok": 20,
+          "timeout": 0,
+          "allocation_failure_under_cap": 0,
+          "error": 0,
+          "other": 0
+        },
+        "completed_only": {
+          "median_seconds": 0.04614712350303307,
+          "p25_seconds": 0.04508945275301812,
+          "p75_seconds": 0.04746218351647258,
+          "min_seconds": 0.04381289999582805,
+          "max_seconds": 0.05180874399957247
+        },
+        "quantiles": {
+          "p25": {
+            "kind": "exact",
+            "seconds": 0.04508945275301812
+          },
+          "median": {
+            "kind": "exact",
+            "seconds": 0.04614712350303307
+          },
+          "p75": {
+            "kind": "exact",
+            "seconds": 0.04746218351647258
+          }
+        }
+      },
+      "paired_complete_count": 20,
+      "paired_speedup": {
+        "median": 0.9545729786750681,
+        "geomean": 0.9556805486159464,
+        "min": 0.9144232490799746,
+        "max": 1.0127755870939117
+      },
+      "ratio_of_full_sample_medians": 0.9634119125612955
+    },
+    {
+      "vertices": 3000,
+      "probability": 0.005,
+      "graphs": 20,
+      "before": {
+        "counts": {
+          "ok": 20,
+          "timeout": 0,
+          "allocation_failure_under_cap": 0,
+          "error": 0,
+          "other": 0
+        },
+        "completed_only": {
+          "median_seconds": 0.8441475959989475,
+          "p25_seconds": 0.8035180567603675,
+          "p75_seconds": 0.8648342972592218,
+          "min_seconds": 0.7345819739857689,
+          "max_seconds": 0.9277306310250424
+        },
+        "quantiles": {
+          "p25": {
+            "kind": "exact",
+            "seconds": 0.8035180567603675
+          },
+          "median": {
+            "kind": "exact",
+            "seconds": 0.8441475959989475
+          },
+          "p75": {
+            "kind": "exact",
+            "seconds": 0.8648342972592218
+          }
+        }
+      },
+      "after": {
+        "counts": {
+          "ok": 20,
+          "timeout": 0,
+          "allocation_failure_under_cap": 0,
+          "error": 0,
+          "other": 0
+        },
+        "completed_only": {
+          "median_seconds": 0.6738400579924928,
+          "p25_seconds": 0.6499066384931211,
+          "p75_seconds": 0.6936072525131749,
+          "min_seconds": 0.6078880919958465,
+          "max_seconds": 0.7377781529794447
+        },
+        "quantiles": {
+          "p25": {
+            "kind": "exact",
+            "seconds": 0.6499066384931211
+          },
+          "median": {
+            "kind": "exact",
+            "seconds": 0.6738400579924928
+          },
+          "p75": {
+            "kind": "exact",
+            "seconds": 0.6936072525131749
+          }
+        }
+      },
+      "paired_complete_count": 20,
+      "paired_speedup": {
+        "median": 1.2473515643142856,
+        "geomean": 1.2452676607560869,
+        "min": 1.1668834779521178,
+        "max": 1.3095090357713552
+      },
+      "ratio_of_full_sample_medians": 1.2527417834342405
+    },
+    {
+      "vertices": 3000,
+      "probability": 0.0075,
+      "graphs": 20,
+      "before": {
+        "counts": {
+          "ok": 20,
+          "timeout": 0,
+          "allocation_failure_under_cap": 0,
+          "error": 0,
+          "other": 0
+        },
+        "completed_only": {
+          "median_seconds": 8.54271155751485,
+          "p25_seconds": 8.462211016252695,
+          "p75_seconds": 8.675286200261326,
+          "min_seconds": 7.883582151000155,
+          "max_seconds": 8.914076258981368
+        },
+        "quantiles": {
+          "p25": {
+            "kind": "exact",
+            "seconds": 8.462211016252695
+          },
+          "median": {
+            "kind": "exact",
+            "seconds": 8.54271155751485
+          },
+          "p75": {
+            "kind": "exact",
+            "seconds": 8.675286200261326
+          }
+        }
+      },
+      "after": {
+        "counts": {
+          "ok": 20,
+          "timeout": 0,
+          "allocation_failure_under_cap": 0,
+          "error": 0,
+          "other": 0
+        },
+        "completed_only": {
+          "median_seconds": 4.7333930429886095,
+          "p25_seconds": 4.605193156494352,
+          "p75_seconds": 4.808787383015442,
+          "min_seconds": 4.431318419985473,
+          "max_seconds": 4.991257151006721
+        },
+        "quantiles": {
+          "p25": {
+            "kind": "exact",
+            "seconds": 4.605193156494352
+          },
+          "median": {
+            "kind": "exact",
+            "seconds": 4.7333930429886095
+          },
+          "p75": {
+            "kind": "exact",
+            "seconds": 4.808787383015442
+          }
+        }
+      },
+      "paired_complete_count": 20,
+      "paired_speedup": {
+        "median": 1.8174707650964648,
+        "geomean": 1.8099530802586803,
+        "min": 1.6938205590725515,
+        "max": 1.8938276410047266
+      },
+      "ratio_of_full_sample_medians": 1.8047754496468098
+    },
+    {
+      "vertices": 3000,
+      "probability": 0.01,
+      "graphs": 20,
+      "before": {
+        "counts": {
+          "ok": 20,
+          "timeout": 0,
+          "allocation_failure_under_cap": 0,
+          "error": 0,
+          "other": 0
+        },
+        "completed_only": {
+          "median_seconds": 58.18148315649887,
+          "p25_seconds": 56.52973358048621,
+          "p75_seconds": 59.1903080162665,
+          "min_seconds": 54.34963104699273,
+          "max_seconds": 62.97411322701373
+        },
+        "quantiles": {
+          "p25": {
+            "kind": "exact",
+            "seconds": 56.52973358048621
+          },
+          "median": {
+            "kind": "exact",
+            "seconds": 58.18148315649887
+          },
+          "p75": {
+            "kind": "exact",
+            "seconds": 59.1903080162665
+          }
+        }
+      },
+      "after": {
+        "counts": {
+          "ok": 20,
+          "timeout": 0,
+          "allocation_failure_under_cap": 0,
+          "error": 0,
+          "other": 0
+        },
+        "completed_only": {
+          "median_seconds": 17.707302126000286,
+          "p25_seconds": 17.375604253989877,
+          "p75_seconds": 18.11802657426597,
+          "min_seconds": 16.67543107701931,
+          "max_seconds": 19.526785213995026
+        },
+        "quantiles": {
+          "p25": {
+            "kind": "exact",
+            "seconds": 17.375604253989877
+          },
+          "median": {
+            "kind": "exact",
+            "seconds": 17.707302126000286
+          },
+          "p75": {
+            "kind": "exact",
+            "seconds": 18.11802657426597
+          }
+        }
+      },
+      "paired_complete_count": 20,
+      "paired_speedup": {
+        "median": 3.2724796642626552,
+        "geomean": 3.272866155698412,
+        "min": 3.10119587780353,
+        "max": 3.497644787964607
+      },
+      "ratio_of_full_sample_medians": 3.2857339160136005
+    },
+    {
+      "vertices": 3000,
+      "probability": 0.0125,
+      "graphs": 20,
+      "before": {
+        "counts": {
+          "ok": 0,
+          "timeout": 20,
+          "allocation_failure_under_cap": 0,
+          "error": 0,
+          "other": 0
+        },
+        "completed_only": null,
+        "quantiles": {
+          "p25": {
+            "kind": "lower_bound",
+            "seconds": 120.0,
+            "strict": true
+          },
+          "median": {
+            "kind": "lower_bound",
+            "seconds": 120.0,
+            "strict": true
+          },
+          "p75": {
+            "kind": "lower_bound",
+            "seconds": 120.0,
+            "strict": true
+          }
+        }
+      },
+      "after": {
+        "counts": {
+          "ok": 20,
+          "timeout": 0,
+          "allocation_failure_under_cap": 0,
+          "error": 0,
+          "other": 0
+        },
+        "completed_only": {
+          "median_seconds": 49.44641501699516,
+          "p25_seconds": 47.504815722502826,
+          "p75_seconds": 50.94099314400955,
+          "min_seconds": 45.366485775011824,
+          "max_seconds": 53.28113369800849
+        },
+        "quantiles": {
+          "p25": {
+            "kind": "exact",
+            "seconds": 47.504815722502826
+          },
+          "median": {
+            "kind": "exact",
+            "seconds": 49.44641501699516
+          },
+          "p75": {
+            "kind": "exact",
+            "seconds": 50.94099314400955
+          }
+        }
+      },
+      "paired_complete_count": 0,
+      "paired_speedup": null,
+      "ratio_of_full_sample_medians": null
+    },
+    {
+      "vertices": 3000,
+      "probability": 0.015,
+      "graphs": 20,
+      "before": {
+        "counts": {
+          "ok": 0,
+          "timeout": 20,
+          "allocation_failure_under_cap": 0,
+          "error": 0,
+          "other": 0
+        },
+        "completed_only": null,
+        "quantiles": {
+          "p25": {
+            "kind": "lower_bound",
+            "seconds": 120.0,
+            "strict": true
+          },
+          "median": {
+            "kind": "lower_bound",
+            "seconds": 120.0,
+            "strict": true
+          },
+          "p75": {
+            "kind": "lower_bound",
+            "seconds": 120.0,
+            "strict": true
+          }
+        }
+      },
+      "after": {
+        "counts": {
+          "ok": 17,
+          "timeout": 3,
+          "allocation_failure_under_cap": 0,
+          "error": 0,
+          "other": 0
+        },
+        "completed_only": {
+          "median_seconds": 115.29495714200311,
+          "p25_seconds": 112.14262923700153,
+          "p75_seconds": 116.4832853510161,
+          "min_seconds": 97.18303406701307,
+          "max_seconds": 118.99975869600894
+        },
+        "quantiles": {
+          "p25": {
+            "kind": "exact",
+            "seconds": 112.91058989274461
+          },
+          "median": {
+            "kind": "exact",
+            "seconds": 115.89020665398857
+          },
+          "p75": {
+            "kind": "exact",
+            "seconds": 118.4654743350111
+          }
+        }
+      },
+      "paired_complete_count": 0,
+      "paired_speedup": null,
+      "ratio_of_full_sample_medians": null
+    }
+  ]
+}

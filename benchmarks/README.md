@@ -1,5 +1,21 @@
 # Studied 100-vertex benchmarks
 
+The [20-graph density comparison](../audit/performance-ensemble.md) covers 20
+distinct graphs at each of six densities for 1,000 and 3,000 vertices, with
+identical before/after inputs and a two-minute per-run timeout. Its reproducible
+generator and runner are in `performance_ensemble.py`.
+
+The earlier [single-graph report](../audit/performance-large.md) remains available.
+Its fixed inputs are in `large-graphs.txt.gz`, with construction details and
+hashes in `large-metadata.json`.
+
+For repeated before/after speed measurements, see
+[the performance report](../audit/performance.md). The separate
+`performance-graphs.txt` corpus contains these 15 graphs plus six additional
+100-vertex workloads. Its generator is `performance_cases.py` and its paired
+timing runner is `performance.py`. Correctness checks below and performance
+measurements are separate tasks.
+
 This set follows the author's preference for representative 100-vertex examples
 when validating SGB and planning a thickness algorithm. It contains 15 fixed
 graphs: six structured cases and nine deterministic Erdos-Renyi samples. The
@@ -8,12 +24,14 @@ thickness algorithm itself is not present in this repository or tested here.
 **CFS allows complete join factors; square-graph construction remains literal.**
 The `pair_path_join_K2_100` case demonstrates the distinction. Its two universal
 vertices do not belong to any square: its square support is 98, and its intended
-CFS classification is true. The imported program currently reports false.
+CFS classification is true. The original import reports false; the repaired
+program reports true while preserving that literal support of 98.
 
 ## Cases and reference results
 
 Every graph has vertices 1 through 100. These counts come from the independent
-reference, including cases where the original executable omits square metrics.
+reference. The repaired executable reports all these metrics, including for
+disconnected input graphs.
 
 | Case | Edges | Squares | Square components | Largest support | Intended CFS |
 | --- | ---: | ---: | ---: | ---: | --- |
@@ -41,18 +59,18 @@ chords in any four-cycle containing them, so joining with K2 adds no induced
 squares. These constructions give independently derived expected results.
 
 The random samples are unconditioned: all three p=0.04 graphs have three original
-connected components, and SGB skips their square calculations. Only vertex
-counts, connectivity, and classification can be checked against their output.
+connected components. The original program skipped their square calculations;
+the repaired program computes them and the checker validates every metric.
 The p=0.08 samples have fragmented square components; the p=0.12 samples have a
 component with full support. These samples illustrate cases, not a statistical
 threshold estimate. Reusing seeds across densities produces nested edge sets,
 not nine independent samples.
 
-All square counts, component counts, and largest supports reported by the
-original optimized executable on the 12 connected cases matched the reference.
-The K2 case exposes the known CFS false negative. C100 reaches the known
-empty-vector undefined behavior and prints a NaN support ratio: its normal-build
-output matching the reference does not make that execution path safe.
+All 15 cases pass in optimized and AddressSanitizer/UndefinedBehaviorSanitizer
+builds. The checker compares square counts, component counts, literal supports,
+average/largest support ratios, density, alpha, connectivity, and CFS. The K2
+case exposed the original false negative. C100 now has safely handled empty
+component storage and finite zero support ratios.
 
 ## Reproduce
 
@@ -63,6 +81,7 @@ mkdir -p build
 c++ -std=c++11 -O2 main.cpp -o build/SGB
 c++ -std=c++11 -O2 -Wall -Wextra -pedantic benchmarks/reference.cpp -o build/sgb-reference
 python3 benchmarks/generate.py
+python3 benchmarks/test_runner.py
 python3 benchmarks/run.py --sgb build/SGB --reference build/sgb-reference
 ```
 
@@ -72,16 +91,20 @@ using an adjacency matrix, recognizes induced squares by degree two at each
 vertex, and joins square components through shared diagonals using disjoint
 sets. Its parser is for the generated benchmark format, not general user input.
 
-By default, the runner checks the historical full-support classification and
-records intended CFS separately. To require the intended CFS convention:
+By default, the runner requires the intended CFS convention and records both
+classifications. The mode can also be selected explicitly:
 
 ```sh
 python3 benchmarks/run.py --sgb build/SGB --reference build/sgb-reference \
   --cfs-mode intended --output build/results-intended.json
 ```
 
-The intended mode currently fails only on the K2 case. Fixing classification
-must not change its literal square support from 98 to 100.
+This passes with the repaired executable. To check a binary from the original
+import, both `--legacy-output` and `--cfs-mode legacy` are required. Historical
+output validation is explicitly incomplete: its placeholder density/alpha,
+missing disconnected metrics, and square-free NaN are not evidence of correct
+values. With historical output plus intended CFS mode, the original binary fails
+on the K2 case. Literal support remains 98 in both versions.
 
 ## Files and measurement limits
 
@@ -90,11 +113,17 @@ must not change its literal square support from 98 to 100.
 - `metadata.json`: parameters, construction expectations, and input hashes.
 - `reference.cpp`: independent reference computation.
 - `run.py`: bounded subprocess runner and reference comparison.
-- `results.json`: captured baseline, stdout, timings, environment, source/input
-  hashes, and both CFS interpretations.
+- `test_runner.py`: 11 targeted tests protecting against false benchmark passes.
+- `results-original.json`: preserved measurements of the unchanged original import.
+- `results.json`: updated measurements, stdout, timings, environment,
+  application-source/input hashes, and both CFS interpretations.
+- [audit/validation-sanitize.json](../audit/validation-sanitize.json): the same
+  corpus checked with the repaired sanitizer build.
 
-Recorded runs used GCC 14.2.0, Boost 1.83, C++11, and `-O2` on Linux x86_64. Each
+Recorded optimized runs used GCC 14.2.0, Boost 1.83, C++11, and `-O2` on Linux
+x86_64; sanitizer runs used `-O1 -g` with AddressSanitizer and UndefinedBehaviorSanitizer. Each
 graph was run once in a fresh process; timings include startup and file IO.
 These are an initial baseline, not stable performance guarantees. Repeated runs
 and recorded hardware details are needed before drawing speed conclusions.
-Original source behavior and its known defects remain unchanged.
+All eleven original review findings have been addressed; see the
+[post-repair audit](../audit/review.md) for validation and remaining limits.

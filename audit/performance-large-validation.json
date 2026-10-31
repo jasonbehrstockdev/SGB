@@ -1,0 +1,504 @@
+{
+  "schema_version": 1,
+  "methodology": "One application process per selected graph in -tf mode; complete CSV is compared with the independent scalable reference. Successful checks require zero exit, no stderr, and equality of every reported metric within the declared floating tolerances. Timeouts are incomplete validation, never passing checks. Elapsed times are incidental correctness observations, not speed measurements. Sanitizer instrumentation depends on the selected executable; no leak-checking claim is made.",
+  "binary_path": "build/SGB-sanitize",
+  "binary_sha256": "4ab24ec27f8c7b2b00becb59af0ae75928e623a1c6c480e1bd61fd6985fb7c71",
+  "reference_binary_sha256": "8f55fd0a7bf1b64ef6fafb1e7c5cfbf3d636f5bd30756aea23f1b5f33253b215",
+  "reference_source_sha256": "5470b3e650478f714fa3ac94e0fa984265739510ad93788c329f0d466ac1fd34",
+  "validation_script_sha256": "0c203e4d8bb32162caad3908deadec0abd583a885cf25f57cda909367ae84a7d",
+  "source_files_sha256": {
+    "main.cpp": "dbd62658ccec3593cd079c94b956444974e94a36ede19885fe0741ca09985594",
+    "flags.h": "6a5ace505f0a097fe125fa99add443b176a04747ee14ecefe109a30d2dbecb21",
+    "input.h": "2dda53c6c93f956bac0dd6dd08d616cf70f85f190a3f588a5907b750c8548dc9"
+  },
+  "graphs_sha256": "be62d50809724b3f01a1ddcbdb6c1351f58c9764b55390b3cc5abecdc62aaebd",
+  "metadata_sha256": "5af7b379cbcf13cc03bf5f64557022a6aefaf3f3dfad547459da745d04914c1a",
+  "timeout_seconds_per_process": 300.0,
+  "floating_tolerances": {
+    "relative": 1e-11,
+    "absolute": 1e-12
+  },
+  "environment": {
+    "platform": "Linux-6.18.55-x86_64-with-glibc2.41",
+    "machine": "x86_64",
+    "python": "3.12.14"
+  },
+  "sanitizer_options": {
+    "ASAN_OPTIONS": "detect_leaks=0:halt_on_error=1",
+    "UBSAN_OPTIONS": "halt_on_error=1:print_stacktrace=1"
+  },
+  "virtual_address_space_limit": "Not imposed by this runner",
+  "corpus_case_count": 8,
+  "selected_cases": [
+    "er_n1000_p0.005_seed20261041",
+    "er_n1000_p0.0075_seed20261041",
+    "er_n1000_p0.01_seed20261041",
+    "pair_path_1000",
+    "er_n3000_p0.005_seed20261043",
+    "er_n3000_p0.0075_seed20261043",
+    "er_n3000_p0.01_seed20261043",
+    "pair_path_3000"
+  ],
+  "all_selected_cases_passed": true,
+  "full_corpus_passed": true,
+  "cases": [
+    {
+      "name": "er_n1000_p0.005_seed20261041",
+      "input_sha256": "dfd5c273d16351c770324905c5f166cdd1f1900920b67fcf3351559ea47a8f51",
+      "command": [
+        "build/SGB-sanitize",
+        "-tf",
+        "<single-record input>"
+      ],
+      "reference": {
+        "vertices": 1000,
+        "edges": 2550,
+        "original_components": 5,
+        "squares": 69,
+        "components": 69,
+        "largest_support": 4,
+        "support_sum": 276,
+        "universal_vertices": 0,
+        "legacy_cfs": false,
+        "intended_cfs": false
+      },
+      "returncode": 0,
+      "stdout": "n,p,alpha,CFS,num_squares,num_comp,ratio_comp_avg,ratio_largest_comp,status\n1000,0.00510510510511,0.161437598267,0,69,69,0.004,0.004,disconnected\n",
+      "stderr": "",
+      "observed": {
+        "vertices": 1000,
+        "reported_cfs": false,
+        "density": 0.00510510510511,
+        "alpha": 0.161437598267,
+        "square_metrics_unavailable": false,
+        "nonfinite_support_ratio": false,
+        "squares": 69,
+        "components": 69,
+        "average_support_ratio": 0.004,
+        "largest_support_ratio": 0.004,
+        "largest_support": 4,
+        "status": "disconnected",
+        "disconnected": true
+      },
+      "comparison": {
+        "compared_fields": [
+          "vertices",
+          "squares",
+          "components",
+          "largest_support",
+          "reported_cfs",
+          "status",
+          "density",
+          "alpha",
+          "largest_support_ratio",
+          "average_support_ratio"
+        ],
+        "mismatched_fields": [],
+        "matches_reference": true
+      },
+      "status": "passed",
+      "elapsed_seconds": 0.04214269999647513
+    },
+    {
+      "name": "er_n1000_p0.0075_seed20261041",
+      "input_sha256": "21b65311f012089cbf879d13918199ffeb84f72ebe1cc9ef6a7951afa10c8add",
+      "command": [
+        "build/SGB-sanitize",
+        "-tf",
+        "<single-record input>"
+      ],
+      "reference": {
+        "vertices": 1000,
+        "edges": 3806,
+        "original_components": 3,
+        "squares": 377,
+        "components": 337,
+        "largest_support": 6,
+        "support_sum": 1368,
+        "universal_vertices": 0,
+        "legacy_cfs": false,
+        "intended_cfs": false
+      },
+      "returncode": 0,
+      "stdout": "n,p,alpha,CFS,num_squares,num_comp,ratio_comp_avg,ratio_largest_comp,status\n1000,0.00761961961962,0.240953529021,0,377,337,0.00405934718101,0.006,disconnected\n",
+      "stderr": "",
+      "observed": {
+        "vertices": 1000,
+        "reported_cfs": false,
+        "density": 0.00761961961962,
+        "alpha": 0.240953529021,
+        "square_metrics_unavailable": false,
+        "nonfinite_support_ratio": false,
+        "squares": 377,
+        "components": 337,
+        "average_support_ratio": 0.00405934718101,
+        "largest_support_ratio": 0.006,
+        "largest_support": 6,
+        "status": "disconnected",
+        "disconnected": true
+      },
+      "comparison": {
+        "compared_fields": [
+          "vertices",
+          "squares",
+          "components",
+          "largest_support",
+          "reported_cfs",
+          "status",
+          "density",
+          "alpha",
+          "largest_support_ratio",
+          "average_support_ratio"
+        ],
+        "mismatched_fields": [],
+        "matches_reference": true
+      },
+      "status": "passed",
+      "elapsed_seconds": 0.11793685299926437
+    },
+    {
+      "name": "er_n1000_p0.01_seed20261041",
+      "input_sha256": "417ecd70ee06e0ad129100a4487fb100656b8bcbe1c0247caf010576231ecf32",
+      "command": [
+        "build/SGB-sanitize",
+        "-tf",
+        "<single-record input>"
+      ],
+      "reference": {
+        "vertices": 1000,
+        "edges": 5053,
+        "original_components": 1,
+        "squares": 1215,
+        "components": 1057,
+        "largest_support": 8,
+        "support_sum": 4307,
+        "universal_vertices": 0,
+        "legacy_cfs": false,
+        "intended_cfs": false
+      },
+      "returncode": 0,
+      "stdout": "n,p,alpha,CFS,num_squares,num_comp,ratio_comp_avg,ratio_largest_comp,status\n1000,0.0101161161161,0.319899680017,0,1215,1057,0.00407473982971,0.008,connected\n",
+      "stderr": "",
+      "observed": {
+        "vertices": 1000,
+        "reported_cfs": false,
+        "density": 0.0101161161161,
+        "alpha": 0.319899680017,
+        "square_metrics_unavailable": false,
+        "nonfinite_support_ratio": false,
+        "squares": 1215,
+        "components": 1057,
+        "average_support_ratio": 0.00407473982971,
+        "largest_support_ratio": 0.008,
+        "largest_support": 8,
+        "status": "connected",
+        "disconnected": false
+      },
+      "comparison": {
+        "compared_fields": [
+          "vertices",
+          "squares",
+          "components",
+          "largest_support",
+          "reported_cfs",
+          "status",
+          "density",
+          "alpha",
+          "largest_support_ratio",
+          "average_support_ratio"
+        ],
+        "mismatched_fields": [],
+        "matches_reference": true
+      },
+      "status": "passed",
+      "elapsed_seconds": 0.279340413006139
+    },
+    {
+      "name": "pair_path_1000",
+      "input_sha256": "594b9a0aa34647dce5d6e248a8126e452e7cd2190e33c9a658b4925a5a3cab37",
+      "command": [
+        "build/SGB-sanitize",
+        "-tf",
+        "<single-record input>"
+      ],
+      "reference": {
+        "vertices": 1000,
+        "edges": 1996,
+        "original_components": 1,
+        "squares": 2491,
+        "components": 1,
+        "largest_support": 1000,
+        "support_sum": 1000,
+        "universal_vertices": 0,
+        "legacy_cfs": true,
+        "intended_cfs": true
+      },
+      "returncode": 0,
+      "stdout": "n,p,alpha,CFS,num_squares,num_comp,ratio_comp_avg,ratio_largest_comp,status\n1000,0.003995995996,0.126364488683,1,2491,1,1,1,connected\n",
+      "stderr": "",
+      "observed": {
+        "vertices": 1000,
+        "reported_cfs": true,
+        "density": 0.003995995996,
+        "alpha": 0.126364488683,
+        "square_metrics_unavailable": false,
+        "nonfinite_support_ratio": false,
+        "squares": 2491,
+        "components": 1,
+        "average_support_ratio": 1.0,
+        "largest_support_ratio": 1.0,
+        "largest_support": 1000,
+        "status": "connected",
+        "disconnected": false
+      },
+      "comparison": {
+        "compared_fields": [
+          "vertices",
+          "squares",
+          "components",
+          "largest_support",
+          "reported_cfs",
+          "status",
+          "density",
+          "alpha",
+          "largest_support_ratio",
+          "average_support_ratio"
+        ],
+        "mismatched_fields": [],
+        "matches_reference": true
+      },
+      "status": "passed",
+      "elapsed_seconds": 0.031463860999792814
+    },
+    {
+      "name": "er_n3000_p0.005_seed20261043",
+      "input_sha256": "fba7488b3aa19bfc29d6a4df8e21e680a73d87db8d9149575d150498ccf86ddb",
+      "command": [
+        "build/SGB-sanitize",
+        "-tf",
+        "<single-record input>"
+      ],
+      "reference": {
+        "vertices": 3000,
+        "edges": 22664,
+        "original_components": 1,
+        "squares": 6370,
+        "components": 5801,
+        "largest_support": 7,
+        "support_sum": 23489,
+        "universal_vertices": 0,
+        "legacy_cfs": false,
+        "intended_cfs": false
+      },
+      "returncode": 0,
+      "stdout": "n,p,alpha,CFS,num_squares,num_comp,ratio_comp_avg,ratio_largest_comp,status\n3000,0.00503812381905,0.27594940632,0,6370,5801,0.00134970982015,0.00233333333333,connected\n",
+      "stderr": "",
+      "observed": {
+        "vertices": 3000,
+        "reported_cfs": false,
+        "density": 0.00503812381905,
+        "alpha": 0.27594940632,
+        "square_metrics_unavailable": false,
+        "nonfinite_support_ratio": false,
+        "squares": 6370,
+        "components": 5801,
+        "average_support_ratio": 0.00134970982015,
+        "largest_support_ratio": 0.00233333333333,
+        "largest_support": 7,
+        "status": "connected",
+        "disconnected": false
+      },
+      "comparison": {
+        "compared_fields": [
+          "vertices",
+          "squares",
+          "components",
+          "largest_support",
+          "reported_cfs",
+          "status",
+          "density",
+          "alpha",
+          "largest_support_ratio",
+          "average_support_ratio"
+        ],
+        "mismatched_fields": [],
+        "matches_reference": true
+      },
+      "status": "passed",
+      "elapsed_seconds": 3.5613339849951444
+    },
+    {
+      "name": "er_n3000_p0.0075_seed20261043",
+      "input_sha256": "85323c1a96bf43f9355c9df532945ec29291ce7106da85eef47bcd676d4cc753",
+      "command": [
+        "build/SGB-sanitize",
+        "-tf",
+        "<single-record input>"
+      ],
+      "reference": {
+        "vertices": 3000,
+        "edges": 33769,
+        "original_components": 1,
+        "squares": 31626,
+        "components": 25027,
+        "largest_support": 14,
+        "support_sum": 103374,
+        "universal_vertices": 0,
+        "legacy_cfs": false,
+        "intended_cfs": false
+      },
+      "returncode": 0,
+      "stdout": "n,p,alpha,CFS,num_squares,num_comp,ratio_comp_avg,ratio_largest_comp,status\n3000,0.00750672446371,0.411160232175,0,31626,25027,0.00137683302034,0.00466666666667,connected\n",
+      "stderr": "",
+      "observed": {
+        "vertices": 3000,
+        "reported_cfs": false,
+        "density": 0.00750672446371,
+        "alpha": 0.411160232175,
+        "square_metrics_unavailable": false,
+        "nonfinite_support_ratio": false,
+        "squares": 31626,
+        "components": 25027,
+        "average_support_ratio": 0.00137683302034,
+        "largest_support_ratio": 0.00466666666667,
+        "largest_support": 14,
+        "status": "connected",
+        "disconnected": false
+      },
+      "comparison": {
+        "compared_fields": [
+          "vertices",
+          "squares",
+          "components",
+          "largest_support",
+          "reported_cfs",
+          "status",
+          "density",
+          "alpha",
+          "largest_support_ratio",
+          "average_support_ratio"
+        ],
+        "mismatched_fields": [],
+        "matches_reference": true
+      },
+      "status": "passed",
+      "elapsed_seconds": 14.949344021995785
+    },
+    {
+      "name": "er_n3000_p0.01_seed20261043",
+      "input_sha256": "c3f9abd225e0f821fea3fcbf219331e19c8e2fb6db689d8d2e57fbe90fb156ae",
+      "command": [
+        "build/SGB-sanitize",
+        "-tf",
+        "<single-record input>"
+      ],
+      "reference": {
+        "vertices": 3000,
+        "edges": 45088,
+        "original_components": 1,
+        "squares": 99858,
+        "components": 64291,
+        "largest_support": 51,
+        "support_sum": 274499,
+        "universal_vertices": 0,
+        "legacy_cfs": false,
+        "intended_cfs": false
+      },
+      "returncode": 0,
+      "stdout": "n,p,alpha,CFS,num_squares,num_comp,ratio_comp_avg,ratio_largest_comp,status\n3000,0.0100228965211,0.548976651613,0,99858,64291,0.00142321112857,0.017,connected\n",
+      "stderr": "",
+      "observed": {
+        "vertices": 3000,
+        "reported_cfs": false,
+        "density": 0.0100228965211,
+        "alpha": 0.548976651613,
+        "square_metrics_unavailable": false,
+        "nonfinite_support_ratio": false,
+        "squares": 99858,
+        "components": 64291,
+        "average_support_ratio": 0.00142321112857,
+        "largest_support_ratio": 0.017,
+        "largest_support": 51,
+        "status": "connected",
+        "disconnected": false
+      },
+      "comparison": {
+        "compared_fields": [
+          "vertices",
+          "squares",
+          "components",
+          "largest_support",
+          "reported_cfs",
+          "status",
+          "density",
+          "alpha",
+          "largest_support_ratio",
+          "average_support_ratio"
+        ],
+        "mismatched_fields": [],
+        "matches_reference": true
+      },
+      "status": "passed",
+      "elapsed_seconds": 41.919443549006246
+    },
+    {
+      "name": "pair_path_3000",
+      "input_sha256": "16c3e0660dede9e6c81ec8ef24dda95900e6f4598308628d48118efd6982c12e",
+      "command": [
+        "build/SGB-sanitize",
+        "-tf",
+        "<single-record input>"
+      ],
+      "reference": {
+        "vertices": 3000,
+        "edges": 5996,
+        "original_components": 1,
+        "squares": 7491,
+        "components": 1,
+        "largest_support": 3000,
+        "support_sum": 3000,
+        "universal_vertices": 0,
+        "legacy_cfs": true,
+        "intended_cfs": true
+      },
+      "returncode": 0,
+      "stdout": "n,p,alpha,CFS,num_squares,num_comp,ratio_comp_avg,ratio_largest_comp,status\n3000,0.00133288874069,0.0730053229921,1,7491,1,1,1,connected\n",
+      "stderr": "",
+      "observed": {
+        "vertices": 3000,
+        "reported_cfs": true,
+        "density": 0.00133288874069,
+        "alpha": 0.0730053229921,
+        "square_metrics_unavailable": false,
+        "nonfinite_support_ratio": false,
+        "squares": 7491,
+        "components": 1,
+        "average_support_ratio": 1.0,
+        "largest_support_ratio": 1.0,
+        "largest_support": 3000,
+        "status": "connected",
+        "disconnected": false
+      },
+      "comparison": {
+        "compared_fields": [
+          "vertices",
+          "squares",
+          "components",
+          "largest_support",
+          "reported_cfs",
+          "status",
+          "density",
+          "alpha",
+          "largest_support_ratio",
+          "average_support_ratio"
+        ],
+        "mismatched_fields": [],
+        "matches_reference": true
+      },
+      "status": "passed",
+      "elapsed_seconds": 0.0753864329890348
+    }
+  ],
+  "reference_results_sha256": "d5dd6e3ad7d8a1b37d907e2454b42cfb5d9a08b51a0801d72ac5f33b6793fb78",
+  "reference_elapsed_seconds": 0.8378538670076523
+}
