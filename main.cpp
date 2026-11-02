@@ -44,59 +44,239 @@ std::size_t combineHash(std::size_t seed, Vertex vertex) {
     return seed ^ (std::hash<Vertex>()(vertex) + 0x9e3779b9U + (seed << 6) + (seed >> 2));
 }
 
-using SquareKey = std::array<Vertex, 4>;
-
-SquareKey canonicalSquare(const Square& square) {
-    Nonedge first = canonicalNonedge(square.first);
-    Nonedge second = canonicalNonedge(square.second);
-    if (second < first)
-        std::swap(first, second);
-    return {{first.first, first.second, second.first, second.second}};
-}
-
-struct SquareHash {
-    std::size_t operator()(const SquareKey& key) const {
-        std::size_t seed = 0;
-        for (Vertex vertex : key)
-            seed = combineHash(seed, vertex);
-        return seed;
-    }
-};
-
 struct NonedgeHash {
     std::size_t operator()(const Nonedge& diagonal) const {
         return combineHash(combineHash(0, diagonal.first), diagonal.second);
     }
 };
 
-std::vector<Square> findSquares(const Graph& graph) {
-    std::vector<Square> squares;
-    std::unordered_set<SquareKey, SquareHash> seen;
-    const auto vertices = boost::vertices(graph);
-    for (auto v = vertices.first; v != vertices.second; ++v) {
-        const auto neighbors = boost::adjacent_vertices(*v, graph);
-        for (auto a = neighbors.first; a != neighbors.second; ++a) {
-            auto b = a;
-            for (++b; b != neighbors.second; ++b) {
-                if (*a == *b || boost::edge(*a, *b, graph).second)
-                    continue;
-                const auto across = boost::adjacent_vertices(*b, graph);
-                for (auto opposite = across.first; opposite != across.second; ++opposite) {
-                    if (*opposite == *v || boost::edge(*opposite, *v, graph).second)
-                        continue;
-                    // The two diagonals are nonedges; the four perimeter edges
-                    // exist exactly when a is also adjacent to opposite.
-                    if (!boost::edge(*a, *opposite, graph).second)
-                        continue;
-                    const Square square = {{*v, *opposite}, {*a, *b}};
-                    // Hash only the canonical key. Keep the original discovery
-                    // order and diagonal orientation for stable square labels.
-                    if (seen.insert(canonicalSquare(square)).second)
-                        squares.push_back(square);
-                }
+enum class SquareSearchStrategy { Auto, Wedges, MissingEdges };
+
+struct SquareSearchMetrics {
+    SquareSearchStrategy strategy = SquareSearchStrategy::Auto;
+    bool dense_adjacency = false;
+    std::size_t vertices = 0, edges = 0, nonedges = 0, active_vertices = 0;
+    std::size_t wedge_visits = 0, wedge_pairs = 0, missing_edge_pairs = 0;
+    std::size_t squares = 0, radix_passes = 0;
+    long double estimated_wedge_work = 0, estimated_missing_edge_work = 0;
+};
+
+constexpr std::size_t defaultAdjacencyBudget = 64 * 1024 * 1024;
+
+struct SearchNeighbor {
+    Vertex vertex;
+    std::size_t original_rank;
+};
+using SearchNeighbors = std::vector<std::vector<SearchNeighbor>>;
+
+std::size_t unorderedPairCount(std::size_t n) {
+    if (n < 2) return 0;
+    const std::size_t first = n % 2 ? n : n / 2;
+    const std::size_t second = n % 2 ? (n - 1) / 2 : n - 1;
+    if (second && first > std::numeric_limits<std::size_t>::max() / second)
+        throw std::length_error("Vertex-pair count exceeds the supported size");
+    return first * second;
+}
+
+void incrementSearchCounter(std::size_t& value) {
+    if (value == std::numeric_limits<std::size_t>::max())
+        throw std::length_error("Square-search operation counter overflow");
+    ++value;
+}
+
+// Edge membership is constant-time with the bounded bit matrix, or expected
+// constant-time with hashed adjacency when the matrix would exceed its budget.
+// Only nonuniversal vertices participate: a universal vertex lies in no induced C4.
+class SearchAdjacency {
+    std::size_t words;
+    std::vector<std::uint64_t> matrix;
+    std::vector<std::unordered_set<Vertex>> hashed;
+    bool dense;
+public:
+    SearchAdjacency(const SearchNeighbors& neighbors, std::size_t budget)
+        : words(neighbors.size() / 64 + (neighbors.size() % 64 != 0)),
+          dense(!neighbors.empty() && words <= budget / sizeof(std::uint64_t) / neighbors.size()) {
+        if (dense) {
+            matrix.assign(neighbors.size() * words, 0);
+            for (Vertex u = 0; u < neighbors.size(); ++u)
+                for (const auto& item : neighbors[u])
+                    matrix[u * words + item.vertex / 64] |= std::uint64_t(1) << (item.vertex % 64);
+        } else {
+            hashed.resize(neighbors.size());
+            for (Vertex u = 0; u < neighbors.size(); ++u) {
+                if (neighbors[u].empty()) continue;
+                hashed[u].reserve(neighbors[u].size());
+                for (const auto& item : neighbors[u]) hashed[u].insert(item.vertex);
             }
         }
     }
+
+    bool edge(Vertex u, Vertex v) const {
+        return dense ? (matrix[u * words + v / 64] & (std::uint64_t(1) << (v % 64))) != 0
+                     : hashed[u].find(v) != hashed[u].end();
+    }
+
+    bool usesMatrix() const { return dense; }
+};
+
+struct OrderedSquare {
+    Square square;
+    std::array<std::size_t, 4> order;
+};
+
+// The original walk first finds a square at its minimum vertex u, then orders
+// the two neighbors by their positions in N(u), then the opposite vertex by
+// its position in the later neighbor's list. Four stable counting-sort passes
+// restore that exact order in O(n + S), including the original orientations.
+void restoreSquareOrder(std::vector<OrderedSquare>& found, std::size_t n,
+                        SquareSearchMetrics* metrics) {
+    if (found.size() < 2) return;
+    std::vector<OrderedSquare> scratch(found.size());
+    std::vector<std::size_t> offsets(n);
+    for (int field = 3; field >= 0; --field) {
+        std::fill(offsets.begin(), offsets.end(), 0);
+        for (const auto& item : found) ++offsets[item.order[field]];
+        std::size_t position = 0;
+        for (auto& count : offsets) {
+            const std::size_t size = count;
+            count = position;
+            position += size;
+        }
+        for (const auto& item : found) scratch[offsets[item.order[field]]++] = item;
+        found.swap(scratch);
+        if (metrics) incrementSearchCounter(metrics->radix_passes);
+    }
+}
+
+std::vector<Square> findSquares(const Graph& graph,
+                               SquareSearchStrategy requested = SquareSearchStrategy::Auto,
+                               std::size_t adjacency_budget_bytes = defaultAdjacencyBudget,
+                               SquareSearchMetrics* metrics = nullptr) {
+    const std::size_t n = boost::num_vertices(graph);
+    if (metrics) {
+        *metrics = SquareSearchMetrics();
+        metrics->vertices = n;
+        metrics->edges = boost::num_edges(graph);
+    }
+    SearchNeighbors neighbors(n);
+    std::vector<Vertex> active;
+    std::vector<bool> universal(n, false);
+    for (Vertex u = 0; u < n; ++u) {
+        // All input/generator paths normalize to a simple undirected graph.
+        universal[u] = boost::degree(u, graph) == n - 1;
+        if (!universal[u]) active.push_back(u);
+    }
+    std::size_t active_edges = 0;
+    for (Vertex u : active) {
+        const auto range = boost::adjacent_vertices(u, graph);
+        std::size_t rank = 0;
+        for (auto it = range.first; it != range.second; ++it, ++rank) {
+            if (universal[*it]) continue;
+            neighbors[u].push_back({*it, rank});
+            if (*it > u) ++active_edges;
+        }
+    }
+    const std::size_t possible_pairs = unorderedPairCount(active.size());
+    if (active_edges > possible_pairs)
+        throw std::logic_error("Square search requires a simple graph");
+    const std::size_t missing = possible_pairs - active_edges;
+    long double wedge_work = 0;
+    for (Vertex u : active)
+        for (const auto& neighbor : neighbors[u])
+            if (neighbor.vertex > u) wedge_work += neighbors[neighbor.vertex].size();
+    // This is a work heuristic, not a bound on the wedge candidate-pair term.
+    // Complement search scans active pairs and makes at most four edge probes
+    // for each pair of nonedges. Estimates use wide arithmetic, not q*q integers.
+    const long double missing_work = static_cast<long double>(possible_pairs) +
+        2.0L * missing * (missing ? missing - 1 : 0);
+    const SquareSearchStrategy strategy = requested == SquareSearchStrategy::Auto
+        ? (missing_work < wedge_work ? SquareSearchStrategy::MissingEdges : SquareSearchStrategy::Wedges)
+        : requested;
+    if (metrics) {
+        metrics->strategy = strategy;
+        metrics->active_vertices = active.size();
+        metrics->nonedges = missing;
+        metrics->estimated_wedge_work = wedge_work;
+        metrics->estimated_missing_edge_work = missing_work;
+    }
+    if (active.size() < 4 || missing < 2 || wedge_work == 0) return {};
+    const SearchAdjacency adjacency(neighbors, adjacency_budget_bytes);
+    if (metrics) metrics->dense_adjacency = adjacency.usesMatrix();
+    std::vector<OrderedSquare> found;
+
+    if (strategy == SquareSearchStrategy::Wedges) {
+        struct Wedge {
+            Vertex neighbor;
+            std::size_t first_rank, opposite_rank;
+        };
+        std::vector<std::vector<Wedge>> buckets(n);
+        std::vector<Vertex> touched;
+        for (Vertex u : active) {
+            touched.clear();
+            for (const auto& first : neighbors[u]) {
+                const Vertex w = first.vertex;
+                if (w <= u) continue;
+                for (const auto& second : neighbors[w]) {
+                    if (metrics) incrementSearchCounter(metrics->wedge_visits);
+                    const Vertex v = second.vertex;
+                    if (v <= u || adjacency.edge(u, v)) continue;
+                    if (buckets[v].empty()) touched.push_back(v);
+                    buckets[v].push_back({w, first.original_rank, second.original_rank});
+                }
+            }
+            for (Vertex v : touched) {
+                const auto& bucket = buckets[v];
+                for (std::size_t i = 0; i < bucket.size(); ++i)
+                    for (std::size_t j = i + 1; j < bucket.size(); ++j) {
+                        if (metrics) incrementSearchCounter(metrics->wedge_pairs);
+                        const auto& a = bucket[i];
+                        const auto& b = bucket[j];
+                        if (adjacency.edge(a.neighbor, b.neighbor)) continue;
+                        // u is the unique smallest vertex, so no deduplication
+                        // table is needed. Bucket order is the order in N(u).
+                        found.push_back({{{u, v}, {a.neighbor, b.neighbor}},
+                                         {{u, a.first_rank, b.first_rank, b.opposite_rank}}});
+                    }
+                buckets[v].clear();
+            }
+        }
+    } else {
+        std::vector<Nonedge> nonedges;
+        nonedges.reserve(missing);
+        for (std::size_t i = 0; i < active.size(); ++i)
+            for (std::size_t j = i + 1; j < active.size(); ++j)
+                if (!adjacency.edge(active[i], active[j])) nonedges.push_back({active[i], active[j]});
+        // Dense-path ranks are needed only if a square actually exists. Hash
+        // lookup keeps order restoration expected-linear in the graph and output.
+        std::vector<std::unordered_map<Vertex, std::size_t>> ranks;
+        for (std::size_t i = 0; i < nonedges.size(); ++i)
+            for (std::size_t j = i + 1; j < nonedges.size(); ++j) {
+                if (metrics) incrementSearchCounter(metrics->missing_edge_pairs);
+                const Vertex u = nonedges[i].first, v = nonedges[i].second;
+                Vertex a = nonedges[j].first, b = nonedges[j].second;
+                if (u == a || u == b || v == a || v == b) continue;
+                if (!adjacency.edge(u, a) || !adjacency.edge(u, b) ||
+                    !adjacency.edge(v, a) || !adjacency.edge(v, b)) continue;
+                if (ranks.empty()) {
+                    ranks.resize(n);
+                    for (Vertex vertex : active) {
+                        ranks[vertex].reserve(neighbors[vertex].size());
+                        for (const auto& item : neighbors[vertex])
+                            ranks[vertex].emplace(item.vertex, item.original_rank);
+                    }
+                }
+                // Nonedges were generated lexicographically; hence u is the
+                // minimum square vertex. Orient its two neighbors as before.
+                if (ranks[u].at(b) < ranks[u].at(a)) std::swap(a, b);
+                found.push_back({{{u, v}, {a, b}},
+                                 {{u, ranks[u].at(a), ranks[u].at(b), ranks[b].at(v)}}});
+            }
+    }
+    restoreSquareOrder(found, n, metrics);
+    std::vector<Square> squares;
+    squares.reserve(found.size());
+    for (const auto& item : found) squares.push_back(item.square);
+    if (metrics) metrics->squares = squares.size();
     return squares;
 }
 
@@ -205,11 +385,14 @@ struct Analysis {
     bool cfs = false;
 };
 
-Analysis analyze(const Graph& graph, SquareGraphMode mode = SquareGraphMode::ComponentsOnly) {
+Analysis analyze(const Graph& graph, SquareGraphMode mode = SquareGraphMode::ComponentsOnly,
+                 SquareSearchStrategy strategy = SquareSearchStrategy::Auto,
+                 std::size_t adjacency_budget_bytes = defaultAdjacencyBudget,
+                 SquareSearchMetrics* metrics = nullptr) {
     Analysis result;
     const std::size_t n = boost::num_vertices(graph);
     result.original_components = findComponents(graph);
-    result.squares = findSquares(graph);
+    result.squares = findSquares(graph, strategy, adjacency_budget_bytes, metrics);
     const SquareIndex index = indexSquares(result.squares);
     result.square_components = findSquareComponents(result.squares.size(), index);
     if (mode == SquareGraphMode::Materialize)
@@ -238,17 +421,8 @@ Analysis analyze(const Graph& graph, SquareGraphMode mode = SquareGraphMode::Com
     }
     // A universal vertex cannot lie in an induced square. Exclude the complete
     // join factor only from the CFS target, never from literal square supports.
-    for (Vertex v = 0; v < n; ++v) {
-        bool universal = true;
-        for (Vertex u = 0; u < n; ++u) {
-            if (u != v && !boost::edge(u, v, graph).second) {
-                universal = false;
-                break;
-            }
-        }
-        if (universal)
-            ++result.universal_vertices;
-    }
+    for (Vertex v = 0; v < n; ++v)
+        if (boost::degree(v, graph) == n - 1) ++result.universal_vertices;
     result.cfs = result.original_components.count == 1 && !result.supports.empty() &&
                  result.largest_support == n - result.universal_vertices;
     return result;

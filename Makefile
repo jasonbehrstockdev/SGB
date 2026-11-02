@@ -23,6 +23,9 @@ build/sgb-reference: benchmarks/reference.cpp | build
 build/sgb-reference-large: benchmarks/reference_large.cpp | build
 	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -std=c++11 $(WARNINGS) $(LDFLAGS) $< -o $@ $(LDLIBS)
 
+build/adaptive-scaling: benchmarks/adaptive_scaling.cpp main.cpp flags.h input.h | build
+	$(CXX) $(CPPFLAGS) $(CXXFLAGS) -std=c++11 $(WARNINGS) $(LDFLAGS) $< -o $@ $(LDLIBS)
+
 build/sgb-reference-large-sanitize: benchmarks/reference_large.cpp | build
 	$(CXX) $(CPPFLAGS) -std=c++11 -O1 -g $(WARNINGS) $(SANITIZER_FLAGS) $(LDFLAGS) $< -o $@ $(LDLIBS)
 
@@ -40,6 +43,7 @@ check: build/SGB build/sgb-reference build/sgb-reference-large build/structure-t
 	$(PYTHON) benchmarks/test_performance.py
 	$(PYTHON) benchmarks/test_performance_large.py
 	$(PYTHON) benchmarks/test_performance_ensemble.py
+	$(PYTHON) benchmarks/test_adaptive_scaling.py
 	$(PYTHON) tests/regression.py --binary build/SGB
 	./build/structure-tests benchmarks/graphs.txt
 	$(PYTHON) tests/reference_large.py --reference-large build/sgb-reference-large --reference build/sgb-reference
@@ -55,6 +59,7 @@ check-sanitize: build/SGB-sanitize build/sgb-reference build/sgb-reference-large
 	$(PYTHON) benchmarks/test_performance.py
 	$(PYTHON) benchmarks/test_performance_large.py
 	$(PYTHON) benchmarks/test_performance_ensemble.py
+	$(PYTHON) benchmarks/test_adaptive_scaling.py
 	$(PYTHON) tests/regression.py --binary build/SGB-sanitize
 	ASAN_OPTIONS=$${ASAN_OPTIONS:-detect_leaks=0} UBSAN_OPTIONS=$${UBSAN_OPTIONS:-halt_on_error=1:print_stacktrace=1} ./build/structure-tests-sanitize benchmarks/graphs.txt
 	$(PYTHON) tests/reference_large.py --reference-large build/sgb-reference-large-sanitize --reference build/sgb-reference

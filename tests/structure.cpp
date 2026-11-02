@@ -62,9 +62,71 @@ std::size_t componentCount(const std::vector<std::size_t>& labels) {
     return labels.empty() ? 0 : *std::max_element(labels.begin(), labels.end()) + 1;
 }
 
+// Preserve the pre-adaptive discovery order independently of the new search.
+// The four-subset oracle below establishes the mathematical square set; this
+// older neighbor walk checks the user-visible labels and diagonal orientation.
+std::vector<Square> legacyOrder(const Graph& graph) {
+    std::vector<Square> squares;
+    std::set<Key> seen;
+    const auto vertices = boost::vertices(graph);
+    for (auto v = vertices.first; v != vertices.second; ++v) {
+        const auto neighbors = boost::adjacent_vertices(*v, graph);
+        for (auto a = neighbors.first; a != neighbors.second; ++a) {
+            auto b = a;
+            for (++b; b != neighbors.second; ++b) {
+                if (*a == *b || boost::edge(*a, *b, graph).second) continue;
+                const auto across = boost::adjacent_vertices(*b, graph);
+                for (auto opposite = across.first; opposite != across.second; ++opposite) {
+                    if (*opposite == *v || boost::edge(*opposite, *v, graph).second) continue;
+                    if (!boost::edge(*a, *opposite, graph).second) continue;
+                    if (seen.insert(key(*v, *opposite, *a, *b)).second)
+                        squares.push_back({{*v, *opposite}, {*a, *b}});
+                }
+            }
+        }
+    }
+    return squares;
+}
+
+void requireOrderedSquares(const std::vector<Square>& actual,
+                           const std::vector<Square>& expected,
+                           const std::string& name) {
+    require(actual.size() == expected.size(), name, "legacy square count");
+    for (std::size_t i = 0; i < expected.size(); ++i)
+        require(actual[i].first == expected[i].first && actual[i].second == expected[i].second,
+                name, "legacy discovery order and diagonal orientation at square " + std::to_string(i));
+}
+
+std::size_t forced_search_checks = 0;
+
+void checkSearchStrategies(const Graph& graph, const std::string& name,
+                           bool include_missing_edge_search = true) {
+    const auto expected = legacyOrder(graph);
+    std::vector<SquareSearchStrategy> strategies{SquareSearchStrategy::Wedges};
+    if (include_missing_edge_search) strategies.push_back(SquareSearchStrategy::MissingEdges);
+    for (auto strategy : strategies) {
+        for (std::size_t budget : {std::size_t(0), std::size_t(64 * 1024 * 1024)}) {
+            SquareSearchMetrics metrics{};
+            const auto actual = findSquares(graph, strategy, budget, &metrics);
+            requireOrderedSquares(actual, expected, name + " forced search");
+            require(metrics.strategy == strategy, name, "forced search strategy was not honored");
+            require(metrics.vertices == boost::num_vertices(graph), name, "search metric vertex count");
+            require(metrics.squares == expected.size(), name, "search metric square count");
+            if (boost::num_vertices(graph) != 0 && budget == 0)
+                require(!metrics.dense_adjacency, name, "zero budget did not force sparse adjacency");
+            if (!expected.empty() && budget != 0)
+                require(metrics.dense_adjacency, name, "word-boundary checks did not exercise the bit matrix");
+            ++forced_search_checks;
+        }
+    }
+}
+
 void check(const Graph& graph, const std::string& name) {
     const auto compact = analyze(graph, SquareGraphMode::ComponentsOnly);
     const auto materialized = analyze(graph, SquareGraphMode::Materialize);
+    const auto legacy_squares = legacyOrder(graph);
+    requireOrderedSquares(compact.squares, legacy_squares, name);
+    requireOrderedSquares(materialized.squares, legacy_squares, name + " materialized");
     require(!compact.square_graph, name, "component-only mode materialized a graph");
     require(bool(materialized.square_graph), name, "literal graph was not materialized");
     const std::size_t n = boost::num_vertices(graph);
@@ -226,6 +288,10 @@ int run(const std::string& corpus) {
         check(graph, name);
         check(reordered(graph, false), name + " reversed edge insertion");
         check(reordered(graph, true), name + " permuted vertices/reversed edges");
+        if (line_number == 1 || line_number == 6 || line_number == 9 || line_number == 12)
+            checkSearchStrategies(graph, name);
+        if (line_number == 1 || line_number == 12)
+            checkSearchStrategies(reordered(graph, true), name + " permuted forced paths");
         cases += 3;
     }
     require(input.eof() && line_number != 0, corpus, "missing/unreadable corpus");
@@ -239,10 +305,13 @@ int run(const std::string& corpus) {
         {"two squares sharing an edge", "[1,2,3,4,5,6] [(1,2),(2,3),(3,4),(1,4),(2,5),(5,6),(1,6)]"},
         {"three squares sharing a diagonal", "[1,2,3,4,5] [(1,3),(1,4),(1,5),(2,3),(2,4),(2,5)]"},
         {"disconnected square and isolate", "[1,2,3,4,5] [(1,2),(2,3),(3,4),(1,4)]"},
+        {"normalized square joined to complete factor", "[1,2,3,4,5] [(1,2),(2,1),(2,3),(3,4),(1,4),(1,5),(2,5),(3,5),(4,5),(5,5)]"},
         {"square joined to complete factor", "[1,2,3,4,5,6] [(1,2),(2,3),(3,4),(1,4),(1,5),(2,5),(3,5),(4,5),(1,6),(2,6),(3,6),(4,6),(5,6)]"}
     };
     for (const auto& item : targeted) {
-        check(fromParsedGraph(sgb::parse_graph(item.second)), item.first);
+        const auto graph = fromParsedGraph(sgb::parse_graph(item.second));
+        check(graph, item.first);
+        checkSearchStrategies(graph, item.first);
         ++cases;
     }
     Graph overlap(100);
@@ -252,8 +321,79 @@ int run(const std::string& corpus) {
     check(overlap, "100-vertex K8,8 core with 84 pendant leaves");
     check(reordered(overlap, true), "permuted K8,8 core and leaves");
     cases += 2;
+
+    // Squares whose vertex indices cross machine-word boundaries catch bit
+    // addressing/padding errors without requiring a large square graph.
+    for (std::size_t n : {63u, 64u, 65u, 127u, 128u, 129u}) {
+        Graph boundary(n);
+        const Vertex a = 0, b = n / 2, c = n - 2, d = n - 1;
+        boost::add_edge(a, b, boundary);
+        boost::add_edge(b, c, boundary);
+        boost::add_edge(c, d, boundary);
+        boost::add_edge(d, a, boundary);
+        // A pendant edge exercises degree differences without creating a
+        // second cycle or hiding the boundary-crossing square behind chords.
+        boost::add_edge(a, 1, boundary);
+        check(boundary, "word boundary n=" + std::to_string(n));
+        if (n == 63 || n == 65 || n == 129)
+            checkSearchStrategies(boundary, "forced word boundary n=" + std::to_string(n));
+        ++cases;
+    }
+
+    // A dense complement-matching family has exactly C(k,2) squares for k
+    // missing matching edges, and exercises universal vertices in the same
+    // graph. Full edge-set checking remains small despite n=100.
+    for (std::size_t missing_pairs : {0u, 1u, 2u, 8u}) {
+        Graph dense(100);
+        for (Vertex a = 0; a < 100; ++a)
+            for (Vertex b = a + 1; b < 100; ++b)
+                if (!(a < 2 * missing_pairs && a % 2 == 0 && b == a + 1))
+                    boost::add_edge(a, b, dense);
+        check(dense, "100-vertex complement matching k=" + std::to_string(missing_pairs));
+        check(reordered(dense, true), "permuted 100-vertex complement matching k=" +
+                                     std::to_string(missing_pairs));
+        checkSearchStrategies(reordered(dense, true), "forced complement matching k=" +
+                                                     std::to_string(missing_pairs));
+        cases += 2;
+    }
+
+    Graph star(100), complement_star(100);
+    for (Vertex a = 0; a < 100; ++a)
+        for (Vertex b = a + 1; b < 100; ++b) {
+            if (a == 0) boost::add_edge(a, b, star);
+            if (!(a == 0 && b < 20)) boost::add_edge(a, b, complement_star);
+        }
+    check(star, "100-vertex star with no squares");
+    check(reordered(star, true), "permuted 100-vertex star with no squares");
+    check(complement_star, "100-vertex complement star with no squares");
+    checkSearchStrategies(star, "forced 100-vertex star");
+    checkSearchStrategies(complement_star, "forced 100-vertex complement star");
+    cases += 3;
+
+    // Exercise ordering keys above 255 with analytically known small square
+    // sets. A full four-subset scan at this size adds little coverage, while a
+    // forced missing-edge-pair search would inspect hundreds of millions of
+    // irrelevant pairs in these deliberately sparse examples.
+    Graph rank_boundary(264);
+    boost::add_edge(0, 2, rank_boundary);
+    for (Vertex v = 3; v < 264; ++v) boost::add_edge(1, v, rank_boundary);
+    boost::add_edge(0, 1, rank_boundary);
+    boost::add_edge(2, 258, rank_boundary);
+    boost::add_edge(2, 259, rank_boundary);
+    // The K2,3 core has three squares; opposite vertices 258 and 259 have
+    // positions 255 and 256 in vertex1's original neighbor insertion order.
+    require(legacyOrder(rank_boundary).size() == 3, "rank boundary", "K2,3 square count");
+    checkSearchStrategies(rank_boundary, "neighbor ranks straddling 255/256", false);
+
+    Graph vertex_boundary(264);
+    for (const auto& cycle : std::vector<std::array<Vertex, 4>>{{{1, 3, 4, 6}}, {{256, 258, 260, 263}}})
+        for (std::size_t i = 0; i < 4; ++i)
+            boost::add_edge(cycle[i], cycle[(i + 1) % 4], vertex_boundary);
+    require(legacyOrder(vertex_boundary).size() == 2, "vertex boundary", "disjoint C4 count");
+    checkSearchStrategies(vertex_boundary, "minimum vertex straddling 255/256", false);
     std::cout << "PASS: " << cases << " structural analyses in both component-only and literal-graph modes; "
-              << "complete square sets, edge sets, partitions, supports, CFS and serialization\n";
+              << forced_search_checks << " forced strategy/adjacency checks; complete square sets, "
+              << "legacy order/orientation, edge sets, partitions, supports, CFS and serialization\n";
     return 0;
 }
 } // namespace structural_tests
