@@ -1,5 +1,12 @@
 # Studied 100-vertex benchmarks
 
+The latest [adaptive-search report](../audit/performance-adaptive.md) measures
+the sparse and dense search methods against the previous optimized version.
+Its main comparison uses the same 240-graph matrix described below. A separate
+`adaptive_scaling.py` study holds `p*sqrt(n)` or expected complement degree fixed,
+with 20 samples at each size; instrumented search costs are distinguished from
+whole-program timings. See the [algorithm note](../audit/adaptive-search.md).
+
 The [20-graph density comparison](../audit/performance-ensemble.md) covers 20
 distinct graphs at each of six densities for 1,000 and 3,000 vertices, with
 identical before/after inputs and a two-minute per-run timeout. Its reproducible

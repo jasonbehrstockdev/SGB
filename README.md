@@ -149,6 +149,10 @@ must update their schema; old five-field disconnected rows are no longer emitted
 See [audit/README.md](audit/README.md) for the completed repair audit,
 strengths/weaknesses assessment, improvement plan, and validation evidence.
 See [benchmarks/README.md](benchmarks/README.md) for the studied 100-vertex corpus.
+The [adaptive-search report](audit/performance-adaptive.md) compares the current
+search with the previous optimized version, using 20 graphs per density and
+size. The [algorithm note](audit/adaptive-search.md) gives correctness arguments,
+the parameter regimes with quadratic search work, and the limits of that claim.
 See [the performance report](audit/performance.md) for repeated before/after
 measurements and reproduction commands.
 The [20-graph density comparison](audit/performance-ensemble.md) measures 20
@@ -156,8 +160,14 @@ different graphs at each of six densities for 1,000 and 3,000 vertices, using
 identical before/after inputs and a two-minute per-run timeout. The earlier
 [single-graph comparison](audit/performance-large.md) remains available.
 
-Square deduplication uses canonical diagonal keys. Ordinary analysis computes
-square components through shared diagonals without storing square-graph edges.
+Square search automatically chooses between grouping two-edge paths by their
+endpoints and testing pairs of missing edges. Both methods emit each induced
+square once and preserve the original square labels and orientations. Edge
+queries use a bit matrix capped at 64 MiB, with hashed adjacency for larger
+instances. See the algorithm note for the selection heuristic and memory costs.
+
+Ordinary analysis computes square components through shared diagonals without
+storing square-graph edges.
 `-v` and `-d` still construct and display the full literal square graph, connecting
 every pair of squares sharing a diagonal. Both modes compute the same component
 supports and CFS result. Complete join factors affect classification only.

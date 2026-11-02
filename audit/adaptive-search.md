@@ -187,16 +187,51 @@ objects. They do not establish the same lower bounds for a future algorithm
 that only decides CFS using a compressed representation; that would require a
 separate algorithm and proof.
 
-## Measurement plan
+## Measurements
 
-The planned before/after comparison uses the existing 240-graph density corpus:
-20 distinct graphs at each of six densities for 1,000 and 3,000 vertices, with
-identical paired inputs and a two-minute limit. The baseline is the previously
-optimized version at `0ebc8fe`, so this measures the additional search changes.
+The [paired density study](performance-adaptive-results.json) uses the existing
+240-graph corpus: 20 distinct graphs at each of six densities for 1,000 and
+3,000 vertices, identical before/after inputs, and a two-minute limit. Its
+baseline is the previously optimized version at `0ebc8fe`, so this measures
+the additional search changes in `3797211`.
 
-A separate scaling study should hold `alpha` fixed for the sparse family and
-hold the expected complement degree fixed for the dense family. Record both
-elapsed time and search-operation counts over at least 20 graphs per size.
-Operation counts help distinguish the algorithm's growth from startup costs,
-memory allocation, and machine noise. No new timing results are asserted in
-this design note before those measurements are complete.
+The baseline completed 237/240 runs and the new version completed all 240.
+Every completed output matched the independent reference; all 237 completed
+pairs had identical CSV. At 3,000 vertices and 1% density, median elapsed time
+fell from 17.894 seconds to 0.1294 seconds, with a median paired speedup of
+139.05 times. The three baseline timeouts occur in the 1.5% group and remain
+censored measurements. A [separate dense study](performance-adaptive-dense-results.json)
+adds 20 graphs at each of 50%, 90%, and 98% density on 100 vertices; both builds
+completed all 60 pairs.
+
+The [scaling study](performance-adaptive-scaling.json) holds `alpha=0.5` fixed
+for the sparse family and expected complement degree 2 fixed for the dense
+family. It uses 20 graphs at each of 250, 500, 1,000, and 2,000 vertices in each
+family, for 160 cases. Every sparse case selected the wedge search, and every
+dense case selected the missing-edge search.
+
+| Doubling the vertex count | Sparse median candidate-count ratio | Dense median candidate-count ratio |
+| --- | ---: | ---: |
+| 250 to 500 | 3.865 | 3.881 |
+| 500 to 1,000 | 3.863 | 4.069 |
+| 1,000 to 2,000 | 3.950 | 4.085 |
+
+Ratios near four agree with the quadratic candidate growth predicted above.
+These counters sum forward wedge visits, pairs inside wedge buckets, and pairs
+of missing edges; they exclude setup, allocation, rank lookup, and ordering.
+The scaling timer measures `findSquares`, including its setup and ordering,
+while excluding input-graph construction, result validation, component/support
+analysis, and output. It is separate from the complete CLI timings in the
+paired studies.
+
+Sparse median search times grew by factors 3.165, 3.746, and 3.636 when doubling
+the vertex count. Dense median search times grew by 4.600, 6.082, and 4.862.
+The larger dense time factors show that candidate counts alone do not describe
+the wall-time growth over these sizes. The experiment supports the quadratic
+enumeration argument through its operation counts; it does not establish a
+quadratic measured wall-time law for the full program.
+
+The [artifact verification record](performance-adaptive-validation.json)
+checks input and build identities, completed outputs, independent summary
+statistics, scaling strategy estimates and counters, and exact-output
+equivalence. It also records the normal and sanitizer test evidence.

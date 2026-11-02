@@ -1,5 +1,9 @@
 # Performance improvements
 
+The later [adaptive-search report](performance-adaptive.md) measures the next
+optimization pass. Its [algorithm note](adaptive-search.md) explains the new
+enumeration methods; the measurements below remain a historical comparison.
+
 For subsequent 1,000- and 3,000-vertex comparisons, see the
 [20-graph density study](performance-ensemble.md) and the earlier
 [single-graph report](performance-large.md). The original 100-vertex

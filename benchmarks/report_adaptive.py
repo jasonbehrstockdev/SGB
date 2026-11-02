@@ -10,6 +10,8 @@ from pathlib import Path
 import statistics
 
 from report_ensemble import number, quantile_text, render_plot, rows, verify_report
+from performance_ensemble import aggregate_cases
+from performance_large import validate_csv
 
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -52,6 +54,82 @@ def paired_text(group):
     return result
 
 
+def verify_dense_report(report, main_report):
+    if not report.get('completed') or not report.get('all_completed_outputs_validated'):
+        raise ValueError('The dense comparison is incomplete or has unvalidated outputs')
+    if report.get('execution_or_validation_failures') != 0:
+        raise ValueError('Resolve failures in the dense comparison')
+    cases = report['cases']
+    if len(cases) != 60 or len(report['groups']) != 3:
+        raise ValueError('Expected 60 dense cases in three groups')
+    if len({case['input_sha256'] for case in cases}) != 60:
+        raise ValueError('Dense comparison inputs are not distinct')
+    expected = {(100, p) for p in (.5, .9, .98)}
+    if {(group['vertices'], group['probability']) for group in report['groups']} != expected:
+        raise ValueError('Unexpected dense comparison matrix')
+    same_provenance = ('before_commit', 'after_commit', 'source_sha256', 'binary_sha256',
+                       'compiler_version', 'compiler_flags', 'boost_version',
+                       'reference_binary_sha256', 'reference_source_sha256',
+                       'runner_sha256', 'imported_runner_sha256', 'timeout_seconds',
+                       'address_space_limit_bytes', 'worker_cpus', 'management_cpu')
+    for key in same_provenance:
+        if report['provenance'][key] != main_report['provenance'][key]:
+            raise ValueError(f'Dense comparison provenance differs: {key}')
+    if report['groups'] != aggregate_cases(cases, report['provenance']['timeout_seconds']):
+        raise ValueError('Dense comparison summaries disagree with raw observations')
+    for group in report['groups']:
+        selected = [case for case in cases if (case['vertices'], case['probability'])
+                    == (group['vertices'], group['probability'])]
+        if len(selected) != 20 or len({case['seed'] for case in selected}) != 20 or group['graphs'] != 20:
+            raise ValueError('Dense groups must have 20 distinct graph seeds')
+        for case in selected:
+            if case['reference']['vertices'] != case['vertices'] or case['reference']['edges'] != case['edges']:
+                raise ValueError('Dense input/reference dimensions disagree')
+            for label in ('before', 'after'):
+                item = case[label]
+                if item['status'] not in ('ok', 'timeout'):
+                    raise ValueError('Unexpected dense comparison execution failure')
+                if item['status'] == 'ok':
+                    if not item['validated']:
+                        raise ValueError('Dense completed output was not validated')
+                    validate_csv(item['stdout'], case['reference'])
+            if all(case[label]['status'] == 'ok' for label in ('before', 'after')):
+                if case['before']['stdout'] != case['after']['stdout']:
+                    raise ValueError('Dense paired CSV outputs differ')
+    expected_after = all(case['after']['status'] == 'ok' and case['after']['validated'] for case in cases)
+    if report.get('all_optimized_cases_validated') != expected_after:
+        raise ValueError('Dense optimized-completion flag is inconsistent')
+
+
+def dense_section(report):
+    before, after = counts(report, 'before'), counts(report, 'after')
+    text = [
+        '## Dense and nearly complete graphs', '',
+        'A [supplemental paired comparison](performance-adaptive-dense-results.json)',
+        'uses **20 distinct 100-vertex graphs at each of 50%, 90%, and 98% edge',
+        'probability**. It uses the same before/after executables, compiler settings,',
+        'two-minute budget, 4 GiB address-space cap, pinned-worker arrangement,',
+        'fresh-process timing, and reference validation as the main experiment.',
+        'These 60 graphs directly measure the whole ordinary CLI path on dense',
+        'inputs. Their timings are reported separately from the larger sparse graphs.', '',
+        '| Vertices | Edge probability | Before median (s) | After median (s) | Median paired speedup | Completed before / after (of 20) |',
+        '| ---: | ---: | ---: | ---: | ---: | --- |',
+    ]
+    for group in rows(report):
+        text.append(f"| {group['vertices']:,} | {100 * group['probability']:g}% | "
+                    f"{quantile_text(group['before']['quantiles']['median'])} | "
+                    f"{quantile_text(group['after']['quantiles']['median'])} | {paired_text(group)} | "
+                    f"{group['before']['counts']['ok']} / {group['after']['counts']['ok']} |")
+    text += ['', f"The before build completed {before['ok']}/60 runs and the adaptive build",
+             f"completed {after['ok']}/60; timeout counts were {before['timeout']} and {after['timeout']}.",
+             'Every completed output matched the reference, and every completed pair',
+             'had identical CSV. Speedup statistics use only completed pairs; any',
+             'censored quantiles retain the full 20-graph group. The raw record',
+             'contains the actual densities, reference square/component/support',
+             'results, CFS classifications, input hashes, and all individual timings.', '']
+    return text
+
+
 def verify_scaling(report):
     if not report.get('completed') or not report.get('all_cases_validated'):
         raise ValueError('The scaling study is incomplete or has unvalidated cases')
@@ -73,6 +151,9 @@ def verify_scaling(report):
         for case in selected:
             if case['status'] != 'ok' or not case['validated']:
                 raise ValueError('Unvalidated scaling output')
+            expected_probability = .5 / math.sqrt(case['vertices']) if case['family'] == 'fixed_alpha' else 2 / (case['vertices'] - 1)
+            if case['listed_probability'] != expected_probability:
+                raise ValueError('Scaling parameters differ from the documented families')
             observed = case['observation']
             if not observed['every_square_valid_and_unique'] or observed['squares'] != case['expected_squares']:
                 raise ValueError('Scaling square output failed verification')
@@ -111,10 +192,27 @@ def scaling_section(report):
     ]
     for group in sorted(report['groups'], key=lambda group: (group['family'], group['vertices'])):
         strategies = ', '.join(f'{name}: {count}' for name, count in sorted(group['strategies'].items()))
-        text.append(f"| {group['family']} | {group['vertices']:,} | {group['graphs']} | "
+        family = 'Fixed α = 0.5' if group['family'] == 'fixed_alpha' else 'Complement mean degree 2'
+        text.append(f"| {family} | {group['vertices']:,} | {group['graphs']} | "
                     f"{number(group['search_seconds_median'])} | "
                     f"{number(group['enumeration_checks_per_n_squared_median'])} | "
                     f"{number(group['squares_per_n_squared_median'])} | {strategies} |")
+    for family, label in (('fixed_alpha', 'sparse'), ('fixed_complement_degree', 'dense')):
+        groups = sorted((group for group in report['groups'] if group['family'] == family),
+                        key=lambda group: group['vertices'])
+        work_ratios = [current['enumeration_checks_median'] / previous['enumeration_checks_median']
+                       for previous, current in zip(groups, groups[1:])]
+        time_ratios = [current['search_seconds_median'] / previous['search_seconds_median']
+                       for previous, current in zip(groups, groups[1:])]
+        text += ['', f"For the {label} family, doubling the vertex count multiplies the median",
+                 'enumeration checks by ' + ', '.join(f'{value:.2f}×' for value in work_ratios) + '.',
+                 'The corresponding search-time factors are ' + ', '.join(f'{value:.2f}×' for value in time_ratios) + '.']
+    text += ['', 'Candidate-check growth is close to the factor of four predicted by',
+             'quadratic enumeration. The measured dense search times grow faster over',
+             'these sizes. Allocation, sorting buffers, and cache effects are possible',
+             'contributors, but this experiment does not isolate their causes. The',
+             'data therefore support the operation-count prediction without establishing',
+             'quadratic wall-clock growth or an end-to-end quadratic runtime.']
     text += ['', 'Each case has an independently derived square count and checks the',
              'returned squares for valid induced-cycle adjacencies and duplicate keys.',
              'The raw scaling artifact records its exact source/binary/input hashes,',
@@ -122,7 +220,7 @@ def scaling_section(report):
     return text
 
 
-def render_markdown(report, raw_sha256, scaling=None):
+def render_markdown(report, raw_sha256, scaling=None, dense=None):
     provenance = report['provenance']
     before, after = counts(report, 'before'), counts(report, 'after')
     paired_count = sum(all(case[label]['status'] == 'ok' for label in ('before', 'after'))
@@ -221,6 +319,8 @@ def render_markdown(report, raw_sha256, scaling=None):
              'where a timed application run did not finish. They do not turn timeouts',
              'into correctness passes. Complete join factors remain allowed for CFS;',
              'the square graph and its actual supports retain their literal meaning.', '']
+    if dense is not None:
+        text += dense_section(dense)
     if scaling is not None:
         text += scaling_section(scaling)
     text += [
@@ -237,12 +337,20 @@ def render_markdown(report, raw_sha256, scaling=None):
         'gives these qualifications explicitly. The paired table measures the whole',
         'ordinary `-tf` CLI path, while the separate scaling study concerns search.', '',
         '## Validation and measurement limits', '',
-        f"All **{before['ok'] + after['ok']} completed application outputs** matched the",
-        f"scalable reference, and all **{paired_count} completed pairs** had identical CSV.",
+        f"All **{before['ok'] + after['ok']} completed application outputs in the main 240-graph study**",
+        f"matched the scalable reference, and all **{paired_count} completed pairs** had identical CSV.",
         'The runner validated square/component counts, literal support ratios, graph',
         'connectivity, density, alpha, and the CFS result. The report generator',
         'revalidates completed CSV records and recomputes group summaries before',
         'rendering. No execution or validation failure is present in this artifact.', '',
+        'The [independent verification record](performance-adaptive-validation.json)',
+        'checks regenerated inputs, recorded source and binary hashes, completed',
+        'outputs, and independently recalculated paired/scaling statistics. The',
+        'normal and AddressSanitizer/UndefinedBehaviorSanitizer test suites passed,',
+        'including 75 structural cases and 108 forced search/adjacency-backend checks.',
+        'The [output-equivalence record](performance-adaptive-equivalence.json)',
+        'also confirms byte-identical verbose/debug stdout and stderr on all',
+        '15 benchmark graphs and 13 original example records.', '',
         'The independent reference uses bitset common-neighbor intersections and',
         'components of diagonal nodes. The application uses its own streamed wedge',
         'or missing-edge-pair search. The existing four-vertex-subset structural',
@@ -260,8 +368,10 @@ def render_markdown(report, raw_sha256, scaling=None):
         'does not establish a portable speedup for every graph family or machine.', '',
         f'Raw result SHA-256: `{raw_sha256}`.', '',
         '## Reproduce', '',
-        'Run from the measured after commit shown above. Build the baseline source',
-        'separately with the same compiler and flags:', '',
+        'Use the revision containing this report and its verification tools. Its',
+        'application sources are unchanged from the measured after commit shown',
+        'above; the following commits add measurement evidence and documentation.',
+        'Build the baseline source separately with the same compiler and flags:', '',
         '```sh',
         'mkdir -p build/performance-adaptive/before-source',
         f"git archive {provenance['before_commit']} main.cpp flags.h input.h | \\",
@@ -291,6 +401,37 @@ def render_markdown(report, raw_sha256, scaling=None):
         'The timing runner uses the Python standard library. Plot rendering requires',
         'Matplotlib. Historical reports retain their original measurements and methods.', '',
     ]
+    if dense is not None:
+        text += ['The dense comparison uses the same runner command and source/build',
+                 'arguments, replacing the input matrix and output destination with:', '',
+                 '```sh',
+                 '--vertices 100 --probabilities .5 .9 .98 --samples 20 \\',
+                 '  --output audit/performance-adaptive-dense-results.json',
+                 '```', '']
+    if scaling is not None:
+        text += ['Run the instrumented scaling study after the paired timings finish:', '',
+                 '```sh',
+                 'make build/adaptive-scaling',
+                 'python3 benchmarks/adaptive_scaling.py \\',
+                 '  --binary build/adaptive-scaling \\',
+                 f"  --application-commit {provenance['after_commit']} \\",
+                 f"  --boost-version {provenance['boost_version']} \\",
+                 '  --output audit/performance-adaptive-scaling.json',
+                 '```', '',
+                 'Keep the source snapshots, measured executables, and original fixture',
+                 'files for verification. Capture the test log and output-equivalence',
+                 'record before running the independent evidence checker:', '',
+                 '```sh',
+                 'make check check-sanitize build/adaptive-scaling \\',
+                 '  > build/performance-adaptive/preflight.log 2>&1',
+                 'python3 tests/compare_versions.py \\',
+                 '  --before build/performance-adaptive/SGB-before --after build/SGB \\',
+                 '  --before-source build/performance-adaptive/before-source \\',
+                 '  --output audit/performance-adaptive-equivalence.json',
+                 'python3 benchmarks/verify_adaptive.py',
+                 '```', '',
+                 'Add the same `CPPFLAGS` Boost include setting when necessary. Run the',
+                 'test and verification commands outside the measured timing intervals.', '']
     return '\n'.join(text)
 
 
@@ -301,6 +442,7 @@ def main():
     parser.add_argument('--plot', type=Path, default=ROOT / 'audit/performance-adaptive.svg')
     parser.add_argument('--preview', type=Path)
     parser.add_argument('--scaling', type=Path, default=ROOT / 'audit/performance-adaptive-scaling.json')
+    parser.add_argument('--dense', type=Path, default=ROOT / 'audit/performance-adaptive-dense-results.json')
     args = parser.parse_args()
     raw = args.input.read_bytes()
     report = json.loads(raw)
@@ -311,7 +453,11 @@ def main():
         verify_scaling(scaling)
         if scaling['provenance']['source_sha256'] != report['provenance']['source_sha256']['after']:
             raise ValueError('The scaling study and paired comparison use different application sources')
-    markdown = render_markdown(report, hashlib.sha256(raw).hexdigest(), scaling)
+    dense = None
+    if args.dense.exists():
+        dense = json.loads(args.dense.read_text())
+        verify_dense_report(dense, report)
+    markdown = render_markdown(report, hashlib.sha256(raw).hexdigest(), scaling, dense)
     for path in (args.markdown, args.plot, args.preview):
         if path is not None:
             path.parent.mkdir(parents=True, exist_ok=True)

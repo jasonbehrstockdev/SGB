@@ -3,7 +3,11 @@
 The original 2024 program was imported before any source edits. This folder
 records the subsequent repairs, full rereview, and recommendations.
 
-- [20-graph density comparisons](performance-ensemble.md): 20 distinct graphs
+- [Adaptive square search](adaptive-search.md): exact sparse/dense searches,
+  complexity arguments, automatic selection, and compatibility guarantees.
+- [Adaptive-search measurements](performance-adaptive.md): the current search
+  versus the previous optimized version, with paired timings and scaling evidence.
+- [Previous 20-graph density comparisons](performance-ensemble.md): 20 distinct graphs
   per density and size, six densities, paired inputs, and a two-minute timeout.
 - [Earlier larger-graph comparisons](performance-large.md): repeated timings
   of individual 1,000- and 3,000-vertex examples, preserved with their original limits.

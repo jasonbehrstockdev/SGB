@@ -1,10 +1,13 @@
 # Optimization and improvement plan
 
-Status: the subsequent [performance work](performance.md) implements canonical
+Status: the subsequent [adaptive-search work](adaptive-search.md) implements
+bounded adjacency bitsets with a hash fallback, streamed common-neighbor search,
+and a search over pairs of missing edges. See its [measurements](performance-adaptive.md).
+The earlier [performance work](performance.md) implements canonical
 square-key deduplication, shared-diagonal component discovery, optional exact
 square-graph materialization, and direct support insertion. It records repeated
 before/after measurements. The proposals below describe the original plan at
-commit `cbdb90f`; adjacency bitsets, a public library API, and general resource
+commit `cbdb90f`; a public library API and general resource
 budgets remain future work.
 
 These are proposals for work after the correctness repairs. They are not claims
