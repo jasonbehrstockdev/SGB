@@ -7,6 +7,8 @@ records the subsequent repairs, full rereview, and recommendations.
   complexity arguments, automatic selection, and compatibility guarantees.
 - [Adaptive-search measurements](performance-adaptive.md): the current search
   versus the previous optimized version, with paired timings and scaling evidence.
+- [Thickness-density comparison](performance-alpha06.md): 20 paired graphs at
+  each of 1,000 and 3,000 vertices with `p = 0.6 / sqrt(n)`.
 - [Previous 20-graph density comparisons](performance-ensemble.md): 20 distinct graphs
   per density and size, six densities, paired inputs, and a two-minute timeout.
 - [Earlier larger-graph comparisons](performance-large.md): repeated timings

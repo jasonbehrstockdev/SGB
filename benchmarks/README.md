@@ -6,6 +6,8 @@ Its main comparison uses the same 240-graph matrix described below. A separate
 `adaptive_scaling.py` study holds `p*sqrt(n)` or expected complement degree fixed,
 with 20 samples at each size; instrumented search costs are distinguished from
 whole-program timings. See the [algorithm note](../audit/adaptive-search.md).
+The [fixed-alpha comparison](../audit/performance-alpha06.md) adds 20 paired
+graphs at each of 1,000 and 3,000 vertices at `p = 0.6 / sqrt(n)`.
 
 The [20-graph density comparison](../audit/performance-ensemble.md) covers 20
 distinct graphs at each of six densities for 1,000 and 3,000 vertices, with

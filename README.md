@@ -153,6 +153,8 @@ The [adaptive-search report](audit/performance-adaptive.md) compares the current
 search with the previous optimized version, using 20 graphs per density and
 size. The [algorithm note](audit/adaptive-search.md) gives correctness arguments,
 the parameter regimes with quadratic search work, and the limits of that claim.
+The [fixed-alpha comparison](audit/performance-alpha06.md) measures the thickness
+benchmark density `p = 0.6 / sqrt(n)` on 20 graphs at each of 1,000 and 3,000 vertices.
 See [the performance report](audit/performance.md) for repeated before/after
 measurements and reproduction commands.
 The [20-graph density comparison](audit/performance-ensemble.md) measures 20
