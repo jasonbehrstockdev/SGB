@@ -1,0 +1,538 @@
+{
+  "schema_version": 1,
+  "completed": true,
+  "cases": [
+    {
+      "name": "pair_path_100",
+      "input_sha256": "c6df766ab4ab17869e90ee1bf1b62f2c0c20fc1230299b0eb5b5ab9f02bc7ae6",
+      "before": {
+        "enumeration_seconds": {
+          "samples_seconds": [
+            0.000149268,
+            0.000148326,
+            0.000148707
+          ],
+          "median_seconds": 0.000148707
+        },
+        "connectivity_seconds": {
+          "samples_seconds": [
+            0.000258381,
+            0.000156842,
+            0.000223827
+          ],
+          "median_seconds": 0.000223827
+        }
+      },
+      "after": {
+        "enumeration_seconds": {
+          "samples_seconds": [
+            5.33e-05,
+            5.1546e-05,
+            5.3139e-05
+          ],
+          "median_seconds": 5.3139e-05
+        },
+        "connectivity_seconds": {
+          "samples_seconds": [
+            3.8471e-05,
+            3.73e-05,
+            3.9103e-05
+          ],
+          "median_seconds": 3.8471e-05
+        }
+      }
+    },
+    {
+      "name": "er_p0.12_seed202402",
+      "input_sha256": "506f1fdfa585354593250ee2a38f06ef608648f6f3098f2f09f270d26afcdf8e",
+      "before": {
+        "enumeration_seconds": {
+          "samples_seconds": [
+            0.011706152,
+            0.01102322,
+            0.010572582
+          ],
+          "median_seconds": 0.01102322
+        },
+        "connectivity_seconds": {
+          "samples_seconds": [
+            0.004757667,
+            0.004535193,
+            0.004605002
+          ],
+          "median_seconds": 0.004605002
+        }
+      },
+      "after": {
+        "enumeration_seconds": {
+          "samples_seconds": [
+            0.004030172,
+            0.003812457,
+            0.003744766
+          ],
+          "median_seconds": 0.003812457
+        },
+        "connectivity_seconds": {
+          "samples_seconds": [
+            0.00029543,
+            0.000291002,
+            0.000287225
+          ],
+          "median_seconds": 0.000291002
+        }
+      }
+    },
+    {
+      "name": "er_p0.25_seed20261031",
+      "input_sha256": "9d284f5aaf3f8ef9f878a37a21323e7ac89c5b94fa9a25dc98624059140bf71f",
+      "before": {
+        "enumeration_seconds": {
+          "samples_seconds": [
+            1.773892248,
+            1.780998187,
+            1.762192066
+          ],
+          "median_seconds": 1.773892248
+        },
+        "connectivity_seconds": {
+          "samples_seconds": [
+            1.010135032,
+            0.961262763,
+            1.004947255
+          ],
+          "median_seconds": 1.004947255
+        }
+      },
+      "after": {
+        "enumeration_seconds": {
+          "samples_seconds": [
+            0.069571071,
+            0.070906516,
+            0.063027424
+          ],
+          "median_seconds": 0.069571071
+        },
+        "connectivity_seconds": {
+          "samples_seconds": [
+            0.001856376,
+            0.001857378,
+            0.001765224
+          ],
+          "median_seconds": 0.001856376
+        }
+      }
+    },
+    {
+      "name": "K10_10_with_tail_100",
+      "input_sha256": "c4cadb2c3084542203d89d0ed34a398a4a1606a733b896bfc287d8dec2b31311",
+      "before": {
+        "enumeration_seconds": {
+          "samples_seconds": [
+            0.009468817,
+            0.009568091,
+            0.010736524
+          ],
+          "median_seconds": 0.009568091
+        },
+        "connectivity_seconds": {
+          "samples_seconds": [
+            0.017366559,
+            0.013659669,
+            0.014159522
+          ],
+          "median_seconds": 0.014159522
+        }
+      },
+      "after": {
+        "enumeration_seconds": {
+          "samples_seconds": [
+            0.000471037,
+            0.000356343,
+            0.00044072
+          ],
+          "median_seconds": 0.00044072
+        },
+        "connectivity_seconds": {
+          "samples_seconds": [
+            0.000106569,
+            0.000108492,
+            0.000125924
+          ],
+          "median_seconds": 0.000108492
+        }
+      }
+    },
+    {
+      "name": "pair_path_join_K20_100",
+      "input_sha256": "0f7daf51f9babd017c46a7cdd7079a911f47bd810332f816f5f6d8f2417e70e5",
+      "before": {
+        "enumeration_seconds": {
+          "samples_seconds": [
+            0.378370311,
+            0.381724482,
+            0.399958905
+          ],
+          "median_seconds": 0.381724482
+        },
+        "connectivity_seconds": {
+          "samples_seconds": [
+            8.5459e-05,
+            8.6802e-05,
+            9.5848e-05
+          ],
+          "median_seconds": 8.6802e-05
+        }
+      },
+      "after": {
+        "enumeration_seconds": {
+          "samples_seconds": [
+            0.579115762,
+            0.571891894,
+            0.581695854
+          ],
+          "median_seconds": 0.579115762
+        },
+        "connectivity_seconds": {
+          "samples_seconds": [
+            3.0216e-05,
+            3.0206e-05,
+            2.9986e-05
+          ],
+          "median_seconds": 3.0206e-05
+        }
+      }
+    }
+  ],
+  "methodology": "Three alternating before/after process pairs, no warmup, five graphs per process. C++ steady_clock measures square enumeration and connectivity only. Before connectivity includes explicit square-graph construction plus Boost connected_components; after connectivity includes diagonal indexing plus disjoint sets. Parsing, support accumulation, classification, output, and graph destruction after the timer are excluded. Exploratory attribution only; use performance-results.json for speed claims.",
+  "environment": {
+    "platform": "Linux-6.18.55-x86_64-with-glibc2.41",
+    "machine": "x86_64",
+    "python": "3.12.14",
+    "logical_cpus": 5,
+    "cpu_model": "AMD EPYC 7763 64-Core Processor",
+    "cgroup_cpu.max": "400000 100000",
+    "cgroup_memory.max": "17179869184",
+    "cpu_affinity": [
+      0,
+      1,
+      2,
+      3,
+      4
+    ]
+  },
+  "compiler_version": "g++ (Debian 14.2.0-19) 14.2.0",
+  "compiler_flags": "-I/tmp/sgb-boost/usr/include -O2 -std=c++11 -Wall -Wextra -Wpedantic -Werror",
+  "boost_version": "1.83",
+  "source_sha256": {
+    "before": {
+      "main.cpp": "8b8ac7e047b2a43b59b3cd8355253fc743b7d893d67f08fece3b168f9dfec9c2",
+      "flags.h": "6a5ace505f0a097fe125fa99add443b176a04747ee14ecefe109a30d2dbecb21",
+      "input.h": "2dda53c6c93f956bac0dd6dd08d616cf70f85f190a3f588a5907b750c8548dc9"
+    },
+    "after": {
+      "main.cpp": "dbd62658ccec3593cd079c94b956444974e94a36ede19885fe0741ca09985594",
+      "flags.h": "6a5ace505f0a097fe125fa99add443b176a04747ee14ecefe109a30d2dbecb21",
+      "input.h": "2dda53c6c93f956bac0dd6dd08d616cf70f85f190a3f588a5907b750c8548dc9"
+    }
+  },
+  "before_commit": "cbdb90fb17186288f6a77944f2ee84dee2c4f230",
+  "probe_source_sha256": "9113a0283b49c48e2b9be84384107831743ca96a9cfaf3736ad42441ea533815",
+  "runner_sha256": "64c2ad205541370c4f01e04816b182ffd47756edb2d31ff0d8e1455cc9375204",
+  "binary_sha256": {
+    "before": "c444d6a82869c66178f983d3daf503014dd8cc0209ca75afeab59fbc7c489745",
+    "after": "a535dba7e32cdc154a353b89f8db423004c297aebc5ae3e81cc0578e172e4611"
+  },
+  "graphs_sha256": "e6a3ff7358a9c5ab3e45a7aa266c0d3a8920ece0e7e4a8487903e2e67e8a8c58",
+  "execution_order": [
+    [
+      "before",
+      "after"
+    ],
+    [
+      "after",
+      "before"
+    ],
+    [
+      "before",
+      "after"
+    ]
+  ],
+  "raw_runs": [
+    {
+      "repeat": 0,
+      "build": "before",
+      "rows": [
+        {
+          "case": 0,
+          "repeat": 0,
+          "squares": 241,
+          "components": 1,
+          "enumeration_seconds": 0.000149268,
+          "connectivity_seconds": 0.000258381
+        },
+        {
+          "case": 1,
+          "repeat": 0,
+          "squares": 1730,
+          "components": 137,
+          "enumeration_seconds": 0.011706152,
+          "connectivity_seconds": 0.004757667
+        },
+        {
+          "case": 2,
+          "repeat": 0,
+          "squares": 27070,
+          "components": 1,
+          "enumeration_seconds": 1.773892248,
+          "connectivity_seconds": 1.010135032
+        },
+        {
+          "case": 3,
+          "repeat": 0,
+          "squares": 2025,
+          "components": 1,
+          "enumeration_seconds": 0.009468817,
+          "connectivity_seconds": 0.017366559
+        },
+        {
+          "case": 4,
+          "repeat": 0,
+          "squares": 191,
+          "components": 1,
+          "enumeration_seconds": 0.378370311,
+          "connectivity_seconds": 8.5459e-05
+        }
+      ]
+    },
+    {
+      "repeat": 0,
+      "build": "after",
+      "rows": [
+        {
+          "case": 0,
+          "repeat": 0,
+          "squares": 241,
+          "components": 1,
+          "enumeration_seconds": 5.33e-05,
+          "connectivity_seconds": 3.8471e-05
+        },
+        {
+          "case": 1,
+          "repeat": 0,
+          "squares": 1730,
+          "components": 137,
+          "enumeration_seconds": 0.004030172,
+          "connectivity_seconds": 0.00029543
+        },
+        {
+          "case": 2,
+          "repeat": 0,
+          "squares": 27070,
+          "components": 1,
+          "enumeration_seconds": 0.069571071,
+          "connectivity_seconds": 0.001856376
+        },
+        {
+          "case": 3,
+          "repeat": 0,
+          "squares": 2025,
+          "components": 1,
+          "enumeration_seconds": 0.000471037,
+          "connectivity_seconds": 0.000106569
+        },
+        {
+          "case": 4,
+          "repeat": 0,
+          "squares": 191,
+          "components": 1,
+          "enumeration_seconds": 0.579115762,
+          "connectivity_seconds": 3.0216e-05
+        }
+      ]
+    },
+    {
+      "repeat": 1,
+      "build": "after",
+      "rows": [
+        {
+          "case": 0,
+          "repeat": 0,
+          "squares": 241,
+          "components": 1,
+          "enumeration_seconds": 5.1546e-05,
+          "connectivity_seconds": 3.73e-05
+        },
+        {
+          "case": 1,
+          "repeat": 0,
+          "squares": 1730,
+          "components": 137,
+          "enumeration_seconds": 0.003812457,
+          "connectivity_seconds": 0.000291002
+        },
+        {
+          "case": 2,
+          "repeat": 0,
+          "squares": 27070,
+          "components": 1,
+          "enumeration_seconds": 0.070906516,
+          "connectivity_seconds": 0.001857378
+        },
+        {
+          "case": 3,
+          "repeat": 0,
+          "squares": 2025,
+          "components": 1,
+          "enumeration_seconds": 0.000356343,
+          "connectivity_seconds": 0.000108492
+        },
+        {
+          "case": 4,
+          "repeat": 0,
+          "squares": 191,
+          "components": 1,
+          "enumeration_seconds": 0.571891894,
+          "connectivity_seconds": 3.0206e-05
+        }
+      ]
+    },
+    {
+      "repeat": 1,
+      "build": "before",
+      "rows": [
+        {
+          "case": 0,
+          "repeat": 0,
+          "squares": 241,
+          "components": 1,
+          "enumeration_seconds": 0.000148326,
+          "connectivity_seconds": 0.000156842
+        },
+        {
+          "case": 1,
+          "repeat": 0,
+          "squares": 1730,
+          "components": 137,
+          "enumeration_seconds": 0.01102322,
+          "connectivity_seconds": 0.004535193
+        },
+        {
+          "case": 2,
+          "repeat": 0,
+          "squares": 27070,
+          "components": 1,
+          "enumeration_seconds": 1.780998187,
+          "connectivity_seconds": 0.961262763
+        },
+        {
+          "case": 3,
+          "repeat": 0,
+          "squares": 2025,
+          "components": 1,
+          "enumeration_seconds": 0.009568091,
+          "connectivity_seconds": 0.013659669
+        },
+        {
+          "case": 4,
+          "repeat": 0,
+          "squares": 191,
+          "components": 1,
+          "enumeration_seconds": 0.381724482,
+          "connectivity_seconds": 8.6802e-05
+        }
+      ]
+    },
+    {
+      "repeat": 2,
+      "build": "before",
+      "rows": [
+        {
+          "case": 0,
+          "repeat": 0,
+          "squares": 241,
+          "components": 1,
+          "enumeration_seconds": 0.000148707,
+          "connectivity_seconds": 0.000223827
+        },
+        {
+          "case": 1,
+          "repeat": 0,
+          "squares": 1730,
+          "components": 137,
+          "enumeration_seconds": 0.010572582,
+          "connectivity_seconds": 0.004605002
+        },
+        {
+          "case": 2,
+          "repeat": 0,
+          "squares": 27070,
+          "components": 1,
+          "enumeration_seconds": 1.762192066,
+          "connectivity_seconds": 1.004947255
+        },
+        {
+          "case": 3,
+          "repeat": 0,
+          "squares": 2025,
+          "components": 1,
+          "enumeration_seconds": 0.010736524,
+          "connectivity_seconds": 0.014159522
+        },
+        {
+          "case": 4,
+          "repeat": 0,
+          "squares": 191,
+          "components": 1,
+          "enumeration_seconds": 0.399958905,
+          "connectivity_seconds": 9.5848e-05
+        }
+      ]
+    },
+    {
+      "repeat": 2,
+      "build": "after",
+      "rows": [
+        {
+          "case": 0,
+          "repeat": 0,
+          "squares": 241,
+          "components": 1,
+          "enumeration_seconds": 5.3139e-05,
+          "connectivity_seconds": 3.9103e-05
+        },
+        {
+          "case": 1,
+          "repeat": 0,
+          "squares": 1730,
+          "components": 137,
+          "enumeration_seconds": 0.003744766,
+          "connectivity_seconds": 0.000287225
+        },
+        {
+          "case": 2,
+          "repeat": 0,
+          "squares": 27070,
+          "components": 1,
+          "enumeration_seconds": 0.063027424,
+          "connectivity_seconds": 0.001765224
+        },
+        {
+          "case": 3,
+          "repeat": 0,
+          "squares": 2025,
+          "components": 1,
+          "enumeration_seconds": 0.00044072,
+          "connectivity_seconds": 0.000125924
+        },
+        {
+          "case": 4,
+          "repeat": 0,
+          "squares": 191,
+          "components": 1,
+          "enumeration_seconds": 0.581695854,
+          "connectivity_seconds": 2.9986e-05
+        }
+      ]
+    }
+  ]
+}

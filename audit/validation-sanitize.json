@@ -1,0 +1,4729 @@
+{
+  "schema_version": 2,
+  "methodology": "One fresh SGB process per graph, -tf mode, one timed run; wall time includes process startup. Reference independently enumerates all 4-vertex subsets using an adjacency matrix. Square components are formed by shared-diagonal union-find. Corrected output is checked for all square metrics, density, alpha, and connectivity, including disconnected inputs. Explicit legacy-output mode permits missing historical fields and marks validation incomplete. Intended CFS allows a complete join factor, with square support kept literal; its mismatch is reported separately from legacy-reference agreement. C100 tests finite zero-support output for an empty square graph.",
+  "environment": {
+    "platform": "Linux-6.18.55-x86_64-with-glibc2.41",
+    "machine": "x86_64",
+    "python": "3.12.14"
+  },
+  "source_files_sha256": {
+    "main.cpp": "8b8ac7e047b2a43b59b3cd8355253fc743b7d893d67f08fece3b168f9dfec9c2",
+    "flags.h": "6a5ace505f0a097fe125fa99add443b176a04747ee14ecefe109a30d2dbecb21",
+    "input.h": "2dda53c6c93f956bac0dd6dd08d616cf70f85f190a3f588a5907b750c8548dc9"
+  },
+  "source_tree_sha256": "959a418062631ef17779594ccda8f083261405c233d5c1a80485020f688e2dd9",
+  "sgb_binary_sha256": "f1c718908aa297bbcdf9634802ab06f32873567e6b956488b41d941a344dae46",
+  "reference_binary_sha256": "70fcda0b4c9f563af48a73de2c0bcb29b54f97bbb1304fdb3b867b4c19f907e0",
+  "reference_source_sha256": "0f8a4890318490585ade138753a3d1881234a3e85ef0a364c1598016e05053a9",
+  "graphs_sha256": "fdc92393d5719cd7c52726ff58592e5db90c805500dec6ab13031f0b4eed1868",
+  "timeout_seconds": 30.0,
+  "selected_cfs_mode": "intended",
+  "output_mode": "corrected",
+  "reference_total_seconds": 0.11439,
+  "cases": [
+    {
+      "name": "pair_path_100",
+      "reference": {
+        "vertices": 100,
+        "edges": 196,
+        "original_components": 1,
+        "squares": 241,
+        "components": 1,
+        "largest_support": 100,
+        "support_sum": 100,
+        "universal_vertices": 0,
+        "legacy_cfs": true,
+        "intended_cfs": true,
+        "component_details": [
+          {
+            "support": 100,
+            "squares": 241
+          }
+        ]
+      },
+      "matches_legacy_reference": true,
+      "matches_intended_reference": true,
+      "full_validation": true,
+      "wall_seconds": 0.016774,
+      "returncode": 0,
+      "stdout": "n,p,alpha,CFS,num_squares,num_comp,ratio_comp_avg,ratio_largest_comp,status\n100,0.039595959596,0.39595959596,1,241,1,1,1,connected\n",
+      "stderr": "",
+      "observed": {
+        "vertices": 100,
+        "reported_cfs": true,
+        "density": 0.039595959596,
+        "alpha": 0.39595959596,
+        "square_metrics_unavailable": false,
+        "nonfinite_support_ratio": false,
+        "squares": 241,
+        "components": 1,
+        "average_support_ratio": 1.0,
+        "largest_support_ratio": 1.0,
+        "largest_support": 100,
+        "status": "connected",
+        "disconnected": false
+      },
+      "compared_fields": [
+        "vertices",
+        "status",
+        "squares",
+        "components",
+        "largest_support",
+        "largest_support_ratio",
+        "average_support_ratio",
+        "density",
+        "alpha"
+      ],
+      "mismatched_fields": [],
+      "connectivity_matches_reference": true,
+      "matches_intended_cfs": true,
+      "square_metrics_complete": true,
+      "matches_selected_reference": true
+    },
+    {
+      "name": "pair_ring_100",
+      "reference": {
+        "vertices": 100,
+        "edges": 200,
+        "original_components": 1,
+        "squares": 250,
+        "components": 1,
+        "largest_support": 100,
+        "support_sum": 100,
+        "universal_vertices": 0,
+        "legacy_cfs": true,
+        "intended_cfs": true,
+        "component_details": [
+          {
+            "support": 100,
+            "squares": 250
+          }
+        ]
+      },
+      "matches_legacy_reference": true,
+      "matches_intended_reference": true,
+      "full_validation": true,
+      "wall_seconds": 0.015025,
+      "returncode": 0,
+      "stdout": "n,p,alpha,CFS,num_squares,num_comp,ratio_comp_avg,ratio_largest_comp,status\n100,0.040404040404,0.40404040404,1,250,1,1,1,connected\n",
+      "stderr": "",
+      "observed": {
+        "vertices": 100,
+        "reported_cfs": true,
+        "density": 0.040404040404,
+        "alpha": 0.40404040404,
+        "square_metrics_unavailable": false,
+        "nonfinite_support_ratio": false,
+        "squares": 250,
+        "components": 1,
+        "average_support_ratio": 1.0,
+        "largest_support_ratio": 1.0,
+        "largest_support": 100,
+        "status": "connected",
+        "disconnected": false
+      },
+      "compared_fields": [
+        "vertices",
+        "status",
+        "squares",
+        "components",
+        "largest_support",
+        "largest_support_ratio",
+        "average_support_ratio",
+        "density",
+        "alpha"
+      ],
+      "mismatched_fields": [],
+      "connectivity_matches_reference": true,
+      "matches_intended_cfs": true,
+      "square_metrics_complete": true,
+      "matches_selected_reference": true
+    },
+    {
+      "name": "two_pair_paths_bridge_100",
+      "reference": {
+        "vertices": 100,
+        "edges": 193,
+        "original_components": 1,
+        "squares": 232,
+        "components": 2,
+        "largest_support": 50,
+        "support_sum": 100,
+        "universal_vertices": 0,
+        "legacy_cfs": false,
+        "intended_cfs": false,
+        "component_details": [
+          {
+            "support": 50,
+            "squares": 116
+          },
+          {
+            "support": 50,
+            "squares": 116
+          }
+        ]
+      },
+      "matches_legacy_reference": true,
+      "matches_intended_reference": true,
+      "full_validation": true,
+      "wall_seconds": 0.016255,
+      "returncode": 0,
+      "stdout": "n,p,alpha,CFS,num_squares,num_comp,ratio_comp_avg,ratio_largest_comp,status\n100,0.0389898989899,0.389898989899,0,232,2,0.5,0.5,connected\n",
+      "stderr": "",
+      "observed": {
+        "vertices": 100,
+        "reported_cfs": false,
+        "density": 0.0389898989899,
+        "alpha": 0.389898989899,
+        "square_metrics_unavailable": false,
+        "nonfinite_support_ratio": false,
+        "squares": 232,
+        "components": 2,
+        "average_support_ratio": 0.5,
+        "largest_support_ratio": 0.5,
+        "largest_support": 50,
+        "status": "connected",
+        "disconnected": false
+      },
+      "compared_fields": [
+        "vertices",
+        "status",
+        "squares",
+        "components",
+        "largest_support",
+        "largest_support_ratio",
+        "average_support_ratio",
+        "density",
+        "alpha"
+      ],
+      "mismatched_fields": [],
+      "connectivity_matches_reference": true,
+      "matches_intended_cfs": true,
+      "square_metrics_complete": true,
+      "matches_selected_reference": true
+    },
+    {
+      "name": "pair_path_with_leaves_100",
+      "reference": {
+        "vertices": 100,
+        "edges": 194,
+        "original_components": 1,
+        "squares": 236,
+        "components": 1,
+        "largest_support": 98,
+        "support_sum": 98,
+        "universal_vertices": 0,
+        "legacy_cfs": false,
+        "intended_cfs": false,
+        "component_details": [
+          {
+            "support": 98,
+            "squares": 236
+          }
+        ]
+      },
+      "matches_legacy_reference": true,
+      "matches_intended_reference": true,
+      "full_validation": true,
+      "wall_seconds": 0.017273,
+      "returncode": 0,
+      "stdout": "n,p,alpha,CFS,num_squares,num_comp,ratio_comp_avg,ratio_largest_comp,status\n100,0.0391919191919,0.391919191919,0,236,1,0.98,0.98,connected\n",
+      "stderr": "",
+      "observed": {
+        "vertices": 100,
+        "reported_cfs": false,
+        "density": 0.0391919191919,
+        "alpha": 0.391919191919,
+        "square_metrics_unavailable": false,
+        "nonfinite_support_ratio": false,
+        "squares": 236,
+        "components": 1,
+        "average_support_ratio": 0.98,
+        "largest_support_ratio": 0.98,
+        "largest_support": 98,
+        "status": "connected",
+        "disconnected": false
+      },
+      "compared_fields": [
+        "vertices",
+        "status",
+        "squares",
+        "components",
+        "largest_support",
+        "largest_support_ratio",
+        "average_support_ratio",
+        "density",
+        "alpha"
+      ],
+      "mismatched_fields": [],
+      "connectivity_matches_reference": true,
+      "matches_intended_cfs": true,
+      "square_metrics_complete": true,
+      "matches_selected_reference": true
+    },
+    {
+      "name": "pair_path_join_K2_100",
+      "reference": {
+        "vertices": 100,
+        "edges": 389,
+        "original_components": 1,
+        "squares": 236,
+        "components": 1,
+        "largest_support": 98,
+        "support_sum": 98,
+        "universal_vertices": 2,
+        "legacy_cfs": false,
+        "intended_cfs": true,
+        "component_details": [
+          {
+            "support": 98,
+            "squares": 236
+          }
+        ]
+      },
+      "matches_legacy_reference": false,
+      "matches_intended_reference": true,
+      "full_validation": true,
+      "wall_seconds": 0.035185,
+      "returncode": 0,
+      "stdout": "n,p,alpha,CFS,num_squares,num_comp,ratio_comp_avg,ratio_largest_comp,status\n100,0.0785858585859,0.785858585859,1,236,1,0.98,0.98,connected\n",
+      "stderr": "",
+      "observed": {
+        "vertices": 100,
+        "reported_cfs": true,
+        "density": 0.0785858585859,
+        "alpha": 0.785858585859,
+        "square_metrics_unavailable": false,
+        "nonfinite_support_ratio": false,
+        "squares": 236,
+        "components": 1,
+        "average_support_ratio": 0.98,
+        "largest_support_ratio": 0.98,
+        "largest_support": 98,
+        "status": "connected",
+        "disconnected": false
+      },
+      "compared_fields": [
+        "vertices",
+        "status",
+        "squares",
+        "components",
+        "largest_support",
+        "largest_support_ratio",
+        "average_support_ratio",
+        "density",
+        "alpha"
+      ],
+      "mismatched_fields": [],
+      "connectivity_matches_reference": true,
+      "matches_intended_cfs": true,
+      "square_metrics_complete": true,
+      "matches_selected_reference": true
+    },
+    {
+      "name": "er_p0.04_seed202401",
+      "reference": {
+        "vertices": 100,
+        "edges": 195,
+        "original_components": 3,
+        "squares": 20,
+        "components": 14,
+        "largest_support": 6,
+        "support_sum": 59,
+        "universal_vertices": 0,
+        "legacy_cfs": false,
+        "intended_cfs": false,
+        "component_details": [
+          {
+            "support": 6,
+            "squares": 5
+          },
+          {
+            "support": 5,
+            "squares": 3
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          }
+        ]
+      },
+      "matches_legacy_reference": true,
+      "matches_intended_reference": true,
+      "full_validation": true,
+      "wall_seconds": 0.009265,
+      "returncode": 0,
+      "stdout": "n,p,alpha,CFS,num_squares,num_comp,ratio_comp_avg,ratio_largest_comp,status\n100,0.0393939393939,0.393939393939,0,20,14,0.0421428571429,0.06,disconnected\n",
+      "stderr": "",
+      "observed": {
+        "vertices": 100,
+        "reported_cfs": false,
+        "density": 0.0393939393939,
+        "alpha": 0.393939393939,
+        "square_metrics_unavailable": false,
+        "nonfinite_support_ratio": false,
+        "squares": 20,
+        "components": 14,
+        "average_support_ratio": 0.0421428571429,
+        "largest_support_ratio": 0.06,
+        "largest_support": 6,
+        "status": "disconnected",
+        "disconnected": true
+      },
+      "compared_fields": [
+        "vertices",
+        "status",
+        "squares",
+        "components",
+        "largest_support",
+        "largest_support_ratio",
+        "average_support_ratio",
+        "density",
+        "alpha"
+      ],
+      "mismatched_fields": [],
+      "connectivity_matches_reference": true,
+      "matches_intended_cfs": true,
+      "square_metrics_complete": true,
+      "matches_selected_reference": true
+    },
+    {
+      "name": "er_p0.04_seed202402",
+      "reference": {
+        "vertices": 100,
+        "edges": 177,
+        "original_components": 3,
+        "squares": 17,
+        "components": 10,
+        "largest_support": 7,
+        "support_sum": 43,
+        "universal_vertices": 0,
+        "legacy_cfs": false,
+        "intended_cfs": false,
+        "component_details": [
+          {
+            "support": 7,
+            "squares": 8
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          }
+        ]
+      },
+      "matches_legacy_reference": true,
+      "matches_intended_reference": true,
+      "full_validation": true,
+      "wall_seconds": 0.008717,
+      "returncode": 0,
+      "stdout": "n,p,alpha,CFS,num_squares,num_comp,ratio_comp_avg,ratio_largest_comp,status\n100,0.0357575757576,0.357575757576,0,17,10,0.043,0.07,disconnected\n",
+      "stderr": "",
+      "observed": {
+        "vertices": 100,
+        "reported_cfs": false,
+        "density": 0.0357575757576,
+        "alpha": 0.357575757576,
+        "square_metrics_unavailable": false,
+        "nonfinite_support_ratio": false,
+        "squares": 17,
+        "components": 10,
+        "average_support_ratio": 0.043,
+        "largest_support_ratio": 0.07,
+        "largest_support": 7,
+        "status": "disconnected",
+        "disconnected": true
+      },
+      "compared_fields": [
+        "vertices",
+        "status",
+        "squares",
+        "components",
+        "largest_support",
+        "largest_support_ratio",
+        "average_support_ratio",
+        "density",
+        "alpha"
+      ],
+      "mismatched_fields": [],
+      "connectivity_matches_reference": true,
+      "matches_intended_cfs": true,
+      "square_metrics_complete": true,
+      "matches_selected_reference": true
+    },
+    {
+      "name": "er_p0.04_seed202403",
+      "reference": {
+        "vertices": 100,
+        "edges": 202,
+        "original_components": 3,
+        "squares": 34,
+        "components": 27,
+        "largest_support": 6,
+        "support_sum": 112,
+        "universal_vertices": 0,
+        "legacy_cfs": false,
+        "intended_cfs": false,
+        "component_details": [
+          {
+            "support": 6,
+            "squares": 4
+          },
+          {
+            "support": 5,
+            "squares": 3
+          },
+          {
+            "support": 5,
+            "squares": 3
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          }
+        ]
+      },
+      "matches_legacy_reference": true,
+      "matches_intended_reference": true,
+      "full_validation": true,
+      "wall_seconds": 0.011021,
+      "returncode": 0,
+      "stdout": "n,p,alpha,CFS,num_squares,num_comp,ratio_comp_avg,ratio_largest_comp,status\n100,0.0408080808081,0.408080808081,0,34,27,0.0414814814815,0.06,disconnected\n",
+      "stderr": "",
+      "observed": {
+        "vertices": 100,
+        "reported_cfs": false,
+        "density": 0.0408080808081,
+        "alpha": 0.408080808081,
+        "square_metrics_unavailable": false,
+        "nonfinite_support_ratio": false,
+        "squares": 34,
+        "components": 27,
+        "average_support_ratio": 0.0414814814815,
+        "largest_support_ratio": 0.06,
+        "largest_support": 6,
+        "status": "disconnected",
+        "disconnected": true
+      },
+      "compared_fields": [
+        "vertices",
+        "status",
+        "squares",
+        "components",
+        "largest_support",
+        "largest_support_ratio",
+        "average_support_ratio",
+        "density",
+        "alpha"
+      ],
+      "mismatched_fields": [],
+      "connectivity_matches_reference": true,
+      "matches_intended_cfs": true,
+      "square_metrics_complete": true,
+      "matches_selected_reference": true
+    },
+    {
+      "name": "er_p0.08_seed202401",
+      "reference": {
+        "vertices": 100,
+        "edges": 399,
+        "original_components": 1,
+        "squares": 378,
+        "components": 161,
+        "largest_support": 30,
+        "support_sum": 752,
+        "universal_vertices": 0,
+        "legacy_cfs": false,
+        "intended_cfs": false,
+        "component_details": [
+          {
+            "support": 30,
+            "squares": 59
+          },
+          {
+            "support": 16,
+            "squares": 29
+          },
+          {
+            "support": 14,
+            "squares": 22
+          },
+          {
+            "support": 10,
+            "squares": 16
+          },
+          {
+            "support": 8,
+            "squares": 10
+          },
+          {
+            "support": 7,
+            "squares": 7
+          },
+          {
+            "support": 7,
+            "squares": 7
+          },
+          {
+            "support": 7,
+            "squares": 7
+          },
+          {
+            "support": 7,
+            "squares": 7
+          },
+          {
+            "support": 7,
+            "squares": 6
+          },
+          {
+            "support": 7,
+            "squares": 5
+          },
+          {
+            "support": 6,
+            "squares": 5
+          },
+          {
+            "support": 6,
+            "squares": 5
+          },
+          {
+            "support": 6,
+            "squares": 4
+          },
+          {
+            "support": 6,
+            "squares": 4
+          },
+          {
+            "support": 6,
+            "squares": 3
+          },
+          {
+            "support": 5,
+            "squares": 3
+          },
+          {
+            "support": 5,
+            "squares": 3
+          },
+          {
+            "support": 5,
+            "squares": 3
+          },
+          {
+            "support": 5,
+            "squares": 3
+          },
+          {
+            "support": 5,
+            "squares": 3
+          },
+          {
+            "support": 5,
+            "squares": 3
+          },
+          {
+            "support": 5,
+            "squares": 3
+          },
+          {
+            "support": 5,
+            "squares": 3
+          },
+          {
+            "support": 5,
+            "squares": 3
+          },
+          {
+            "support": 5,
+            "squares": 3
+          },
+          {
+            "support": 5,
+            "squares": 3
+          },
+          {
+            "support": 5,
+            "squares": 3
+          },
+          {
+            "support": 5,
+            "squares": 3
+          },
+          {
+            "support": 5,
+            "squares": 3
+          },
+          {
+            "support": 5,
+            "squares": 3
+          },
+          {
+            "support": 5,
+            "squares": 2
+          },
+          {
+            "support": 5,
+            "squares": 2
+          },
+          {
+            "support": 5,
+            "squares": 2
+          },
+          {
+            "support": 5,
+            "squares": 2
+          },
+          {
+            "support": 5,
+            "squares": 2
+          },
+          {
+            "support": 5,
+            "squares": 2
+          },
+          {
+            "support": 5,
+            "squares": 2
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          }
+        ]
+      },
+      "matches_legacy_reference": true,
+      "matches_intended_reference": true,
+      "full_validation": true,
+      "wall_seconds": 0.026343,
+      "returncode": 0,
+      "stdout": "n,p,alpha,CFS,num_squares,num_comp,ratio_comp_avg,ratio_largest_comp,status\n100,0.0806060606061,0.806060606061,0,378,161,0.0467080745342,0.3,connected\n",
+      "stderr": "",
+      "observed": {
+        "vertices": 100,
+        "reported_cfs": false,
+        "density": 0.0806060606061,
+        "alpha": 0.806060606061,
+        "square_metrics_unavailable": false,
+        "nonfinite_support_ratio": false,
+        "squares": 378,
+        "components": 161,
+        "average_support_ratio": 0.0467080745342,
+        "largest_support_ratio": 0.3,
+        "largest_support": 30,
+        "status": "connected",
+        "disconnected": false
+      },
+      "compared_fields": [
+        "vertices",
+        "status",
+        "squares",
+        "components",
+        "largest_support",
+        "largest_support_ratio",
+        "average_support_ratio",
+        "density",
+        "alpha"
+      ],
+      "mismatched_fields": [],
+      "connectivity_matches_reference": true,
+      "matches_intended_cfs": true,
+      "square_metrics_complete": true,
+      "matches_selected_reference": true
+    },
+    {
+      "name": "er_p0.08_seed202402",
+      "reference": {
+        "vertices": 100,
+        "edges": 377,
+        "original_components": 1,
+        "squares": 316,
+        "components": 131,
+        "largest_support": 24,
+        "support_sum": 616,
+        "universal_vertices": 0,
+        "legacy_cfs": false,
+        "intended_cfs": false,
+        "component_details": [
+          {
+            "support": 24,
+            "squares": 55
+          },
+          {
+            "support": 11,
+            "squares": 16
+          },
+          {
+            "support": 10,
+            "squares": 12
+          },
+          {
+            "support": 10,
+            "squares": 11
+          },
+          {
+            "support": 8,
+            "squares": 9
+          },
+          {
+            "support": 8,
+            "squares": 9
+          },
+          {
+            "support": 7,
+            "squares": 7
+          },
+          {
+            "support": 7,
+            "squares": 7
+          },
+          {
+            "support": 7,
+            "squares": 7
+          },
+          {
+            "support": 7,
+            "squares": 7
+          },
+          {
+            "support": 7,
+            "squares": 5
+          },
+          {
+            "support": 6,
+            "squares": 5
+          },
+          {
+            "support": 6,
+            "squares": 5
+          },
+          {
+            "support": 6,
+            "squares": 5
+          },
+          {
+            "support": 6,
+            "squares": 5
+          },
+          {
+            "support": 6,
+            "squares": 5
+          },
+          {
+            "support": 6,
+            "squares": 4
+          },
+          {
+            "support": 6,
+            "squares": 4
+          },
+          {
+            "support": 6,
+            "squares": 4
+          },
+          {
+            "support": 5,
+            "squares": 3
+          },
+          {
+            "support": 5,
+            "squares": 3
+          },
+          {
+            "support": 5,
+            "squares": 3
+          },
+          {
+            "support": 5,
+            "squares": 3
+          },
+          {
+            "support": 5,
+            "squares": 3
+          },
+          {
+            "support": 5,
+            "squares": 3
+          },
+          {
+            "support": 5,
+            "squares": 3
+          },
+          {
+            "support": 5,
+            "squares": 3
+          },
+          {
+            "support": 5,
+            "squares": 2
+          },
+          {
+            "support": 5,
+            "squares": 2
+          },
+          {
+            "support": 5,
+            "squares": 2
+          },
+          {
+            "support": 5,
+            "squares": 2
+          },
+          {
+            "support": 5,
+            "squares": 2
+          },
+          {
+            "support": 5,
+            "squares": 2
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          }
+        ]
+      },
+      "matches_legacy_reference": true,
+      "matches_intended_reference": true,
+      "full_validation": true,
+      "wall_seconds": 0.02266,
+      "returncode": 0,
+      "stdout": "n,p,alpha,CFS,num_squares,num_comp,ratio_comp_avg,ratio_largest_comp,status\n100,0.0761616161616,0.761616161616,0,316,131,0.0470229007634,0.24,connected\n",
+      "stderr": "",
+      "observed": {
+        "vertices": 100,
+        "reported_cfs": false,
+        "density": 0.0761616161616,
+        "alpha": 0.761616161616,
+        "square_metrics_unavailable": false,
+        "nonfinite_support_ratio": false,
+        "squares": 316,
+        "components": 131,
+        "average_support_ratio": 0.0470229007634,
+        "largest_support_ratio": 0.24,
+        "largest_support": 24,
+        "status": "connected",
+        "disconnected": false
+      },
+      "compared_fields": [
+        "vertices",
+        "status",
+        "squares",
+        "components",
+        "largest_support",
+        "largest_support_ratio",
+        "average_support_ratio",
+        "density",
+        "alpha"
+      ],
+      "mismatched_fields": [],
+      "connectivity_matches_reference": true,
+      "matches_intended_cfs": true,
+      "square_metrics_complete": true,
+      "matches_selected_reference": true
+    },
+    {
+      "name": "er_p0.08_seed202403",
+      "reference": {
+        "vertices": 100,
+        "edges": 394,
+        "original_components": 1,
+        "squares": 381,
+        "components": 172,
+        "largest_support": 16,
+        "support_sum": 792,
+        "universal_vertices": 0,
+        "legacy_cfs": false,
+        "intended_cfs": false,
+        "component_details": [
+          {
+            "support": 16,
+            "squares": 32
+          },
+          {
+            "support": 15,
+            "squares": 25
+          },
+          {
+            "support": 15,
+            "squares": 23
+          },
+          {
+            "support": 11,
+            "squares": 16
+          },
+          {
+            "support": 9,
+            "squares": 11
+          },
+          {
+            "support": 8,
+            "squares": 14
+          },
+          {
+            "support": 8,
+            "squares": 9
+          },
+          {
+            "support": 8,
+            "squares": 9
+          },
+          {
+            "support": 7,
+            "squares": 7
+          },
+          {
+            "support": 7,
+            "squares": 7
+          },
+          {
+            "support": 7,
+            "squares": 7
+          },
+          {
+            "support": 7,
+            "squares": 4
+          },
+          {
+            "support": 6,
+            "squares": 4
+          },
+          {
+            "support": 6,
+            "squares": 4
+          },
+          {
+            "support": 6,
+            "squares": 4
+          },
+          {
+            "support": 6,
+            "squares": 3
+          },
+          {
+            "support": 5,
+            "squares": 3
+          },
+          {
+            "support": 5,
+            "squares": 3
+          },
+          {
+            "support": 5,
+            "squares": 3
+          },
+          {
+            "support": 5,
+            "squares": 3
+          },
+          {
+            "support": 5,
+            "squares": 3
+          },
+          {
+            "support": 5,
+            "squares": 3
+          },
+          {
+            "support": 5,
+            "squares": 3
+          },
+          {
+            "support": 5,
+            "squares": 3
+          },
+          {
+            "support": 5,
+            "squares": 3
+          },
+          {
+            "support": 5,
+            "squares": 3
+          },
+          {
+            "support": 5,
+            "squares": 3
+          },
+          {
+            "support": 5,
+            "squares": 3
+          },
+          {
+            "support": 5,
+            "squares": 3
+          },
+          {
+            "support": 5,
+            "squares": 3
+          },
+          {
+            "support": 5,
+            "squares": 3
+          },
+          {
+            "support": 5,
+            "squares": 3
+          },
+          {
+            "support": 5,
+            "squares": 3
+          },
+          {
+            "support": 5,
+            "squares": 3
+          },
+          {
+            "support": 5,
+            "squares": 3
+          },
+          {
+            "support": 5,
+            "squares": 3
+          },
+          {
+            "support": 5,
+            "squares": 2
+          },
+          {
+            "support": 5,
+            "squares": 2
+          },
+          {
+            "support": 5,
+            "squares": 2
+          },
+          {
+            "support": 5,
+            "squares": 2
+          },
+          {
+            "support": 5,
+            "squares": 2
+          },
+          {
+            "support": 5,
+            "squares": 2
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          }
+        ]
+      },
+      "matches_legacy_reference": true,
+      "matches_intended_reference": true,
+      "full_validation": true,
+      "wall_seconds": 0.027476,
+      "returncode": 0,
+      "stdout": "n,p,alpha,CFS,num_squares,num_comp,ratio_comp_avg,ratio_largest_comp,status\n100,0.079595959596,0.79595959596,0,381,172,0.0460465116279,0.16,connected\n",
+      "stderr": "",
+      "observed": {
+        "vertices": 100,
+        "reported_cfs": false,
+        "density": 0.079595959596,
+        "alpha": 0.79595959596,
+        "square_metrics_unavailable": false,
+        "nonfinite_support_ratio": false,
+        "squares": 381,
+        "components": 172,
+        "average_support_ratio": 0.0460465116279,
+        "largest_support_ratio": 0.16,
+        "largest_support": 16,
+        "status": "connected",
+        "disconnected": false
+      },
+      "compared_fields": [
+        "vertices",
+        "status",
+        "squares",
+        "components",
+        "largest_support",
+        "largest_support_ratio",
+        "average_support_ratio",
+        "density",
+        "alpha"
+      ],
+      "mismatched_fields": [],
+      "connectivity_matches_reference": true,
+      "matches_intended_cfs": true,
+      "square_metrics_complete": true,
+      "matches_selected_reference": true
+    },
+    {
+      "name": "er_p0.12_seed202401",
+      "reference": {
+        "vertices": 100,
+        "edges": 594,
+        "original_components": 1,
+        "squares": 1794,
+        "components": 158,
+        "largest_support": 100,
+        "support_sum": 782,
+        "universal_vertices": 0,
+        "legacy_cfs": true,
+        "intended_cfs": true,
+        "component_details": [
+          {
+            "support": 100,
+            "squares": 1556
+          },
+          {
+            "support": 8,
+            "squares": 8
+          },
+          {
+            "support": 7,
+            "squares": 7
+          },
+          {
+            "support": 7,
+            "squares": 6
+          },
+          {
+            "support": 7,
+            "squares": 5
+          },
+          {
+            "support": 7,
+            "squares": 4
+          },
+          {
+            "support": 6,
+            "squares": 6
+          },
+          {
+            "support": 6,
+            "squares": 5
+          },
+          {
+            "support": 6,
+            "squares": 4
+          },
+          {
+            "support": 6,
+            "squares": 4
+          },
+          {
+            "support": 6,
+            "squares": 4
+          },
+          {
+            "support": 6,
+            "squares": 3
+          },
+          {
+            "support": 6,
+            "squares": 3
+          },
+          {
+            "support": 5,
+            "squares": 3
+          },
+          {
+            "support": 5,
+            "squares": 3
+          },
+          {
+            "support": 5,
+            "squares": 3
+          },
+          {
+            "support": 5,
+            "squares": 3
+          },
+          {
+            "support": 5,
+            "squares": 3
+          },
+          {
+            "support": 5,
+            "squares": 3
+          },
+          {
+            "support": 5,
+            "squares": 3
+          },
+          {
+            "support": 5,
+            "squares": 3
+          },
+          {
+            "support": 5,
+            "squares": 3
+          },
+          {
+            "support": 5,
+            "squares": 3
+          },
+          {
+            "support": 5,
+            "squares": 2
+          },
+          {
+            "support": 5,
+            "squares": 2
+          },
+          {
+            "support": 5,
+            "squares": 2
+          },
+          {
+            "support": 5,
+            "squares": 2
+          },
+          {
+            "support": 5,
+            "squares": 2
+          },
+          {
+            "support": 5,
+            "squares": 2
+          },
+          {
+            "support": 5,
+            "squares": 2
+          },
+          {
+            "support": 5,
+            "squares": 2
+          },
+          {
+            "support": 5,
+            "squares": 2
+          },
+          {
+            "support": 5,
+            "squares": 2
+          },
+          {
+            "support": 5,
+            "squares": 2
+          },
+          {
+            "support": 5,
+            "squares": 2
+          },
+          {
+            "support": 5,
+            "squares": 2
+          },
+          {
+            "support": 5,
+            "squares": 2
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          }
+        ]
+      },
+      "matches_legacy_reference": true,
+      "matches_intended_reference": true,
+      "full_validation": true,
+      "wall_seconds": 0.208826,
+      "returncode": 0,
+      "stdout": "n,p,alpha,CFS,num_squares,num_comp,ratio_comp_avg,ratio_largest_comp,status\n100,0.12,1.2,1,1794,158,0.0494936708861,1,connected\n",
+      "stderr": "",
+      "observed": {
+        "vertices": 100,
+        "reported_cfs": true,
+        "density": 0.12,
+        "alpha": 1.2,
+        "square_metrics_unavailable": false,
+        "nonfinite_support_ratio": false,
+        "squares": 1794,
+        "components": 158,
+        "average_support_ratio": 0.0494936708861,
+        "largest_support_ratio": 1.0,
+        "largest_support": 100,
+        "status": "connected",
+        "disconnected": false
+      },
+      "compared_fields": [
+        "vertices",
+        "status",
+        "squares",
+        "components",
+        "largest_support",
+        "largest_support_ratio",
+        "average_support_ratio",
+        "density",
+        "alpha"
+      ],
+      "mismatched_fields": [],
+      "connectivity_matches_reference": true,
+      "matches_intended_cfs": true,
+      "square_metrics_complete": true,
+      "matches_selected_reference": true
+    },
+    {
+      "name": "er_p0.12_seed202402",
+      "reference": {
+        "vertices": 100,
+        "edges": 583,
+        "original_components": 1,
+        "squares": 1730,
+        "components": 137,
+        "largest_support": 100,
+        "support_sum": 675,
+        "universal_vertices": 0,
+        "legacy_cfs": true,
+        "intended_cfs": true,
+        "component_details": [
+          {
+            "support": 100,
+            "squares": 1544
+          },
+          {
+            "support": 8,
+            "squares": 9
+          },
+          {
+            "support": 7,
+            "squares": 8
+          },
+          {
+            "support": 7,
+            "squares": 5
+          },
+          {
+            "support": 6,
+            "squares": 5
+          },
+          {
+            "support": 6,
+            "squares": 4
+          },
+          {
+            "support": 6,
+            "squares": 3
+          },
+          {
+            "support": 5,
+            "squares": 3
+          },
+          {
+            "support": 5,
+            "squares": 3
+          },
+          {
+            "support": 5,
+            "squares": 3
+          },
+          {
+            "support": 5,
+            "squares": 3
+          },
+          {
+            "support": 5,
+            "squares": 3
+          },
+          {
+            "support": 5,
+            "squares": 3
+          },
+          {
+            "support": 5,
+            "squares": 3
+          },
+          {
+            "support": 5,
+            "squares": 2
+          },
+          {
+            "support": 5,
+            "squares": 2
+          },
+          {
+            "support": 5,
+            "squares": 2
+          },
+          {
+            "support": 5,
+            "squares": 2
+          },
+          {
+            "support": 5,
+            "squares": 2
+          },
+          {
+            "support": 5,
+            "squares": 2
+          },
+          {
+            "support": 5,
+            "squares": 2
+          },
+          {
+            "support": 5,
+            "squares": 2
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          }
+        ]
+      },
+      "matches_legacy_reference": true,
+      "matches_intended_reference": true,
+      "full_validation": true,
+      "wall_seconds": 0.228773,
+      "returncode": 0,
+      "stdout": "n,p,alpha,CFS,num_squares,num_comp,ratio_comp_avg,ratio_largest_comp,status\n100,0.117777777778,1.17777777778,1,1730,137,0.0492700729927,1,connected\n",
+      "stderr": "",
+      "observed": {
+        "vertices": 100,
+        "reported_cfs": true,
+        "density": 0.117777777778,
+        "alpha": 1.17777777778,
+        "square_metrics_unavailable": false,
+        "nonfinite_support_ratio": false,
+        "squares": 1730,
+        "components": 137,
+        "average_support_ratio": 0.0492700729927,
+        "largest_support_ratio": 1.0,
+        "largest_support": 100,
+        "status": "connected",
+        "disconnected": false
+      },
+      "compared_fields": [
+        "vertices",
+        "status",
+        "squares",
+        "components",
+        "largest_support",
+        "largest_support_ratio",
+        "average_support_ratio",
+        "density",
+        "alpha"
+      ],
+      "mismatched_fields": [],
+      "connectivity_matches_reference": true,
+      "matches_intended_cfs": true,
+      "square_metrics_complete": true,
+      "matches_selected_reference": true
+    },
+    {
+      "name": "er_p0.12_seed202403",
+      "reference": {
+        "vertices": 100,
+        "edges": 563,
+        "original_components": 1,
+        "squares": 1503,
+        "components": 154,
+        "largest_support": 100,
+        "support_sum": 746,
+        "universal_vertices": 0,
+        "legacy_cfs": true,
+        "intended_cfs": true,
+        "component_details": [
+          {
+            "support": 100,
+            "squares": 1300
+          },
+          {
+            "support": 8,
+            "squares": 9
+          },
+          {
+            "support": 7,
+            "squares": 7
+          },
+          {
+            "support": 6,
+            "squares": 4
+          },
+          {
+            "support": 6,
+            "squares": 4
+          },
+          {
+            "support": 6,
+            "squares": 4
+          },
+          {
+            "support": 6,
+            "squares": 4
+          },
+          {
+            "support": 6,
+            "squares": 3
+          },
+          {
+            "support": 5,
+            "squares": 3
+          },
+          {
+            "support": 5,
+            "squares": 3
+          },
+          {
+            "support": 5,
+            "squares": 3
+          },
+          {
+            "support": 5,
+            "squares": 3
+          },
+          {
+            "support": 5,
+            "squares": 3
+          },
+          {
+            "support": 5,
+            "squares": 2
+          },
+          {
+            "support": 5,
+            "squares": 2
+          },
+          {
+            "support": 5,
+            "squares": 2
+          },
+          {
+            "support": 5,
+            "squares": 2
+          },
+          {
+            "support": 5,
+            "squares": 2
+          },
+          {
+            "support": 5,
+            "squares": 2
+          },
+          {
+            "support": 5,
+            "squares": 2
+          },
+          {
+            "support": 5,
+            "squares": 2
+          },
+          {
+            "support": 5,
+            "squares": 2
+          },
+          {
+            "support": 5,
+            "squares": 2
+          },
+          {
+            "support": 5,
+            "squares": 2
+          },
+          {
+            "support": 5,
+            "squares": 2
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          },
+          {
+            "support": 4,
+            "squares": 1
+          }
+        ]
+      },
+      "matches_legacy_reference": true,
+      "matches_intended_reference": true,
+      "full_validation": true,
+      "wall_seconds": 0.157468,
+      "returncode": 0,
+      "stdout": "n,p,alpha,CFS,num_squares,num_comp,ratio_comp_avg,ratio_largest_comp,status\n100,0.113737373737,1.13737373737,1,1503,154,0.0484415584416,1,connected\n",
+      "stderr": "",
+      "observed": {
+        "vertices": 100,
+        "reported_cfs": true,
+        "density": 0.113737373737,
+        "alpha": 1.13737373737,
+        "square_metrics_unavailable": false,
+        "nonfinite_support_ratio": false,
+        "squares": 1503,
+        "components": 154,
+        "average_support_ratio": 0.0484415584416,
+        "largest_support_ratio": 1.0,
+        "largest_support": 100,
+        "status": "connected",
+        "disconnected": false
+      },
+      "compared_fields": [
+        "vertices",
+        "status",
+        "squares",
+        "components",
+        "largest_support",
+        "largest_support_ratio",
+        "average_support_ratio",
+        "density",
+        "alpha"
+      ],
+      "mismatched_fields": [],
+      "connectivity_matches_reference": true,
+      "matches_intended_cfs": true,
+      "square_metrics_complete": true,
+      "matches_selected_reference": true
+    },
+    {
+      "name": "cycle_100_square_free",
+      "reference": {
+        "vertices": 100,
+        "edges": 100,
+        "original_components": 1,
+        "squares": 0,
+        "components": 0,
+        "largest_support": 0,
+        "support_sum": 0,
+        "universal_vertices": 0,
+        "legacy_cfs": false,
+        "intended_cfs": false,
+        "component_details": []
+      },
+      "matches_legacy_reference": true,
+      "matches_intended_reference": true,
+      "full_validation": true,
+      "wall_seconds": 0.008843,
+      "returncode": 0,
+      "stdout": "n,p,alpha,CFS,num_squares,num_comp,ratio_comp_avg,ratio_largest_comp,status\n100,0.020202020202,0.20202020202,0,0,0,0,0,connected\n",
+      "stderr": "",
+      "observed": {
+        "vertices": 100,
+        "reported_cfs": false,
+        "density": 0.020202020202,
+        "alpha": 0.20202020202,
+        "square_metrics_unavailable": false,
+        "nonfinite_support_ratio": false,
+        "squares": 0,
+        "components": 0,
+        "average_support_ratio": 0.0,
+        "largest_support_ratio": 0.0,
+        "largest_support": 0,
+        "status": "connected",
+        "disconnected": false
+      },
+      "compared_fields": [
+        "vertices",
+        "status",
+        "squares",
+        "components",
+        "largest_support",
+        "largest_support_ratio",
+        "average_support_ratio",
+        "density",
+        "alpha"
+      ],
+      "mismatched_fields": [],
+      "connectivity_matches_reference": true,
+      "matches_intended_cfs": true,
+      "square_metrics_complete": true,
+      "matches_selected_reference": true
+    }
+  ]
+}
